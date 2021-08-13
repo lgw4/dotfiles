@@ -1,0 +1,73 @@
+command_timeout = 3000
+
+[aws]
+disabled = true
+
+[directory]
+disabled = false
+style = "bold blue"
+truncation_length = 1
+
+[docker_context]
+disabled = false
+format = "[\\($symbol$context\\)]($style) "
+
+[elixir]
+disabled = false
+format = "[\\($symbol$version \\(OTP $otp_version\\)\\)]($style) "
+
+[erlang]
+disabled = false
+format = "[\\($symbol$version\\)]($style) "
+symbol = "℮ "
+
+[git_branch]
+disabled = false
+style = "bold #6c71c4"
+
+[golang]
+disabled = false
+format = "[\\($symbol$version\\)]($style) "
+style = "bold cyan"
+
+[hostname]
+disabled = false
+ssh_only = false
+style = "bold purple"
+
+[lua]
+detect_folders = []
+disabled = false
+format = "[\\($symbol$version\\)]($style) "
+
+[nodejs]
+disabled = false
+format = "[\\($symbol$version\\)]($style) "
+symbol = "⬢ "
+
+[package]
+disabled = true
+
+[python]
+disabled = false
+format = "[\\($symbol$version( \\($virtualenv\\))\\)]($style) "
+style = "bold #cb4b16"
+
+[ruby]
+disabled = false
+format = "[\\($symbol$version\\)]($style) "
+
+[rust]
+disabled = false
+format = "[\\($symbol$version\\)]($style) "
+
+[terraform]
+disabled = false
+format = "[\\($symbol$workspace\\)]($style) "
+
+[username]
+disabled = false
+format = "[$user]($style) at "
+show_always = true
+style_root = "bold black"
+style_user = "bold red"

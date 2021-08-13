@@ -1,0 +1,5 @@
+default_context:
+  full_name: "Chip Warden"
+  email: "lgw4@icloud.com"
+  github_username: "lgw4"
+cookiecutters_dir: "~/.local/cookiecutters/"

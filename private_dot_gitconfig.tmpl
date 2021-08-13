@@ -1,0 +1,40 @@
+[alias]
+	br = branch
+	ci = commit
+	co = checkout
+	dump = cat-file -p
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	new = !git init && git symbolic-ref HEAD refs/heads/main
+	st = status
+	type = cat-file -t
+[color]
+	ui = auto
+[core]
+	editor = vim
+	excludesfile = {{ .chezmoi.homeDir }}/.gitignore_global
+	quotepath = false
+	trustctime = false
+[credential]
+	{{- if (eq .chezmoi.os "darwin") }}
+	helper = osxkeychain
+	{{- else if (eq .chezmoi.os "linux" ) }}
+	helper = store
+	{{- end }}
+[fetch]
+	fsckObjects = true
+[github]
+	user = lgw4
+[init]
+	defaultBranch = main
+[protocol]
+	git = never
+	http = never
+[pull]
+	rebase = false
+[receive]
+	fsckObjects = true
+[transfer]
+	fsckObjects = true
+[user]
+	email = lgw4@icloud.com
+	name = Chip Warden
