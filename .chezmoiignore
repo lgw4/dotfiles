@@ -1,2 +1,5 @@
 README.markdown
+{{ if ne .chezmoi.os "darwin" }}
+private_dot_hammerspoon
+{{ end }}
 .keep
