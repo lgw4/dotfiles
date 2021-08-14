@@ -16,11 +16,11 @@ if [[ ! -v VIRTUAL_ENV ]]; then
         path_prepend /opt/homebrew/sbin PATH
         path_prepend /opt/homebrew/bin PATH
     fi
-    {{- end }}
+    {{ end }}
 
     {{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian" ))}}
     # Add /sbin and /usr/sbin to PATH on Debian systems
     path_prepend /usr/sbin PATH
     path_prepend /sbin PATH
-    {{- end }}
+    {{ end }}
 fi
