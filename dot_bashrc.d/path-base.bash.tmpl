@@ -10,17 +10,17 @@ if [[ ! -v VIRTUAL_ENV ]]; then
         path_prepend /usr/local/bin PATH
     fi
 
+    {{- if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64" )) }}
     # Apple Silicon Homebrew
-    if [[ ${OSTYPE} == darwin* ]] && [[ $(arch) == "arm64" ]]; then
-        if [[ ${HOMEBREW_ROOT} == /opt/homebrew ]]; then
-            path_prepend /opt/homebrew/sbin PATH
-            path_prepend /opt/homebrew/bin PATH
-        fi
+    if [[ -d "/opt/homebrew" ]]; then
+        path_prepend /opt/homebrew/sbin PATH
+        path_prepend /opt/homebrew/bin PATH
     fi
+    {{- end }}
 
+    {{- if (and (eq .chezmoi.os "darwin") (eq .chezmoi.osrelease.idlike "debian" ))}}
     # Add /sbin and /usr/sbin to PATH on Debian systems
-    if [[ -e /etc/debian_version ]]; then
-        path_prepend /usr/sbin PATH
-        path_prepend /sbin PATH
-    fi
+    path_prepend /usr/sbin PATH
+    path_prepend /sbin PATH
+    {{- end }}
 fi
