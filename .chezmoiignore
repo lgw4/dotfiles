@@ -1,5 +1,6 @@
 README.markdown
 {{ if ne .chezmoi.os "darwin" }}
+.bash_sessions_disable
 .bashrc.d/function-cdf.bash
 .hammerspoon
 {{ end }}
