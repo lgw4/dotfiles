@@ -1,7 +1,9 @@
 README.markdown
 {{ if ne .chezmoi.os "darwin" }}
 .bash_sessions_disable
+.bashrc.d/config-alks.bash
 .bashrc.d/function-cdf.bash
+.config/fish/conf.d/config-alks.fish
 .hammerspoon
 {{ end }}
 .keep
