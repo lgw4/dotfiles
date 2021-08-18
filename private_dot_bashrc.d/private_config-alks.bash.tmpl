@@ -1,0 +1,112 @@
+# shellcheck shell=bash
+# shellcheck disable=SC1091,SC2155
+alias alks="NO_COLOR=true alks"
+
+if [[ -d "$HOME"/.config/alks ]]; then
+    export ALKS_DB="$HOME"/.config/alks/alks.db
+fi
+
+if [[ -f "$HOME"/.config/tabtab/__tabtab.bash ]]; then
+    source "$HOME"/.config/tabtab/__tabtab.bash
+fi
+
+alks-artifactory-np() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "w7k6gsrwhreczd6r6o57ys43wy").details.notesPlain }}' -o 'env')"
+}
+
+alks-artifactory-prod() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "2s4dygls7vby5grgigfts4wd6i").details.notesPlain }}' -o 'env')"
+}
+
+alks-cloud-management-dev() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "eyafx3yvtnafdiewtukllevcmy").details.notesPlain }}' -o 'env')"
+}
+
+alks-cloud-management-dev2() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "oyqcdm7fgbabxjlc2xqn7t55cu").details.notesPlain }}' -o 'env')"
+}
+
+alks-cloud-management-np() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "dby7h6k5mrhkhnkjhlpe763ayy").details.notesPlain }}' -o 'env')"
+}
+
+alks-cloud-management-prod() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "v5wsgqjjezdabir6bc6al5gkem").details.notesPlain }}' -o 'env')"
+}
+
+alks-cots-np() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "l5suvzdc7jbijct3ewhyrp6rdq").details.notesPlain }}' -o 'env')"
+}
+
+alks-cots-prod() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "lpprhx6bgjdurpgruox4c3rc24").details.notesPlain }}' -o 'env')"
+}
+
+alks-ghes-np() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "l6wlu6bbkjgiljjbtgbedzfk4a").details.notesPlain }}' -o 'env')"
+}
+
+alks-ghes-prod() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "alzkq4cc4baltjvhvlqt3h72pm").details.notesPlain }}' -o 'env')"
+}
+
+alks-ghes-runners-np() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "tpa6yqy6abar3ofrjr2lpcretu").details.notesPlain }}' -o 'env')"
+}
+
+alks-ghes-runners-prod() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "gc2s3c3gfvhypgwfg6ybz4y2hm").details.notesPlain }}' -o 'env')"
+}
+
+alks-labs-224() {
+    eval "$(alks sessions open -i -r LabAdmin -a '{{ (onepassword "5n7yjzeeqnfudilpuzscr6vovu").details.notesPlain }}' -o 'env')"
+}
+
+alks-splunk-np() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "ysk6c4pvbfekdc3lnzllf2c6a4").details.notesPlain }}' -o 'env')"
+}
+
+alks-splunk-prod() {
+    eval "$(alks sessions open -i -N -r Admin -a '{{ (onepassword "uqym5wm6t5djrfz2nj5cw6mjx4").details.notesPlain }}' -o 'env')"
+}
+
+alks-disconnect() {
+    unset AWS_ACCESS_KEY_ID
+    unset AWS_SECRET_ACCESS_KEY
+    unset AWS_SESSION_EXPIRES
+    unset AWS_SESSION_TOKEN
+}
+
+ghes-shell() {
+    local PREFIX=$1
+    local REGION=$2
+    local INSTANCE_ID=$(ghes-instance-id "$PREFIX" "$REGION")
+    aws ssm start-session --region "$REGION" --target "$INSTANCE_ID"
+}
+
+ghes-tunnel() {
+    local PREFIX=$1
+    local REGION=$2
+    local INSTANCE_ID=$(ghes-instance-id "$PREFIX" "$REGION")
+    aws secretsmanager get-secret-value \
+        --region us-east-1 \
+        --secret-id ghe_mc_password \
+        --query SecretString \
+        --output text | pbcopy
+    printf "The Management Console password has been copied to your clipboard\n"
+    aws ssm start-session \
+        --region "$REGION" \
+        --target "$INSTANCE_ID" \
+        --document-name AWS-StartPortForwardingSession \
+        --parameters '{"portNumber":["8443"],"localPortNumber":["8443"]}'
+}
+
+ghes-instance-id() {
+    local PREFIX=$1
+    local REGION=$2
+    aws ec2 describe-instances \
+        --region "$REGION" \
+        --filters Name=instance-state-name,Values=running "Name=tag:Name,Values=$PREFIX*ghe-server" \
+        --query "Reservations[0].Instances[0].InstanceId" \
+        --output text
+}
