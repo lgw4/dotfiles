@@ -27,7 +27,7 @@ function alks-cloud-management-dev2 -d "Open ALKS session to Cloud Management de
     eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "oyqcdm7fgbabxjlc2xqn7t55cu").details.notesPlain }}")
 end
 
-function alks-cloud-managment-np -d "Open ALKS session to Cloud Management non-production"
+function alks-cloud-management-np -d "Open ALKS session to Cloud Management non-production"
     eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "dby7h6k5mrhkhnkjhlpe763ayy").details.notesPlain }}")
 end
 
