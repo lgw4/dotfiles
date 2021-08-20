@@ -3,7 +3,10 @@ README.markdown
 .bash_sessions_disable
 .bashrc.d/config-alks.bash
 .bashrc.d/function-cdf.bash
+.bashrc.d/function-get-info.bash
 .config/fish/conf.d/config-alks.fish
+.config/fish/functions/cdf.fish
+.config/fish/functions/get_info.fish
 .hammerspoon
 {{ end }}
 .keep
