@@ -3,6 +3,9 @@ command_timeout = 3000
 [aws]
 disabled = true
 
+[battery]
+charging_symbol = "⇡"
+
 [directory]
 disabled = false
 style = "bold blue"
