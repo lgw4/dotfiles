@@ -4,7 +4,11 @@ command_timeout = 3000
 disabled = true
 
 [battery]
-charging_symbol = "⇡ "
+charging_symbol = "↑"
+discharging_symbol = "↓"
+empty_symbol = "∅"
+full_symbol = "●"
+unknown_symbol = "↕"
 
 [directory]
 disabled = false
