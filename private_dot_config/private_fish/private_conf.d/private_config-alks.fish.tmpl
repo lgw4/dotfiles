@@ -102,7 +102,7 @@ function ghes-tunnel -d "Open GHES tunnel for management console"
         --parameters '{"portNumber":["8443"],"localPortNumber":["8443"]}'
 end
 
-function ghes-instance-id -d "Get a GHES instance ID"
+function ghes-instance-id -d "Get GHES instance ID"
     set -lx PREFIX $argv[1]
     set -lx REGION $argv[2]
     aws ec2 describe-instances \
