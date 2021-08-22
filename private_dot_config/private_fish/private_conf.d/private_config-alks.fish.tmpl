@@ -78,14 +78,14 @@ function alks-disconnect -d "Disconnect any active ALKS session"
     set -e AWS_SESSION_TOKEN
 end
 
-function ghes-shell -d "Open GHE shell session"
+function ghes-shell -d "Open GHES shell session"
     set -lx PREFIX $argv[1]
     set -lx REGION $argv[2]
     set -lx INSTANCE_ID (ghes-instance-id $PREFIX $REGION)
     aws ssm start-session --region $REGION --target $INSTANCE_ID
 end
 
-function ghes-tunnel -d "Open GHE tunnel for management console"
+function ghes-tunnel -d "Open GHES tunnel for management console"
     set -lx PREFIX $argv[1]
     set -lx REGION $argv[2]
     set -lx INSTANCE_ID (ghes-instance-id $PREFIX $REGION)
@@ -102,7 +102,7 @@ function ghes-tunnel -d "Open GHE tunnel for management console"
         --parameters '{"portNumber":["8443"],"localPortNumber":["8443"]}'
 end
 
-function ghes-instance-id -d "Get a GHE instance ID"
+function ghes-instance-id -d "Get a GHES instance ID"
     set -lx PREFIX $argv[1]
     set -lx REGION $argv[2]
     aws ec2 describe-instances \
