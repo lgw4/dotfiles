@@ -1,20 +1,17 @@
 # shellcheck shell=bash
 # shellcheck disable=SC1090,SC2207
 # Enable pyenv
-if [[ -d "$HOME"/.pyenv/bin ]]; then
-    path_prepend "$HOME"/.pyenv/bin PATH
+if [[ -d "${HOME}"/.pyenv/bin ]]; then
+    path_prepend "${HOME}"/.pyenv/bin PATH
 fi
 if command -v pyenv >/dev/null 2>&1; then
     PYENV_COMPLETION="${HOME}/.pyenv/completions/pyenv.bash"
-    if [[ ":${PATH}:" != *":${HOME}/.pyenv/shims:"* ]]; then
-        eval "$(pyenv init --path)"
+    if [[ ":${PATH}:" != *":${HOME}/.pyenv/bin:"* ]]; then
         eval "$(pyenv init -)"
-        eval "$(pyenv virtualenv-init -)"
         export PYENV_VIRTUALENV_DISABLE_PROMPT=1
     elif [[ -r "$PYENV_COMPLETION" ]]; then
         source "$PYENV_COMPLETION"
     fi
-    PYENV_PYTHON3="$(pyenv which python3)"
 fi
 
 # Enable virtualenvwrapper
@@ -28,14 +25,14 @@ elif [[ -e /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]]; then
     VIRTUALENVWRAPPER=/usr/share/virtualenvwrapper/virtualenvwrapper.sh
 fi
 if [[ -v VIRTUALENVWRAPPER ]]; then
-    if [[ -v PYENV_PYTHON3 ]]; then
-        export VIRTUALENVWRAPPER_PYTHON="${PYENV_PYTHON3}"
+    if [[ -x /opt/homebrew/bin/python3 ]]; then
+        export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
     elif [[ -x /usr/local/bin/python3 ]]; then
         export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
     elif [[ -x /usr/bin/python3 ]]; then
         export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
     fi
-    if [[ -d "$HOME"/Developer/python ]]; then
+    if [[ -d "${HOME}"/Developer/python ]]; then
         export PROJECT_HOME="${HOME}"/Developer/python
     else
         export PROJECT_HOME="${HOME}"/devel/python
