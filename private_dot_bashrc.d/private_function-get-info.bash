@@ -4,7 +4,7 @@ realpath() {
     [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
 }
 
-get-info() {
+get_info() {
     local FILE=$(realpath "${1}")
     if [[ -r "${FILE}" ]]; then
         osascript <<EOF >/dev/null 2>&1

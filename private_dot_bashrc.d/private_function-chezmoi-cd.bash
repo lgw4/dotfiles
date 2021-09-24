@@ -1,4 +1,4 @@
 # shellcheck shell=bash
-chezmoi-cd() {
+chezmoi_cd() {
     cd "$(chezmoi source-path)" || return 1
 }
