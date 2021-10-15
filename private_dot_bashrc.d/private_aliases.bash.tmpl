@@ -1,4 +1,7 @@
 # shellcheck shell=bash
+if command -v op >/dev/null 2>&1; then
+    alias op-signin='eval $(op signin {{ (onepassword "hhsmdi4ijrcnnevq3genplwi3u").details.notesPlain }})'
+fi
 alias refresh='source ~/.bashrc'
 {{- if (eq .chezmoi.os "darwin") }}
 alias ls='ls -FG'

@@ -10,7 +10,7 @@ if [[ ! -v VIRTUAL_ENV ]]; then
         eval "$(tfenv init -)"
     fi
 
-    tfenv_update() {
+    tfenv-update() {
         cd "$TFENV_ROOT" || exit
         git fetch
         git pull origin master

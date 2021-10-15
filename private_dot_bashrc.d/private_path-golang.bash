@@ -10,7 +10,7 @@ if [[ ! -v VIRTUAL_ENV ]]; then
         eval "$(goenv init -)"
     fi
 
-    goenv_update() {
+    goenv-update() {
         cd "$GOENV_ROOT" || exit
         git fetch
         git pull origin master
