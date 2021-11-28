@@ -90,7 +90,7 @@ let mapleader=","
 " Informative statusline
 set laststatus=2
 let g:lightline = {
-    \ 'colorscheme': 'solarized',
+    \ 'colorscheme': 'one',
     \ }
 
 " Enable mouse in terminal mode
