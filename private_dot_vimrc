@@ -97,7 +97,10 @@ let mapleader=","
 
 " Informative statusline
 set laststatus=2
-let g:airline_theme='one'
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ }
+set noshowmode
 
 " Enable mouse in terminal mode
 if has('mouse')
