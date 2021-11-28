@@ -75,13 +75,11 @@ set wrapscan
 
 " Colorscheme
 set background=light
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
-silent! colorscheme solarized
+silent! colorscheme one
 
 " Highlight current line
 set cursorline
-highlight CursorLine cterm=NONE ctermbg=187
+" highlight CursorLine cterm=NONE ctermbg=187
 
 " Search case sensitive only if contains upper-case
 set ignorecase smartcase
@@ -124,4 +122,4 @@ nnoremap <C-h> <C-w><C-h>
 
 " Set default line ending warning columns
 set colorcolumn=79,99
-highlight ColorColumn cterm=NONE ctermbg=187
+" highlight ColorColumn cterm=NONE ctermbg=187

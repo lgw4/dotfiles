@@ -3,9 +3,8 @@
 call plug#begin('~/.vim/plugged')
 
 " Plugins
-Plug 'alker0/chezmoi.vim'
 Plug 'ajh17/VimCompletesMe'
-Plug 'altercation/vim-colors-solarized'
+Plug 'alker0/chezmoi.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'itchyny/lightline.vim'
@@ -15,6 +14,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'nvie/vim-flake8'
 Plug 'plytophogy/vim-virtualenv'
 Plug 'psf/black'
+Plug 'rakr/vim-one'
 Plug 'tpope/vim-commentary'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'w0rp/ale'
