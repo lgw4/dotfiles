@@ -74,6 +74,15 @@ set showcmd
 set wrapscan
 
 " Colorscheme
+if (empty($TMUX))
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+else
+    set-option -ga terminal-overrides ",xterm-256color:Tc"
+    set -g default-terminal "screen-256color"
+endif
+
 colorscheme one
 set background=light
 
