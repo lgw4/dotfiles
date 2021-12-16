@@ -11,9 +11,6 @@ if [[ ! -v VIRTUAL_ENV ]]; then
     fi
 
     tfenv-update() {
-        cd "$TFENV_ROOT" || exit
-        git fetch
-        git pull origin master
-        cd "$HOME" || exit
+        git --git-dir="$TFENV_ROOT/.git" pull
     }
 fi

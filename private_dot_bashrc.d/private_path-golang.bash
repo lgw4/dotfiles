@@ -10,13 +10,6 @@ if [[ ! -v VIRTUAL_ENV ]]; then
         eval "$(goenv init -)"
     fi
 
-    goenv-update() {
-        cd "$GOENV_ROOT" || exit
-        git fetch
-        git pull origin master
-        cd "$HOME" || exit
-    }
-
     if [[ -d "$HOME"/Developer/go ]]; then
         export GOPATH="${HOME}/Developer/go"
     elif [[ -d "$HOME"/devel/go ]]; then
