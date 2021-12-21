@@ -1,0 +1,5 @@
+# shellcheck shell=bash
+if command -v op >/dev/null 2>&1; then
+    alias op-signin='eval $(op signin {{ (onepassword "hhsmdi4ijrcnnevq3genplwi3u").details.notesPlain }})'
+    source <(op completion bash)
+fi
