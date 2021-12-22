@@ -73,27 +73,27 @@ alks-disconnect() {
     unset AWS_SESSION_TOKEN
 }
 
-ghes-instance-id() {
+aws-instance-id() {
     local PREFIX=$1
     local REGION=$2
     aws ec2 describe-instances \
         --region "$REGION" \
-        --filters Name=instance-state-name,Values=running "Name=tag:Name,Values=$PREFIX*ghe-server" \
+        --filters Name=instance-state-name,Values=running "Name=tag:Name,Values=*$PREFIX*" \
         --query "Reservations[0].Instances[0].InstanceId" \
         --output text
 }
 
-ghes-shell() {
+aws-shell() {
     local PREFIX=$1
     local REGION=$2
-    local INSTANCE_ID=$(ghes-instance-id "$PREFIX" "$REGION")
+    local INSTANCE_ID=$(aws-instance-id "$PREFIX" "$REGION")
     aws ssm start-session --region "$REGION" --target "$INSTANCE_ID"
 }
 
 ghes-tunnel() {
     local PREFIX=$1
     local REGION=$2
-    local INSTANCE_ID=$(ghes-instance-id "$PREFIX" "$REGION")
+    local INSTANCE_ID=$(aws-instance-id "$PREFIX" "$REGION")
     aws secretsmanager get-secret-value \
         --region us-east-1 \
         --secret-id ghe_mc_password \
