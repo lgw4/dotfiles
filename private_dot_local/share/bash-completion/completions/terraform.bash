@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+# shellcheck disable=SC2086,SC2164,SC2207
 # Bash Terraform completion
 # Originally adapted from: https://gist.github.com/cornfeedhobo/8bc08747ec3add1fc5adb2edb7cd68d3
 #
@@ -10,7 +12,7 @@
 #
 
 #--- Get options listing from Terraform command.
-_terraform_completion_get_opts () {
+_terraform_completion_get_opts() {
   local CMD_EXEC="${1}"
   local TF_OPT="${2}"
 
@@ -39,7 +41,7 @@ _terraform_completion_get_opts () {
 }
 
 #--- This function is passed to 'complete' for handling completion.
-_terraform_completion () {
+_terraform_completion() {
   local cur prev words cword opts
   _init_completion -s || return
 
@@ -48,15 +50,15 @@ _terraform_completion () {
 
   opts=""
 
-  if [[ ${cur} == -* ]] ; then
+  if [[ ${cur} == -* ]]; then
     compopt -o nospace
 
   fi
 
   local CMD_EXEC="${COMP_WORDS[0]}"
 
-  if [[ ${cword} -eq 1 ]] ; then
-    if [[ ${cur} == -* ]] ; then
+  if [[ ${cword} -eq 1 ]]; then
+    if [[ ${cur} == -* ]]; then
       opts="--help --version"
 
     else
@@ -76,7 +78,7 @@ _terraform_completion () {
     fi
   fi
 
-  COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 
   return 0
 }
@@ -86,7 +88,7 @@ _terraform_completion () {
 # contain "-" characters. This avoids adding Completion for third-party
 # Terraform provider plugins that exist as a separate executable
 # (terraform-provider-XXXX).
-_init_terraform_completion () {
+_init_terraform_completion() {
   local IFS=':'
   #-- Regex used when looking for terraform executables.
   # Looks for "terraform", or "terraform[anything else that isn't a dash]".

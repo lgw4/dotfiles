@@ -1,82 +1,80 @@
-# bash completion for hugo                                 -*- shell-script -*-
+# shellcheck shell=bash
+# shellcheck disable=SC2164,SC2034,SC2207
+# bash completion for hugo -*- shell-script -*-
 
-__hugo_debug()
-{
+__hugo_debug() {
     if [[ -n ${BASH_COMP_DEBUG_FILE} ]]; then
-        echo "$*" >> "${BASH_COMP_DEBUG_FILE}"
+        echo "$*" >>"${BASH_COMP_DEBUG_FILE}"
     fi
 }
 
 # Homebrew on Macs have version 1.3 of bash-completion which doesn't include
 # _init_completion. This is a very minimal version of that function.
-__hugo_init_completion()
-{
+__hugo_init_completion() {
     COMPREPLY=()
     _get_comp_words_by_ref "$@" cur prev words cword
 }
 
-__hugo_index_of_word()
-{
+__hugo_index_of_word() {
     local w word=$1
     shift
     index=0
     for w in "$@"; do
         [[ $w = "$word" ]] && return
-        index=$((index+1))
+        index=$((index + 1))
     done
     index=-1
 }
 
-__hugo_contains_word()
-{
-    local w word=$1; shift
+__hugo_contains_word() {
+    local w word=$1
+    shift
     for w in "$@"; do
         [[ $w = "$word" ]] && return
     done
     return 1
 }
 
-__hugo_handle_reply()
-{
+__hugo_handle_reply() {
     __hugo_debug "${FUNCNAME[0]}"
     case $cur in
-        -*)
+    -*)
+        if [[ $(type -t compopt) = "builtin" ]]; then
+            compopt -o nospace
+        fi
+        local allflags
+        if [ ${#must_have_one_flag[@]} -ne 0 ]; then
+            allflags=("${must_have_one_flag[@]}")
+        else
+            allflags=("${flags[*]} ${two_word_flags[*]}")
+        fi
+        COMPREPLY=($(compgen -W "${allflags[*]}" -- "$cur"))
+        if [[ $(type -t compopt) = "builtin" ]]; then
+            [[ "${COMPREPLY[0]}" == *= ]] || compopt +o nospace
+        fi
+
+        # complete after --flag=abc
+        if [[ $cur == *=* ]]; then
             if [[ $(type -t compopt) = "builtin" ]]; then
-                compopt -o nospace
-            fi
-            local allflags
-            if [ ${#must_have_one_flag[@]} -ne 0 ]; then
-                allflags=("${must_have_one_flag[@]}")
-            else
-                allflags=("${flags[*]} ${two_word_flags[*]}")
-            fi
-            COMPREPLY=( $(compgen -W "${allflags[*]}" -- "$cur") )
-            if [[ $(type -t compopt) = "builtin" ]]; then
-                [[ "${COMPREPLY[0]}" == *= ]] || compopt +o nospace
+                compopt +o nospace
             fi
 
-            # complete after --flag=abc
-            if [[ $cur == *=* ]]; then
-                if [[ $(type -t compopt) = "builtin" ]]; then
-                    compopt +o nospace
-                fi
-
-                local index flag
-                flag="${cur%=*}"
-                __hugo_index_of_word "${flag}" "${flags_with_completion[@]}"
-                COMPREPLY=()
-                if [[ ${index} -ge 0 ]]; then
-                    PREFIX=""
-                    cur="${cur#*=}"
-                    ${flags_completion[${index}]}
-                    if [ -n "${ZSH_VERSION}" ]; then
-                        # zsh completion needs --flag= prefix
-                        eval "COMPREPLY=( \"\${COMPREPLY[@]/#/${flag}=}\" )"
-                    fi
+            local index flag
+            flag="${cur%=*}"
+            __hugo_index_of_word "${flag}" "${flags_with_completion[@]}"
+            COMPREPLY=()
+            if [[ ${index} -ge 0 ]]; then
+                PREFIX=""
+                cur="${cur#*=}"
+                ${flags_completion[${index}]}
+                if [ -n "${ZSH_VERSION}" ]; then
+                    # zsh completion needs --flag= prefix
+                    eval "COMPREPLY=( \"\${COMPREPLY[@]/#/${flag}=}\" )"
                 fi
             fi
-            return 0;
-            ;;
+        fi
+        return 0
+        ;;
     esac
 
     # check if we are handling a flag with special work handling
@@ -100,20 +98,20 @@ __hugo_handle_reply()
     if [[ ${#must_have_one_flag[@]} -ne 0 ]]; then
         completions+=("${must_have_one_flag[@]}")
     fi
-    COMPREPLY=( $(compgen -W "${completions[*]}" -- "$cur") )
+    COMPREPLY=($(compgen -W "${completions[*]}" -- "$cur"))
 
     if [[ ${#COMPREPLY[@]} -eq 0 && ${#noun_aliases[@]} -gt 0 && ${#must_have_one_noun[@]} -ne 0 ]]; then
-        COMPREPLY=( $(compgen -W "${noun_aliases[*]}" -- "$cur") )
+        COMPREPLY=($(compgen -W "${noun_aliases[*]}" -- "$cur"))
     fi
 
     if [[ ${#COMPREPLY[@]} -eq 0 ]]; then
-		if declare -F __hugo_custom_func >/dev/null; then
-			# try command name qualified custom func
-			__hugo_custom_func
-		else
-			# otherwise fall back to unqualified for compatibility
-			declare -F __custom_func >/dev/null && __custom_func
-		fi
+        if declare -F __hugo_custom_func >/dev/null; then
+            # try command name qualified custom func
+            __hugo_custom_func
+        else
+            # otherwise fall back to unqualified for compatibility
+            declare -F __custom_func >/dev/null && __custom_func
+        fi
     fi
 
     # available in bash-completion >= 2, not always present on macOS
@@ -124,25 +122,22 @@ __hugo_handle_reply()
     # If there is only 1 completion and it is a flag with an = it will be completed
     # but we don't want a space after the =
     if [[ "${#COMPREPLY[@]}" -eq "1" ]] && [[ $(type -t compopt) = "builtin" ]] && [[ "${COMPREPLY[0]}" == --*= ]]; then
-       compopt -o nospace
+        compopt -o nospace
     fi
 }
 
 # The arguments should be in the form "ext1|ext2|extn"
-__hugo_handle_filename_extension_flag()
-{
+__hugo_handle_filename_extension_flag() {
     local ext="$1"
     _filedir "@(${ext})"
 }
 
-__hugo_handle_subdirs_in_dir_flag()
-{
+__hugo_handle_subdirs_in_dir_flag() {
     local dir="$1"
     pushd "${dir}" >/dev/null 2>&1 && _filedir -d && popd >/dev/null 2>&1
 }
 
-__hugo_handle_flag()
-{
+__hugo_handle_flag() {
     __hugo_debug "${FUNCNAME[0]}: c is $c words[c] is ${words[c]}"
 
     # if a command required a flag, and we found it, unset must_have_one_flag()
@@ -151,8 +146,8 @@ __hugo_handle_flag()
     # if the word contained an =
     if [[ ${words[c]} == *"="* ]]; then
         flagvalue=${flagname#*=} # take in as flagvalue after the =
-        flagname=${flagname%=*} # strip everything after the =
-        flagname="${flagname}=" # but put the = back
+        flagname=${flagname%=*}  # strip everything after the =
+        flagname="${flagname}="  # but put the = back
     fi
     __hugo_debug "${FUNCNAME[0]}: looking for ${flagname}"
     if __hugo_contains_word "${flagname}" "${must_have_one_flag[@]}"; then
@@ -161,16 +156,16 @@ __hugo_handle_flag()
 
     # if you set a flag which only applies to this command, don't show subcommands
     if __hugo_contains_word "${flagname}" "${local_nonpersistent_flags[@]}"; then
-      commands=()
+        commands=()
     fi
 
     # keep flag value with flagname as flaghash
     # flaghash variable is an associative array which is only supported in bash > 3.
     if [[ -z "${BASH_VERSION}" || "${BASH_VERSINFO[0]}" -gt 3 ]]; then
-        if [ -n "${flagvalue}" ] ; then
+        if [ -n "${flagvalue}" ]; then
             flaghash[${flagname}]=${flagvalue}
-        elif [ -n "${words[ $((c+1)) ]}" ] ; then
-            flaghash[${flagname}]=${words[ $((c+1)) ]}
+        elif [ -n "${words[$((c + 1))]}" ]; then
+            flaghash[${flagname}]=${words[$((c + 1))]}
         else
             flaghash[${flagname}]="true" # pad "true" for bool flag
         fi
@@ -178,20 +173,19 @@ __hugo_handle_flag()
 
     # skip the argument to a two word flag
     if [[ ${words[c]} != *"="* ]] && __hugo_contains_word "${words[c]}" "${two_word_flags[@]}"; then
-			  __hugo_debug "${FUNCNAME[0]}: found a flag ${words[c]}, skip the next argument"
-        c=$((c+1))
+        __hugo_debug "${FUNCNAME[0]}: found a flag ${words[c]}, skip the next argument"
+        c=$((c + 1))
         # if we are looking for a flags value, don't show commands
         if [[ $c -eq $cword ]]; then
             commands=()
         fi
     fi
 
-    c=$((c+1))
+    c=$((c + 1))
 
 }
 
-__hugo_handle_noun()
-{
+__hugo_handle_noun() {
     __hugo_debug "${FUNCNAME[0]}: c is $c words[c] is ${words[c]}"
 
     if __hugo_contains_word "${words[c]}" "${must_have_one_noun[@]}"; then
@@ -201,11 +195,10 @@ __hugo_handle_noun()
     fi
 
     nouns+=("${words[c]}")
-    c=$((c+1))
+    c=$((c + 1))
 }
 
-__hugo_handle_command()
-{
+__hugo_handle_command() {
     __hugo_debug "${FUNCNAME[0]}: c is $c words[c] is ${words[c]}"
 
     local next_command
@@ -218,13 +211,12 @@ __hugo_handle_command()
             next_command="_${words[c]//:/__}"
         fi
     fi
-    c=$((c+1))
+    c=$((c + 1))
     __hugo_debug "${FUNCNAME[0]}: looking for ${next_command}"
     declare -F "$next_command" >/dev/null && $next_command
 }
 
-__hugo_handle_word()
-{
+__hugo_handle_word() {
     if [[ $c -ge $cword ]]; then
         __hugo_handle_reply
         return
@@ -250,8 +242,7 @@ __hugo_handle_word()
     __hugo_handle_word
 }
 
-_hugo_check_ulimit()
-{
+_hugo_check_ulimit() {
     last_command="hugo_check_ulimit"
 
     command_aliases=()
@@ -299,8 +290,7 @@ _hugo_check_ulimit()
     noun_aliases=()
 }
 
-_hugo_check()
-{
+_hugo_check() {
     last_command="hugo_check"
 
     command_aliases=()
@@ -349,8 +339,7 @@ _hugo_check()
     noun_aliases=()
 }
 
-_hugo_config_mounts()
-{
+_hugo_config_mounts() {
     last_command="hugo_config_mounts"
 
     command_aliases=()
@@ -398,8 +387,7 @@ _hugo_config_mounts()
     noun_aliases=()
 }
 
-_hugo_config()
-{
+_hugo_config() {
     last_command="hugo_config"
 
     command_aliases=()
@@ -448,8 +436,7 @@ _hugo_config()
     noun_aliases=()
 }
 
-_hugo_convert_toJSON()
-{
+_hugo_convert_toJSON() {
     last_command="hugo_convert_toJSON"
 
     command_aliases=()
@@ -501,8 +488,7 @@ _hugo_convert_toJSON()
     noun_aliases=()
 }
 
-_hugo_convert_toTOML()
-{
+_hugo_convert_toTOML() {
     last_command="hugo_convert_toTOML"
 
     command_aliases=()
@@ -554,8 +540,7 @@ _hugo_convert_toTOML()
     noun_aliases=()
 }
 
-_hugo_convert_toYAML()
-{
+_hugo_convert_toYAML() {
     last_command="hugo_convert_toYAML"
 
     command_aliases=()
@@ -607,8 +592,7 @@ _hugo_convert_toYAML()
     noun_aliases=()
 }
 
-_hugo_convert()
-{
+_hugo_convert() {
     last_command="hugo_convert"
 
     command_aliases=()
@@ -663,8 +647,7 @@ _hugo_convert()
     noun_aliases=()
 }
 
-_hugo_deploy()
-{
+_hugo_deploy() {
     last_command="hugo_deploy"
 
     command_aliases=()
@@ -726,8 +709,7 @@ _hugo_deploy()
     noun_aliases=()
 }
 
-_hugo_env()
-{
+_hugo_env() {
     last_command="hugo_env"
 
     command_aliases=()
@@ -775,8 +757,7 @@ _hugo_env()
     noun_aliases=()
 }
 
-_hugo_gen_autocomplete()
-{
+_hugo_gen_autocomplete() {
     last_command="hugo_gen_autocomplete"
 
     command_aliases=()
@@ -833,8 +814,7 @@ _hugo_gen_autocomplete()
     noun_aliases=()
 }
 
-_hugo_gen_chromastyles()
-{
+_hugo_gen_chromastyles() {
     last_command="hugo_gen_chromastyles"
 
     command_aliases=()
@@ -888,8 +868,7 @@ _hugo_gen_chromastyles()
     noun_aliases=()
 }
 
-_hugo_gen_doc()
-{
+_hugo_gen_doc() {
     last_command="hugo_gen_doc"
 
     command_aliases=()
@@ -941,8 +920,7 @@ _hugo_gen_doc()
     noun_aliases=()
 }
 
-_hugo_gen_man()
-{
+_hugo_gen_man() {
     last_command="hugo_gen_man"
 
     command_aliases=()
@@ -994,8 +972,7 @@ _hugo_gen_man()
     noun_aliases=()
 }
 
-_hugo_gen()
-{
+_hugo_gen() {
     last_command="hugo_gen"
 
     command_aliases=()
@@ -1047,8 +1024,7 @@ _hugo_gen()
     noun_aliases=()
 }
 
-_hugo_import_jekyll()
-{
+_hugo_import_jekyll() {
     last_command="hugo_import_jekyll"
 
     command_aliases=()
@@ -1098,8 +1074,7 @@ _hugo_import_jekyll()
     noun_aliases=()
 }
 
-_hugo_import()
-{
+_hugo_import() {
     last_command="hugo_import"
 
     command_aliases=()
@@ -1148,8 +1123,7 @@ _hugo_import()
     noun_aliases=()
 }
 
-_hugo_list_all()
-{
+_hugo_list_all() {
     last_command="hugo_list_all"
 
     command_aliases=()
@@ -1197,8 +1171,7 @@ _hugo_list_all()
     noun_aliases=()
 }
 
-_hugo_list_drafts()
-{
+_hugo_list_drafts() {
     last_command="hugo_list_drafts"
 
     command_aliases=()
@@ -1246,8 +1219,7 @@ _hugo_list_drafts()
     noun_aliases=()
 }
 
-_hugo_list_expired()
-{
+_hugo_list_expired() {
     last_command="hugo_list_expired"
 
     command_aliases=()
@@ -1295,8 +1267,7 @@ _hugo_list_expired()
     noun_aliases=()
 }
 
-_hugo_list_future()
-{
+_hugo_list_future() {
     last_command="hugo_list_future"
 
     command_aliases=()
@@ -1344,8 +1315,7 @@ _hugo_list_future()
     noun_aliases=()
 }
 
-_hugo_list()
-{
+_hugo_list() {
     last_command="hugo_list"
 
     command_aliases=()
@@ -1397,8 +1367,7 @@ _hugo_list()
     noun_aliases=()
 }
 
-_hugo_mod_clean()
-{
+_hugo_mod_clean() {
     last_command="hugo_mod_clean"
 
     command_aliases=()
@@ -1451,8 +1420,7 @@ _hugo_mod_clean()
     noun_aliases=()
 }
 
-_hugo_mod_get()
-{
+_hugo_mod_get() {
     last_command="hugo_mod_get"
 
     command_aliases=()
@@ -1500,8 +1468,7 @@ _hugo_mod_get()
     noun_aliases=()
 }
 
-_hugo_mod_graph()
-{
+_hugo_mod_graph() {
     last_command="hugo_mod_graph"
 
     command_aliases=()
@@ -1549,8 +1516,7 @@ _hugo_mod_graph()
     noun_aliases=()
 }
 
-_hugo_mod_init()
-{
+_hugo_mod_init() {
     last_command="hugo_mod_init"
 
     command_aliases=()
@@ -1598,8 +1564,7 @@ _hugo_mod_init()
     noun_aliases=()
 }
 
-_hugo_mod_tidy()
-{
+_hugo_mod_tidy() {
     last_command="hugo_mod_tidy"
 
     command_aliases=()
@@ -1647,8 +1612,7 @@ _hugo_mod_tidy()
     noun_aliases=()
 }
 
-_hugo_mod_vendor()
-{
+_hugo_mod_vendor() {
     last_command="hugo_mod_vendor"
 
     command_aliases=()
@@ -1696,8 +1660,7 @@ _hugo_mod_vendor()
     noun_aliases=()
 }
 
-_hugo_mod_verify()
-{
+_hugo_mod_verify() {
     last_command="hugo_mod_verify"
 
     command_aliases=()
@@ -1747,8 +1710,7 @@ _hugo_mod_verify()
     noun_aliases=()
 }
 
-_hugo_mod()
-{
+_hugo_mod() {
     last_command="hugo_mod"
 
     command_aliases=()
@@ -1877,8 +1839,7 @@ _hugo_mod()
     noun_aliases=()
 }
 
-_hugo_new_site()
-{
+_hugo_new_site() {
     last_command="hugo_new_site"
 
     command_aliases=()
@@ -1932,8 +1893,7 @@ _hugo_new_site()
     noun_aliases=()
 }
 
-_hugo_new_theme()
-{
+_hugo_new_theme() {
     last_command="hugo_new_theme"
 
     command_aliases=()
@@ -1981,8 +1941,7 @@ _hugo_new_theme()
     noun_aliases=()
 }
 
-_hugo_new()
-{
+_hugo_new() {
     last_command="hugo_new"
 
     command_aliases=()
@@ -2113,8 +2072,7 @@ _hugo_new()
     noun_aliases=()
 }
 
-_hugo_server()
-{
+_hugo_server() {
     last_command="hugo_server"
 
     command_aliases=()
@@ -2269,8 +2227,7 @@ _hugo_server()
     noun_aliases=()
 }
 
-_hugo_version()
-{
+_hugo_version() {
     last_command="hugo_version"
 
     command_aliases=()
@@ -2318,8 +2275,7 @@ _hugo_version()
     noun_aliases=()
 }
 
-_hugo_root_command()
-{
+_hugo_root_command() {
     last_command="hugo"
 
     command_aliases=()
@@ -2462,8 +2418,7 @@ _hugo_root_command()
     noun_aliases=()
 }
 
-__start_hugo()
-{
+__start_hugo() {
     local cur prev words cword
     declare -A flaghash 2>/dev/null || :
     declare -A aliashash 2>/dev/null || :

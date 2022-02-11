@@ -1,3 +1,6 @@
+# shellcheck shell=bash
+# shellcheck disable=SC2034,SC2053,SC2068,SC2086,SC2207,SC2154
+
 _poetry_57beca8460d928bc_complete() {
     local cur script coms opts com
     COMPREPLY=()
