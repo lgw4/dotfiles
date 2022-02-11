@@ -2,7 +2,7 @@
 # shellcheck disable=SC1091
 if [[ ! -v VIRTUAL_ENV ]]; then
     if [[ -d "$HOME/.tfenv" ]]; then
-        export TFENV_ROOT="$HOME/.tfenv"
+        TFENV_ROOT="$HOME/.tfenv"
         if [[ -d "$TFENV_ROOT"/bin ]]; then
             path_prepend "$TFENV_ROOT"/bin
             tfenv-update() {
