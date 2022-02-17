@@ -10,9 +10,4 @@ if [[ ! -v VIRTUAL_ENV ]]; then
             }
         fi
     fi
-
-    if command -v tgenv >/dev/null 2>&1; then
-        eval "$(tgenv init -)"
-    fi
-
 fi
