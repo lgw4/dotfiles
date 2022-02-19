@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 disable-docker-intel() {
-    unset DOCKER_DEFAULT_PLATFORMs
+    unset DOCKER_DEFAULT_PLATFORM
 }
 
 enable-docker-intel() {
