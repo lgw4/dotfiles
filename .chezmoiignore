@@ -2,7 +2,7 @@ README.markdown
 {{ if ne .chezmoi.os "darwin" }}
 .bash_sessions_disable
 .bashrc.d/config-alks.bash
-{{ if ne .chezmoi.arch "arm64" }}
+{{ if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64" )) }}
 .bashrc.d/config-docker-intel.bash
 {{ end }}
 .bashrc.d/function-cdf.bash
