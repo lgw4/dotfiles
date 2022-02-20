@@ -2,9 +2,7 @@ README.markdown
 {{ if ne .chezmoi.os "darwin" }}
 .bash_sessions_disable
 .bashrc.d/config-alks.bash
-{{ if (and (ne .chezmoi.os "darwin") (ne .chezmoi.arch "arm64" )) }}
 .bashrc.d/config-docker-intel.bash
-{{ end }}
 .bashrc.d/function-cdf.bash
 .bashrc.d/function-get-info.bash
 .config/fish/conf.d/config-alks.fish
