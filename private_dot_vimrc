@@ -83,7 +83,7 @@ else
     set -g default-terminal "screen-256color"
 endif
 
-colorscheme one
+colorscheme solarized
 set background=light
 
 " Highlight current line
@@ -98,7 +98,7 @@ let mapleader=","
 " Informative statusline
 set laststatus=2
 let g:lightline = {
-      \ 'colorscheme': 'one',
+      \ 'colorscheme': 'solarized',
       \ }
 set noshowmode
 
