@@ -74,19 +74,15 @@ set showcmd
 set wrapscan
 
 " Colorscheme
-if (empty($TMUX))
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-else
-    set-option -ga terminal-overrides ",xterm-256color:Tc"
-    set -g default-terminal "screen-256color"
-endif
-
 set background=light
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
-colorscheme solarized
+silent! colorscheme solarized
+
+" Highlight current line
+set cursorline
+highlight CursorLine cterm=NONE ctermbg=187
+
 
 " Highlight current line
 set cursorline
