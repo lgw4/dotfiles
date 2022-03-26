@@ -7,6 +7,5 @@ if test -d "$HOME/.pyenv"
         set -x PYENV_VIRTUALENV_DISABLE_PROMPT 1
         pyenv init --path | source
         pyenv init - | source
-        pyenv virtualenv-init - | source
     end
 end
