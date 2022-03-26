@@ -1,4 +1,4 @@
-function get_info -d "Open Finder's Get Info window on a file"
+function get-info -d "Open Finder's Get Info window on a file"
     set -lx FILE (realpath $argv[1])
     if test -r "$FILE"
         osascript -e "set aFile to (POSIX file \"file:///$FILE\") as alias

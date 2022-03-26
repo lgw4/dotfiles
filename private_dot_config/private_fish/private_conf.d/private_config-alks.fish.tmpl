@@ -78,36 +78,36 @@ function alks-disconnect -d "Disconnect any active ALKS session"
     set -e AWS_SESSION_TOKEN
 end
 
-function ghes-shell -d "Open GHES shell session"
+function aws-instance-id -d "Get AWS instance ID"
     set -lx PREFIX $argv[1]
     set -lx REGION $argv[2]
-    set -lx INSTANCE_ID (ghes-instance-id $PREFIX $REGION)
+    aws ec2 describe-instances \
+        --region $REGION \
+        --filters Name=instance-state-name,Values=running "Name=tag:Name,Values=$PREFIX*" \
+        --query "Reservations[0].Instances[0].InstanceId" \
+        --output text
+end
+
+function aws-shell -d "Open AWS shell session"
+    set -lx PREFIX $argv[1]
+    set -lx REGION $argv[2]
+    set -lx INSTANCE_ID (aws-instance-id $PREFIX $REGION)
     aws ssm start-session --region $REGION --target $INSTANCE_ID
 end
 
 function ghes-tunnel -d "Open GHES tunnel for management console"
     set -lx PREFIX $argv[1]
     set -lx REGION $argv[2]
-    set -lx INSTANCE_ID (ghes-instance-id $PREFIX $REGION)
+    set -lx INSTANCE_ID (aws-instance-id $PREFIX $REGION)
     aws secretsmanager get-secret-value \
         --region us-east-1 \
         --secret-id ghe_mc_password \
         --query SecretString \
         --output text | pbcopy
-    printf "The Management Console password has been copied to your clipboard\n"
+    printf "The Management Console password has been copied to your clipboard.\n"
     aws ssm start-session \
         --region $REGION \
         --target $INSTANCE_ID \
         --document-name AWS-StartPortForwardingSession \
         --parameters '{"portNumber":["8443"],"localPortNumber":["8443"]}'
-end
-
-function ghes-instance-id -d "Get GHES instance ID"
-    set -lx PREFIX $argv[1]
-    set -lx REGION $argv[2]
-    aws ec2 describe-instances \
-        --region $REGION \
-        --filters Name=instance-state-name,Values=running "Name=tag:Name,Values=$PREFIX*ghe-server" \
-        --query "Reservations[0].Instances[0].InstanceId" \
-        --output text
 end
