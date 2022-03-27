@@ -83,7 +83,7 @@ function aws-instance-id -d "Get AWS instance ID"
     set -lx REGION $argv[2]
     aws ec2 describe-instances \
         --region $REGION \
-        --filters Name=instance-state-name,Values=running "Name=tag:Name,Values=$PREFIX*" \
+        --filters Name=instance-state-name,Values=running "Name=tag:Name,Values=*$PREFIX*" \
         --query "Reservations[0].Instances[0].InstanceId" \
         --output text
 end
