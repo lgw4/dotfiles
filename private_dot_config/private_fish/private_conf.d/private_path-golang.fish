@@ -6,12 +6,6 @@ if test -d "$HOME/.goenv"
         and status --is-interactive
         goenv init - | source
     end
-    function goenv_update -d "Update goenv installation"
-        cd $GOENV_ROOT
-        git fetch
-        git pull origin master
-        cd $HOME
-    end
 end
 
 if test -d "$HOME/Developer/go"
