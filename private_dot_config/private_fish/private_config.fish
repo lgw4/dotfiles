@@ -4,6 +4,10 @@ if type -q pipx
     register-python-argcomplete --shell fish pipx | source
 end
 
+if type -q vf
+    set -x VIRTUALFISH_HOME $HOME/.local/share/virtualenvs
+end
+
 if type -q starship
     starship init fish | source
 end
