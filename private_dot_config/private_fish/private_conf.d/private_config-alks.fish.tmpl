@@ -12,63 +12,63 @@ if test -f $HOME/.config/tabtab/__tabtab.fish
 end
 
 function alks-artifactory-np -d "Open ALKS session to Artifactory non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "w7k6gsrwhreczd6r6o57ys43wy").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "w7k6gsrwhreczd6r6o57ys43wy").notesPlain.value }}")
 end
 
 function alks-artifactory-prod -d "Open ALKS session to Artifactory production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "2s4dygls7vby5grgigfts4wd6i").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "2s4dygls7vby5grgigfts4wd6i").notesPlain.value }}")
 end
 
 function alks-cloud-management-dev -d "Open ALKS session to Cloud Management dev"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "eyafx3yvtnafdiewtukllevcmy").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "eyafx3yvtnafdiewtukllevcmy").notesPlain.value }}")
 end
 
 function alks-cloud-management-dev2 -d "Open ALKS session to Cloud Management dev2"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "oyqcdm7fgbabxjlc2xqn7t55cu").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "oyqcdm7fgbabxjlc2xqn7t55cu").notesPlain.value }}")
 end
 
 function alks-cloud-management-np -d "Open ALKS session to Cloud Management non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "dby7h6k5mrhkhnkjhlpe763ayy").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "dby7h6k5mrhkhnkjhlpe763ayy").notesPlain.value }}")
 end
 
 function alks-cloud-management-prod -d "Open ALKS session to Cloud Management production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "v5wsgqjjezdabir6bc6al5gkem").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "v5wsgqjjezdabir6bc6al5gkem").notesPlain.value }}")
 end
 
 function alks-cots-np -d "Open ALKS session to COTS non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "l5suvzdc7jbijct3ewhyrp6rdq").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "l5suvzdc7jbijct3ewhyrp6rdq").notesPlain.value }}")
 end
 
 function alks-cots-prod -d "Open ALKS session to COTS production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "lpprhx6bgjdurpgruox4c3rc24").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "lpprhx6bgjdurpgruox4c3rc24").notesPlain.value }}")
 end
 
 function alks-ghes-np -d "Open ALKS session to GHES non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "l6wlu6bbkjgiljjbtgbedzfk4a").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "l6wlu6bbkjgiljjbtgbedzfk4a").notesPlain.value }}")
 end
 
 function alks-ghes-prod -d "Open ALKS session to GHES production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "alzkq4cc4baltjvhvlqt3h72pm").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "alzkq4cc4baltjvhvlqt3h72pm").notesPlain.value }}")
 end
 
 function alks-ghes-runners-np -d "Open ALKS session to GHES Runners non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "tpa6yqy6abar3ofrjr2lpcretu").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "tpa6yqy6abar3ofrjr2lpcretu").notesPlain.value }}")
 end
 
 function alks-ghes-runners-prod -d "Open ALKS session to GHES Runners production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "gc2s3c3gfvhypgwfg6ybz4y2hm").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "gc2s3c3gfvhypgwfg6ybz4y2hm").notesPlain.value }}")
 end
 
 function alks-labs-224 -d "Open ALKS session to Labs224"
-    eval (alks sessions open -i -r LabAdmin -a "{{ (onepassword "5n7yjzeeqnfudilpuzscr6vovu").details.notesPlain }}")
+    eval (alks sessions open -i -r LabAdmin -a "{{ (onepasswordDetailsFields "5n7yjzeeqnfudilpuzscr6vovu").notesPlain.value }}")
 end
 
 function alks-splunk-np -d "Open ALKS session to Splunk non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "ysk6c4pvbfekdc3lnzllf2c6a4").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "ysk6c4pvbfekdc3lnzllf2c6a4").notesPlain.value }}")
 end
 
 function alks-splunk-prod -d "Open ALKS session to Splunk production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepassword "uqym5wm6t5djrfz2nj5cw6mjx4").details.notesPlain }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "uqym5wm6t5djrfz2nj5cw6mjx4").notesPlain.value }}")
 end
 
 function alks-disconnect -d "Disconnect any active ALKS session"
