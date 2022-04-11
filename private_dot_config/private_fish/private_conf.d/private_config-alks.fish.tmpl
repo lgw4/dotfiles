@@ -1,7 +1,3 @@
-if test -d "$HOME/.config/alks"
-    set -x ALKS_DB $HOME/.config/alks/alks.db
-end
-
 function alks -d "Add set -lx NO_COLOR true to alks commands"
     set -lx NO_COLOR true
     command alks $argv
