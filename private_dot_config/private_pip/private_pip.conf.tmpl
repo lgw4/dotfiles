@@ -1,8 +1,8 @@
 [global]
-{{ if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" -}}
 extra-index-url = https://pypi.org/simple
 index-url = {{ (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").notesPlain.value }}
-{{ end }}
+{{- end -}}
 respect-virtualenv = true
 
 [list]
