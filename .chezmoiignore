@@ -9,5 +9,6 @@ README.markdown
 .config/fish/functions/cdf.fish
 .config/fish/functions/get_info.fish
 .hammerspoon
+.netrc
 {{ end }}
 .keep
