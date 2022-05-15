@@ -1,5 +1,3 @@
-# shellcheck shell=bash
-# shellcheck disable=SC1091
 if [[ ! -v VIRTUAL_ENV ]]; then
     export GOENV_ROOT="$HOME/.goenv"
     if [[ -d "$GOENV_ROOT"/bin ]]; then

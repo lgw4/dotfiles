@@ -1,5 +1,3 @@
-# shellcheck shell=bash
-# shellcheck disable=SC1090,SC2207
 # Enable pyenv
 if [[ -d "${HOME}"/.pyenv/bin ]]; then
     path_prepend "${HOME}"/.pyenv/bin PATH
