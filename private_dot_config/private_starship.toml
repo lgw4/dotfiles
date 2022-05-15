@@ -3,6 +3,13 @@ command_timeout = 3000
 [aws]
 disabled = true
 
+[battery]
+charging_symbol = "↑"
+discharging_symbol = "↓"
+empty_symbol = "∅"
+full_symbol = "●"
+unknown_symbol = "↕"
+
 [directory]
 disabled = false
 style = "bold blue"
@@ -19,6 +26,7 @@ format = "[\\($symbol$version \\(OTP $otp_version\\)\\)]($style) "
 [erlang]
 disabled = false
 format = "[\\($symbol$version\\)]($style) "
+symbol = "℮ "
 
 [git_branch]
 disabled = false
@@ -34,9 +42,6 @@ disabled = false
 ssh_only = false
 style = "bold purple"
 
-[localip]
-disabled = true
-
 [lua]
 detect_folders = []
 disabled = false
@@ -45,6 +50,7 @@ format = "[\\($symbol$version\\)]($style) "
 [nodejs]
 disabled = false
 format = "[\\($symbol$version\\)]($style) "
+symbol = "⬢ "
 
 [package]
 disabled = true
