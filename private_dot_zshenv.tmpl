@@ -132,6 +132,7 @@ if [[ ! -v VIRTUAL_ENV ]]; then
         {{- if (eq .chezmoi.os "darwin") }}
         if [[ -d "${HOME}"/Developer/python ]]; then
             export PROJECT_HOME="${HOME}"/Developer/python
+        fi
         {{- end }}
         {{- if (eq .chezmoi.os "linux") }}
         if [[ -d "${HOME}"/devel/python ]]; then
