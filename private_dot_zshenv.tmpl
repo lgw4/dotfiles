@@ -60,8 +60,8 @@ if [[ ! -v VIRTUAL_ENV ]]; then
         export GOPATH="${HOME}/Developer/go"
     fi
     {{- end }}
-    {- if (eq .chezmoi.os "linux") }}
-    elif [[ -d "$HOME"/devel/go ]]; then
+    {{- if (eq .chezmoi.os "linux") }}
+    if [[ -d "$HOME"/devel/go ]]; then
         export GOPATH="${HOME}/devel/go"
     fi
     {{- end }}
