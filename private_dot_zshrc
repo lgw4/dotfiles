@@ -19,7 +19,7 @@ complete -o nospace -C "$GOPATH"/bin/gocomplete go
 if (( $+commands[starship] )); then
     eval "$(starship init zsh)"
 else
-    PROMPT=$'\n%n@%m: %1~\n> '
+    PROMPT=$'\n%F{red}%n%F at %F{magenta}%F%m in %F{blue}%1~%F\n$ '
 fi
 
 precmd_functions+=(set_window_title)
