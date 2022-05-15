@@ -1,4 +1,3 @@
-# shellcheck shell=bash
 if [[ ! -v VIRTUAL_ENV ]]; then
     # Check for /usr/local/sbin in PATH
     if [[ -d /usr/local/sbin ]]; then
@@ -10,8 +9,7 @@ if [[ ! -v VIRTUAL_ENV ]]; then
         path_prepend /usr/local/bin PATH
     fi
 
-    {{- if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64" )) }}
-
+    {{- if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")) }}
     # Apple Silicon Homebrew
     if [[ -d "/opt/homebrew" ]]; then
         path_prepend /opt/homebrew/sbin PATH
@@ -19,12 +17,9 @@ if [[ ! -v VIRTUAL_ENV ]]; then
     fi
     {{- end }}
 
-    {{- if eq .chezmoi.os "linux" }}
-    {{- if eq .chezmoi.osRelease.idLike "debian" }}
-
+    {{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian") }}
     # Add /sbin and /usr/sbin to PATH on Debian systems
     path_prepend /usr/sbin PATH
     path_prepend /sbin PATH
-    {{- end }}
     {{- end }}
 fi

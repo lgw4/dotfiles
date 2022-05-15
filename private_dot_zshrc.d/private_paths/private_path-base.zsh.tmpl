@@ -1,20 +1,27 @@
 #!/usr/bin/env zsh
-path_prepend /usr/local/sbin
-path_prepend /usr/local/bin
+if [[ ! -v VIRTUAL_ENV ]]; then
+    # Check for /usr/local/sbin in PATH
+    if [[ -d /usr/local/sbin ]]; then
+        path_prepend /usr/local/sbin
+    fi
 
-{{- if (eq .chezmoi.os "darwin") }}
-# macOS HOMEBREW_ROOT
-export HOMEBREW_PREFIX=$([[ $(arch) == 'arm64' ]] && echo '/opt/homebrew' || echo '/usr/local')
+    # Check for /usr/local/bin in PATH
+    if [[ -d /usr/local/bin ]]; then
+        path_prepend /usr/local/bin
+    fi
 
-if [[ $HOMEBREW_ROOT == /opt/homebrew ]]; then
-    path_prepend /opt/homebrew/sbin
-    path_prepend /opt/homebrew/bin
+    {{- if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")) }}
+    if [[ -d "/opt/homebrew" ]]; then
+        path_prepend /opt/homebrew/sbin
+        path_prepend /opt/homebrew/bin
+    fi
+    {{- end }}
+
+    {{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian") }}
+    # Add /sbin and /usr/sbin to PATH on Debian systems
+    if [[ -e /etc/debian_version ]]; then
+        path_prepend /usr/sbin
+        path_prepend /sbin
+    fi
+    {{- end }}
 fi
-
-{{- else }}
-# Add /sbin and /usr/sbin to PATH on Debian systems
-if [[ -e /etc/debian_version ]]; then
-    path_prepend /usr/sbin
-    path_prepend /sbin
-fi
-{{- end }}
