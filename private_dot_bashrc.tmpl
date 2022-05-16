@@ -22,13 +22,13 @@ path_remove () {
 }
 
 path_prepend () {
-        pathremove $1 $2
+        path_remove $1 $2
         local PATHVARIABLE=${2:-PATH}
         export $PATHVARIABLE="$1${!PATHVARIABLE:+:${!PATHVARIABLE}}"
 }
 
 path_append () {
-        pathremove $1 $2
+        path_remove $1 $2
         local PATHVARIABLE=${2:-PATH}
         export $PATHVARIABLE="${!PATHVARIABLE:+${!PATHVARIABLE}:}$1"
 }
