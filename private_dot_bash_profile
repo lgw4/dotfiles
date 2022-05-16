@@ -1,5 +1,3 @@
-# shellcheck shell=bash
-# shellcheck disable=SC1090,SC1091
 if [[ -f "$HOME"/.bashrc ]]; then
     source "$HOME"/.bashrc
 fi
