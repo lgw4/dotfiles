@@ -6,71 +6,134 @@ if [[ -f "$HOME"/.config/tabtab/__tabtab.bash ]]; then
     source "$HOME"/.config/tabtab/__tabtab.bash
 fi
 
-alks-artifactory-np() {
+alks-artifactory-np () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "w7k6gsrwhreczd6r6o57ys43wy").notesPlain.value }}' -o 'env')"
 }
 
-alks-artifactory-prod() {
+alks-artifactory-np-creds () {
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "w7k6gsrwhreczd6r6o57ys43wy").notesPlain.value }}" -o creds -f
+}
+
+alks-artifactory-prod () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "2s4dygls7vby5grgigfts4wd6i").notesPlain.value }}' -o 'env')"
 }
 
-alks-cloud-management-dev() {
+alks-artfactory-prod-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "2s4dygls7vby5grgigfts4wd6i").notesPlain.value }}' -o creds -f
+}
+
+alks-cloud-management-dev () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "eyafx3yvtnafdiewtukllevcmy").notesPlain.value }}' -o 'env')"
 }
 
-alks-cloud-management-dev2() {
+alks-cloud-management-dev-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "eyafx3yvtnafdiewtukllevcmy").notesPlain.value }}' -o creds -f
+}
+
+alks-cloud-management-dev2 () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "oyqcdm7fgbabxjlc2xqn7t55cu").notesPlain.value }}' -o 'env')"
 }
 
-alks-cloud-management-np() {
+alks-cloud-management-dev2-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "oyqcdm7fgbabxjlc2xqn7t55cu").notesPlain.value }}' -o creds -f
+}
+
+alks-cloud-management-np () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "dby7h6k5mrhkhnkjhlpe763ayy").notesPlain.value }}' -o 'env')"
 }
 
-alks-cloud-management-prod() {
+alks-cloud-management-np-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "dby7h6k5mrhkhnkjhlpe763ayy").notesPlain.value }}' -o creds -f
+}
+
+alks-cloud-management-prod () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "v5wsgqjjezdabir6bc6al5gkem").notesPlain.value }}' -o 'env')"
 }
 
-alks-cots-np() {
+alks-cloud-management-prod-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "v5wsgqjjezdabir6bc6al5gkem").notesPlain.value }}' -o creds -f
+}
+
+alks-cots-np () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "l5suvzdc7jbijct3ewhyrp6rdq").notesPlain.value }}' -o 'env')"
 }
 
-alks-cots-prod() {
+alks-cots-np-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "l5suvzdc7jbijct3ewhyrp6rdq").notesPlain.value }}' -o creds -f
+}
+
+alks-cots-prod () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "lpprhx6bgjdurpgruox4c3rc24").notesPlain.value }}' -o 'env')"
 }
 
-alks-ghes-np() {
+alks-cots-prod-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "lpprhx6bgjdurpgruox4c3rc24").notesPlain.value }}' -o creds -f
+}
+
+alks-ghes-np () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "l6wlu6bbkjgiljjbtgbedzfk4a").notesPlain.value }}' -o 'env')"
 }
 
-alks-ghes-prod() {
+alks-ghes-np-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "l6wlu6bbkjgiljjbtgbedzfk4a").notesPlain.value }}' -o creds -f
+}
+
+alks-ghes-prod () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "alzkq4cc4baltjvhvlqt3h72pm").notesPlain.value }}' -o 'env')"
 }
 
-alks-ghes-runners-np() {
+alks-ghes-prod-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "alzkq4cc4baltjvhvlqt3h72pm").notesPlain.value }}' -o creds -f
+}
+
+alks-ghes-runners-np () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "tpa6yqy6abar3ofrjr2lpcretu").notesPlain.value }}' -o 'env')"
 }
 
-alks-ghes-runners-prod() {
+alks-ghes-runners-np-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "tpa6yqy6abar3ofrjr2lpcretu").notesPlain.value }}' -o creds -f
+}
+
+alks-ghes-runners-prod () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "gc2s3c3gfvhypgwfg6ybz4y2hm").notesPlain.value }}' -o 'env')"
 }
 
-alks-labs-224() {
+alks-ghes-runners-prod-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "gc2s3c3gfvhypgwfg6ybz4y2hm").notesPlain.value }}' -o creds -f
+}
+
+alks-labs-224 () {
     eval "$(alks sessions open -i -r LabAdmin -a '{{ (onepasswordDetailsFields "5n7yjzeeqnfudilpuzscr6vovu").notesPlain.value }}' -o 'env')"
 }
 
-alks-splunk-np() {
+alks-labs-224-creds () {
+    alks sessions open -i -r LabAdmin -a '{{ (onepasswordDetailsFields "5n7yjzeeqnfudilpuzscr6vovu").notesPlain.value }}' -o creds -f
+}
+
+alks-splunk-np () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "ysk6c4pvbfekdc3lnzllf2c6a4").notesPlain.value }}' -o 'env')"
 }
 
-alks-splunk-prod() {
+alks-splunk-np-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "ysk6c4pvbfekdc3lnzllf2c6a4").notesPlain.value }}' -o creds -f
+}
+
+alks-splunk-prod () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "uqym5wm6t5djrfz2nj5cw6mjx4").notesPlain.value }}' -o 'env')"
 }
 
-alks-disconnect() {
+alks-splunk-prod-creds () {
+    alks sessions open -i -N -r Admin -a '{{ (onepasswordDetailsFields "uqym5wm6t5djrfz2nj5cw6mjx4").notesPlain.value }}' -o creds -f
+}
+
+alks-disconnect () {
     unset AWS_ACCESS_KEY_ID
     unset AWS_SECRET_ACCESS_KEY
     unset AWS_SESSION_EXPIRES
     unset AWS_SESSION_TOKEN
+    if [[ -d "$HOME"/.aws ]]; then
+        rm -rf "$HOME"/.aws
+    fi
 }
 
 aws-instance-id() {
