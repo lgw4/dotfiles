@@ -33,8 +33,6 @@ path_append () {
         export $PATHVARIABLE="${!PATHVARIABLE:+${!PATHVARIABLE}:}$1"
 }
 
-export -f path_remove path_prepend path_append
-
 if [[ ! -v VIRTUAL_ENV ]]; then
     # Check for /usr/local/sbin in PATH
     if [[ -d /usr/local/sbin ]]; then
