@@ -1,4 +1,7 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env
+# Disable sourcing /etc/z* files
+unset GLOBAL_RCS
+
 # PATH management functions
 function path_append () {
     path+=("$1")
