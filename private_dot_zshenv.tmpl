@@ -1,16 +1,24 @@
-#!/usr/bin/env
+#!/usr/bin/env zsh
 # Disable sourcing /etc/z* files
 unsetopt GLOBAL_RCS
 setopt NO_GLOBAL_RCS
 
 # PATH management functions
-function path_append () {
+path_remove () {
+    path=("${(@)path:#$1}")
+    typeset -U PATH path
+    export PATH
+}
+
+path_append () {
+    path_remove "$1"
     path+=("$1")
     typeset -U PATH path
     export PATH
 }
 
-function path_prepend () {
+path_prepend () {
+    path_remove "$1"
     path=("$1" "$path[@]")
     typeset -U PATH path
     export PATH
@@ -20,18 +28,14 @@ function path_prepend () {
 if [[ ! -v VIRTUAL_ENV ]]; then
     {{- if (eq .chezmoi.os "darwin") }}
     # macOS default PATH values
-    if [ -x /usr/libexec/path_helper ]; then
+    if [ -x "/usr/libexec/path_helper" ]; then
         eval $(/usr/libexec/path_helper -s)
     fi
     {{- end }}
-    # Check for /usr/local/sbin in PATH
-    if [[ -d "/usr/local/sbin" ]]; then
-        path_prepend "/usr/local/sbin"
-    fi
-    # Check for /usr/local/bin in PATH
-    if [[ -d "/usr/local/bin" ]]; then
-        path_prepend "/usr/local/bin"
-    fi
+    # Add /usr/local/{bin,sbin} to PATH
+    path_prepend "/usr/local/sbin"
+    path_prepend "/usr/local/bin"
+
     {{- if (eq .chezmoi.os "darwin") }}
     {{- if (eq .chezmoi.arch "arm64") }}
     # macOS Homebrew setup
@@ -159,7 +163,7 @@ if [[ ! -v VIRTUAL_ENV ]]; then
     # Terraform/tfenv support
     export TFENV_ROOT="$HOME/.tfenv"
     if [[ -d "$TFENV_ROOT/bin" ]]; then
-        path_prepend "$TFENV_ROOT"/bin
+        path_prepend "$TFENV_ROOT/bin"
         tfenv-update() {
             git --git-dir="$TFENV_ROOT/.git" pull
         }
