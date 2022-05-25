@@ -14,6 +14,12 @@ function path_prepend () {
 
 # Construct system PATH
 if [[ ! -v VIRTUAL_ENV ]]; then
+    {{- if (eq .chezmoi.os "darwin") }}
+    # macOS default PATH values
+    if [ -x /usr/libexec/path_helper ]; then
+        eval $(/usr/libexec/path_helper -s)
+    fi
+    {{- end }}
     # Check for /usr/local/sbin in PATH
     if [[ -d "/usr/local/sbin" ]]; then
         path_prepend "/usr/local/sbin"
