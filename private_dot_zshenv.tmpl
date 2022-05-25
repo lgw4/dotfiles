@@ -1,6 +1,7 @@
 #!/usr/bin/env
 # Disable sourcing /etc/z* files
-unset GLOBAL_RCS
+unsetopt GLOBAL_RCS
+setopt NO_GLOBAL_RCS
 
 # PATH management functions
 function path_append () {
