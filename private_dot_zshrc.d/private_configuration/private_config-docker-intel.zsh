@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 disable-docker-intel() {
     unset DOCKER_DEFAULT_PLATFORM
 }
