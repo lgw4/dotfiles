@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 realpath() {
     [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
 }
