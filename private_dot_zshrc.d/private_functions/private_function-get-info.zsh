@@ -8,7 +8,10 @@ get-info() {
     if [[ -r "${FILE}" ]]; then
         osascript <<EOF >/dev/null 2>&1
 set aFile to (POSIX file "file:///$FILE") as alias
-tell application "Finder" to open information window of aFile
+tell application "Finder"
+    open information window of aFile
+    activate
+end tell
 EOF
     fi
 }
