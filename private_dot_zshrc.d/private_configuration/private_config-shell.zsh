@@ -27,6 +27,7 @@ setopt SHARE_HISTORY
 
 # Completion settings
 zstyle ':completion:*:*:-command-:*:*' group-order alias functions builtins commands
+zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
 zstyle ':completion:*' completer _extensions _complete _approximate
