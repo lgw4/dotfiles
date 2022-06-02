@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
-
 # Configuration variables
-HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -20,3 +19,8 @@ setopt INC_APPEND_HISTORY
 setopt INC_APPEND_HISTORY_TIME
 setopt NO_CASE_GLOB
 setopt SHARE_HISTORY
+
+# Completion settings
+zstyle ':completion:*' completer _extensions _complete _approximate
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
