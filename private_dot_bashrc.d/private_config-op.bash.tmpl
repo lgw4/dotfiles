@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-if command -v op >/dev/null 2>&1; then
-    alias op-signin='eval $(op signin {{ (onepasswordDetailsFields "hhsmdi4ijrcnnevq3genplwi3u").notesPlain.value }})'
-    source <(op completion bash)
-fi
