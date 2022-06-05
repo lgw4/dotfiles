@@ -4,6 +4,7 @@ README.markdown
 .config/fish/functions/cdf.fish
 .config/fish/functions/docker-intel.fish
 .config/fish/functions/get-info.fish
+.config/tabtab
 .hammerspoon
 .local/bin/enable-terminal-touch-id
 .local/bin/flush-dns
