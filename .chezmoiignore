@@ -8,5 +8,6 @@ README.markdown
 .local/bin/enable-terminal-touch-id
 .local/bin/flush-dns
 .local/bin/reset-wifi
+.netrc
 {{ end }}
 .keep
