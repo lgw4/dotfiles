@@ -1,14 +1,12 @@
 README.markdown
 {{ if ne .chezmoi.os "darwin" }}
-.bash_sessions_disable
-.bashrc.d/config-alks.bash
-.bashrc.d/config-docker-intel.bash
-.bashrc.d/function-cdf.bash
-.bashrc.d/function-get-info.bash
 .config/fish/conf.d/config-alks.fish
 .config/fish/functions/cdf.fish
-.config/fish/functions/get_info.fish
+.config/fish/functions/docker-intel.fish
+.config/fish/functions/get-info.fish
 .hammerspoon
-.netrc
+.local/bin/enable-terminal-touch-id
+.local/bin/flush-dns
+.local/bin/reset-wifi
 {{ end }}
 .keep
