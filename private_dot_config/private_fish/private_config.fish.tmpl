@@ -19,7 +19,6 @@ end
 if test -e "$HOME/.iterm2_shell_integration.fish"
     source $HOME/.iterm2_shell_integration.fish
 end
-
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu")) }}
 path_remove /snap/bin
 {{- end -}}
