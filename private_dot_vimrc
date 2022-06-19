@@ -74,10 +74,8 @@ set showcmd
 set wrapscan
 
 " Colorscheme
-set background=light
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
-silent! colorscheme solarized
+set background=dark
+silent! colorscheme dracula
 
 " Highlight current line
 set cursorline
