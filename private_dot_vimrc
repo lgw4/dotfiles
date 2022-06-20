@@ -74,13 +74,18 @@ set showcmd
 set wrapscan
 
 " Colorscheme
-set background=dark
-let g:dracula_colorterm = 0
-silent! colorscheme dracula
+set background=light
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
+silent! colorscheme solarized
 
 " Highlight current line
 set cursorline
-"highlight CursorLine cterm=NONE ctermbg=187
+highlight CursorLine cterm=NONE ctermbg=187
+
+" Set default line ending warning columns
+set colorcolumn=79,99
+highlight ColorColumn cterm=NONE ctermbg=187
 
 " Search case sensitive only if contains upper-case
 set ignorecase smartcase
@@ -91,7 +96,7 @@ let mapleader=","
 " Informative statusline
 set laststatus=2
 let g:lightline = {
-      \ 'colorscheme': 'dracula',
+      \ 'colorscheme': 'solarized',
       \ }
 set noshowmode
 
@@ -121,7 +126,3 @@ nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 nnoremap <C-h> <C-w><C-h>
-
-" Set default line ending warning columns
-set colorcolumn=79,99
-"highlight ColorColumn cterm=NONE ctermbg=187

@@ -5,8 +5,8 @@ call plug#begin('~/.vim/plugged')
 " Plugins
 Plug 'ajh17/VimCompletesMe'
 Plug 'alker0/chezmoi.vim'
+Plug 'altercation/vim-colors-solarized'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'itchyny/lightline.vim'
 Plug 'jeetsukumaran/vim-pythonsense'
