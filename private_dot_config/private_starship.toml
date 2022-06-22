@@ -39,6 +39,7 @@ style = "bold cyan"
 
 [hostname]
 disabled = false
+format = "[$hostname]($style) in "
 ssh_only = false
 style = "bold purple"
 
