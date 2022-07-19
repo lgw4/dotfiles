@@ -1,0 +1,185 @@
+#!/usr/bin/env zsh
+# Disable sourcing /etc/z* files
+unsetopt GLOBAL_RCS
+setopt NO_GLOBAL_RCS
+
+# PATH management functions
+path_remove () {
+    path=("${(@)path:#$1}")
+    typeset -U PATH path
+    export PATH
+}
+
+path_append () {
+    path_remove "$1"
+    path+=("$1")
+    typeset -U PATH path
+    export PATH
+}
+
+path_prepend () {
+    path_remove "$1"
+    path=("$1" "$path[@]")
+    typeset -U PATH path
+    export PATH
+}
+
+# Construct system PATH
+if [[ ! -v VIRTUAL_ENV ]]; then
+    {{- if (eq .chezmoi.os "darwin") }}
+    # macOS default PATH values
+    if [ -x "/usr/libexec/path_helper" ]; then
+        eval $(/usr/libexec/path_helper -s)
+    fi
+    {{- end }}
+    # Add /usr/local/{bin,sbin} to PATH
+    path_prepend "/usr/local/sbin"
+    path_prepend "/usr/local/bin"
+
+    {{- if (eq .chezmoi.os "darwin") }}
+    {{- if (eq .chezmoi.arch "arm64") }}
+    # macOS Homebrew setup
+    if [[ -d "/opt/homebrew" ]]; then
+        path_prepend "/opt/homebrew/sbin"
+        path_prepend "/opt/homebrew/bin"
+    fi
+    {{- end}}
+    export HOMEBREW_ROOT="$(brew --prefix)"
+    {{- end }}
+    {{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian")) }}
+    # Add /sbin and /usr/sbin to PATH on Debian systems
+    if [[ -e "/etc/debian_version" ]]; then
+        path_prepend "/usr/sbin"
+        path_prepend "/sbin"
+    fi
+    {{- end }}
+
+    # Haskell/Cabal support
+    if [[ -d "$HOME/.cabal/bin" ]]; then
+        path_prepend "$HOME/.cabal/bin"
+    fi
+
+    # Golang/goenv support
+    export GOENV_ROOT="$HOME/.goenv"
+    if [[ -d "$GOENV_ROOT/bin" ]]; then
+        path_prepend "$GOENV_ROOT/bin"
+    fi
+
+    if command -v goenv > /dev/null 2>&1; then
+        eval "$(goenv init -)"
+    fi
+
+    {{- if (eq .chezmoi.os "darwin") }}
+    if [[ -d "$HOME/Developer/go" ]]; then
+        export GOPATH="$HOME/Developer/go"
+    fi
+    {{- end }}
+    {{- if (eq .chezmoi.os "linux") }}
+    if [[ -d "$HOME/devel/go" ]]; then
+        export GOPATH="$HOME/devel/go"
+    fi
+    {{- end }}
+
+    if [[ -n "$GOPATH" ]]; then
+        path_append "$GOPATH/bin"
+    fi
+
+    # Node/nodenv support
+    {{- if (eq .chezmoi.os "darwin") }}
+    if [[ -d "$HOMEBREW_ROOT/share/npm/bin" ]]; then
+        path_append "$HOMEBREW_ROOT/share/npm/bin"
+    fi
+    {{- end }}
+
+    export NODENV_ROOT="$HOME/.nodenv"
+    if [[ -d "$NODENV_ROOT/bin" ]]; then
+        path_prepend "$NODENV_ROOT/bin"
+    fi
+
+    if command -v nodenv >/dev/null 2>&1; then
+        eval "$(nodenv init -)"
+    fi
+
+    # PostgreSQL support
+    if ! command -v psql >/dev/null 2>&1 && [[ -d "$HOMEBREW_ROOT/opt/libpq" ]]; then
+        path_append "$HOMEBREW_ROOT/opt/libpq/bin"
+    fi
+
+    # Python/pyenv/virtualenvwrapper support
+    export PYENV_ROOT="$HOME/.pyenv"
+    if [[ -d "$PYENV_ROOT/bin" ]]; then
+        path_prepend "$PYENV_ROOT/bin"
+    fi
+
+    if command -v pyenv > /dev/null 2>&1; then
+        eval "$(pyenv init -)"
+        export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+    fi
+
+    # Enable virtualenvwrapper
+    if [[ -e "$HOME/.local/bin/virtualenvwrapper.sh" ]]; then
+        VIRTUALENVWRAPPER="$HOME/.local/bin/virtualenvwrapper.sh"
+    {{- if (eq .chezmoi.os "darwin") }}
+    elif [[ -e "$HOMEBREW_ROOT/bin/virtualenvwrapper.sh" ]]; then
+        VIRTUALENVWRAPPER="$HOMEBREW_ROOT/bin/virtualenvwrapper.sh"
+    {{- end }}
+    {{- if (eq .chezmoi.os "linux") }}
+    elif [[ -e "/usr/share/virtualenvwrapper/virtualenvwrapper.sh" ]]; then
+        VIRTUALENVWRAPPER="/usr/share/virtualenvwrapper/virtualenvwrapper.sh"
+    {{- end }}
+    fi
+    if [[ -v VIRTUALENVWRAPPER ]]; then
+        {{- if (eq .chezmoi.os "darwin") }}
+        if [[ -x "$HOMEBREW_ROOT/bin/python3" ]]; then
+            export VIRTUALENVWRAPPER_PYTHON="$HOMEBREW_ROOT/bin/python3"
+        {{- end }}
+        {{- if (eq .chezmoi.os "linux") }}
+        if [[ -x "/usr/local/bin/python3" ]]; then
+            export VIRTUALENVWRAPPER_PYTHON="/usr/local/bin/python3"
+        {{- end }}
+        elif [[ -x "/usr/bin/python3" ]]; then
+            export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python3"
+        fi
+        {{- if (eq .chezmoi.os "darwin") }}
+        if [[ -d "$HOME/Developer/python" ]]; then
+            export PROJECT_HOME="$HOME/Developer/python"
+        fi
+        {{- end }}
+        {{- if (eq .chezmoi.os "linux") }}
+        if [[ -d "$HOME/devel/python" ]]; then
+            export PROJECT_HOME="$HOME/devel/python"
+        fi
+        {{- end }}
+        export WORKON_HOME="$HOME/.local/share/virtualenvs"
+        export VIRTUALENVWRAPPER_HOOK_DIR="$WORKON_HOME/_hooks"
+        source "$VIRTUALENVWRAPPER"
+    fi
+
+    # Rustlang/rustup support
+    if [[ -d "$HOME/.cargo/bin" ]]; then
+        path_prepend "$HOME/.cargo/bin"
+    fi
+
+    # Terraform/tfenv support
+    export TFENV_ROOT="$HOME/.tfenv"
+    if [[ -d "$TFENV_ROOT/bin" ]]; then
+        path_prepend "$TFENV_ROOT/bin"
+        tfenv-update() {
+            git --git-dir="$TFENV_ROOT/.git" pull
+        }
+    fi
+
+    if command -v tfenv >/dev/null 2>&1; then
+        eval "$(tfenv init -)"
+    fi
+
+    # $HOME/.local/bin support
+    if [[ -d "$HOME/.local/bin" ]]; then
+        path_prepend "$HOME/.local/bin"
+    fi
+    {{- if (eq .chezmoi.os "darwin") }}
+
+    # macOS curl support
+    export CURL_SSL_BACKEND="secure-transport"
+    {{- end }}
+fi
