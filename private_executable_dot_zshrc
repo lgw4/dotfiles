@@ -2,7 +2,7 @@
 fpath+=(
     "$HOME/.local/share/zsh/local-functions"
 )
-if ((+command[brew])); then
+if (($ +command[brew])); then
     fpath=($(brew --prefix)/share/zsh-completions $(brew --prefix)/share/zsh/site-functions $fpath)
 fi
 typeset -U fpath
@@ -15,7 +15,7 @@ for f in "$HOME/.zshrc.d/**/*.zsh(N)"; do
     fi
 done
 
-if (($ + commands[brew])); then
+if (($ +commands[brew])); then
     export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 fi
 
@@ -23,7 +23,7 @@ complete -o nospace -C "$GOPATH"/bin/gocomplete go
 
 precmd_functions+=(set_window_title)
 
-if (($ + commands[direnv])); then
+if (($ +commands[direnv])); then
     eval "$(direnv hook zsh)"
 fi
 
@@ -31,7 +31,7 @@ if [[ -e "${HOME}/.iterm2_shell_integration.zsh" ]]; then
     source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
-if (($ + commands[starship])); then
+if (($ +commands[starship])); then
     eval "$(starship init zsh)"
 else
     PROMPT=$'\n%F{red}%n%f at %F{magenta}%m%f in %F{blue}%1~%f\n%(!.#.$) '
