@@ -9,7 +9,7 @@ typeset -U fpath
 autoload -Uz compinit && compinit
 autoload -Uz bashcompinit && bashcompinit
 
-for f in "$HOME/.zshrc.d/**/*.zsh(N)"; do
+for f in "${HOME}"/.zshrc.d/**/*.zsh(N); do
     if [[ -r $f ]]; then
         source $f
     fi
