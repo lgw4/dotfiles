@@ -10,6 +10,9 @@ README.markdown
 .local/bin/flush-dns
 .local/bin/reset-wifi
 {{ end }}
+{{ if ne .chezmoi.os "linux" }}
+.local/bin/cpu-temp
+{{ end }}
 {{ if eq .chezmoi.os "windows" }}
 .netrc
 {{ end }}
