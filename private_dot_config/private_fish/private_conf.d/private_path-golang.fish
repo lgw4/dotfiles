@@ -14,6 +14,10 @@ else if test -d "$HOME/devel/go"
     set -x GOPATH $HOME/devel/go
 end
 
+if test -n "$GOENV_ROOT" -a -n "$GOPATH"
+    set -x GOENV_GOPATH_PREFIX $GOPATH
+end
+
 if test -n "$GOPATH"
     and not contains $GOPATH/bin $PATH
     path_prepend $GOPATH/bin
