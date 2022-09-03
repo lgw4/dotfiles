@@ -12,24 +12,39 @@ sudo scutil --set LocalHostName "$HOST_NAME"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$COMPUTER_NAME"
 
 # Configure Dock
-defaults write com.apple.dock orientation -string "left"
 defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0.25
+defaults write com.apple.dock autohide-time-modifier -float 0.25
+defaults write com.apple.dock mineffect -string "suck"
 defaults write com.apple.dock minimize-to-application -bool true
-defaults write com.apple.dock tilesize -int 48
+defaults write com.apple.dock orientation -string "left"
+defaults write com.apple.dock show-recents -bool false
 defaults write com.apple.dock showhidden -bool true
-defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock tilesize -int 48
 killall Dock
 
-# Set minimum font size for Safari
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2MinimumFontSize 13
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2MinimumFixedFontSize 13
+# Configure Finder
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+defaults write com.apple.finder FXDefaultSearchScope -string "SCev"
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
+defaults write com.apple.universalaccess showWindowTitlebarIcons -bool true
+defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
+killall Finder
 
-# Disable video autoplay in Safari
-defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
+# Configure Safari
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
-
-# Enable debug menu in Safari
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2MinimumFixedFontSize 13
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2MinimumFontSize 13
 defaults write com.apple.Safari IncludeInternalDebugMenu 1
+defaults write com.apple.safari ShowFullURLInSmartSearchField -bool true
+defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
+
+# Configure TextEdit
+defaults write com.apple.TextEdit RichText -bool false
 
 # Restore Save As… to File menu
 defaults write -globalDomain NSUserKeyEquivalents -dict-add 'Save As...' '@$S'
