@@ -13,8 +13,8 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 
 # Configure Dock
 defaults write com.apple.dock autohide -bool true
-defaults write com.apple.dock autohide-delay -float 0.125
-defaults write com.apple.dock autohide-time-modifier -float 0.125
+defaults write com.apple.dock autohide-delay -float 0.25
+defaults write com.apple.dock autohide-time-modifier -float 0.5
 defaults write com.apple.dock mineffect -string "scale"
 defaults write com.apple.dock minimize-to-application -bool true
 defaults write com.apple.dock orientation -string "left"
