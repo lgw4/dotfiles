@@ -60,11 +60,21 @@ defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
 killall Finder
 
 # Configure Safari
+defaults write com.apple.Safari "ShowFavoritesBar-v2" -bool true
+defaults write com.apple.Safari "WebKitPreferences.invisibleMediaAutoplayNotPermitted" -bool true
+defaults write com.apple.Safari "WebKitPreferences.minimumFontSize" -int 13
+defaults write com.apple.Safari AutoFillCreditCardData -bool false
+defaults write com.apple.Safari AutoFillFromAddressBook -bool false
+defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
+defaults write com.apple.Safari AutoFillPasswords -bool false
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+defaults write com.apple.Safari DownloadsClearingPolicy -int 2
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
-defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
-defaults write com.apple.Safari WebKitMinimumFontSize -int 13
+defaults write com.apple.Safari ShowOverlayStatusBar -bool true
+defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
+defaults write com.apple.Safari SearchProviderShortName -string "DuckDuckGo"
 
 # Configure TextEdit
 defaults write com.apple.TextEdit RichText -bool false
