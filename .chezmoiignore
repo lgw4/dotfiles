@@ -11,6 +11,7 @@ README.markdown
 .local/bin/flush-dns
 .local/bin/macos-post-install-config
 .local/bin/reset-wifi
+.local/bin/self-sign-makemkv
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
 .local/bin/cpu-temp

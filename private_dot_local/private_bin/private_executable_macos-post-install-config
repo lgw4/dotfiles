@@ -79,7 +79,11 @@ defaults write com.apple.Safari ShowOverlayStatusBar -bool true
 defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
 
 # Configure TextEdit
+defaults write com.apple.TextEdit HeightInChars -int 37
+defaults write com.apple.TextEdit NSFixedPitchFontSize -int 13
+defaults write com.apple.TextEdit NSFontSize -int 13
 defaults write com.apple.TextEdit RichText -bool false
+defaults write com.apple.TextEdit WidthInChars -int 111
 
 # Enable AirDrop over all network interfaces
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
