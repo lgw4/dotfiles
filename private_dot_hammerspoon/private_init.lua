@@ -137,7 +137,7 @@ hotkey.bind(mod_shift, "3", function() setWindowSize(1366, 768) end)
 hotkey.bind(mod_shift, "5", function() setWindowSize(1152, 864) end)
 hotkey.bind(mod_shift, "6", function() setWindowSize(640, 480) end)
 hotkey.bind(mod_shift, "8", function() setWindowSize(800, 600) end)
-hotkey.bind(mod_shift, "F", function() setWindowSize(705, 505) end)
+hotkey.bind(mod_shift, "F", function() setWindowSize(720, 539) end)
 
 -- Move windows
 hotkey.bind(mod, "DOWN", grid.pushWindowDown)
