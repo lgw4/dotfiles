@@ -1,6 +1,6 @@
 [global]
 extra-index-url = https://pypi.org/simple
-index-url = https://v7.{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}
+index-url = https://{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}
 respect-virtualenv = true
 
 [list]
