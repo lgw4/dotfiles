@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # This script sets iTerm2 user-defined variables describing the state of the git
 # repo in the current directory.
 #
