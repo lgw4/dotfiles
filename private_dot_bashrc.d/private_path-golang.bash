@@ -9,7 +9,7 @@ fi
 
 if command -v goenv >/dev/null 2>&1; then
     eval "$(goenv init -)"
-    path_prepend "$GOENV_ROOT"/.shims
+    path_prepend "$GOENV_ROOT"/shims
 fi
 
 if [[ -d "$HOME"/Developer/go ]]; then
