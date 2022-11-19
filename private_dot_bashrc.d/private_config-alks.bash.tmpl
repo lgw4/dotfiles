@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 alias alks="NO_COLOR=true alks"
 
 if [[ -f "$HOME"/.config/tabtab/__tabtab.bash ]]; then
@@ -135,8 +136,8 @@ alks-disconnect () {
 }
 
 aws-instance-id () {
-    local PREFIX=$1
-    local REGION=$2
+    local PREFIX="$1"
+    local REGION="$2"
     aws ec2 describe-instances \
         --region "$REGION" \
         --filters Name=instance-state-name,Values=running "Name=tag:Name,Values=*$PREFIX*" \
@@ -145,15 +146,15 @@ aws-instance-id () {
 }
 
 aws-shell () {
-    local PREFIX=$1
-    local REGION=$2
+    local PREFIX="$1"
+    local REGION="$2"
     local INSTANCE_ID=$(aws-instance-id "$PREFIX" "$REGION")
     aws ssm start-session --region "$REGION" --target "$INSTANCE_ID"
 }
 
 ghes-tunnel () {
-    local PREFIX=$1
-    local REGION=$2
+    local PREFIX="$1"
+    local REGION="$2"
     local INSTANCE_ID=$(aws-instance-id "$PREFIX" "$REGION")
     aws secretsmanager get-secret-value \
         --region us-east-1 \
@@ -161,6 +162,7 @@ ghes-tunnel () {
         --query SecretString \
         --output text | pbcopy
     printf "The Management Console password has been copied to your clipboard.\n"
+    printf "You can now access the GHES Management Console here: https://localhost:8443\n"
     aws ssm start-session \
         --region "$REGION" \
         --target "$INSTANCE_ID" \

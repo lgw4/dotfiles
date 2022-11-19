@@ -6,4 +6,3 @@
 _compopt_o_filenames () {
     type compopt &>/dev/null && compopt -o filenames 2>/dev/null || compgen -f /non-existing-dir/ >/dev/null
 }
-

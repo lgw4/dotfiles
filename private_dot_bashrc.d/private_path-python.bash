@@ -55,4 +55,3 @@ complete -o default -F _pip_completion pip3.8
 complete -o default -F _pip_completion pip3.9
 complete -o default -F _pip_completion pip3.10
 complete -o default -F _pip_completion pip3.11
-

@@ -1,6 +1,6 @@
 # shellcheck shell=bash
-if [[ -d "$HOME/.tfenv" ]]; then
-    export TFENV_ROOT="$HOME/.tfenv"
+if [[ -d "$HOME"/.tfenv ]]; then
+    export TFENV_ROOT="$HOME"/.tfenv
 fi
 
 if [[ -d "$TFENV_ROOT"/bin ]]; then
@@ -13,4 +13,3 @@ fi
 if command -v tfenv >/dev/null 2>&1; then
     eval "$(tfenv init -)"
 fi
-
