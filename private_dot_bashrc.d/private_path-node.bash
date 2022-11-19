@@ -1,9 +1,9 @@
 # shellcheck shell=bash
 if  [[ -d "$HOMEBREW_ROOT"/share/npm/bin ]]; then
-    path_append "$HOMEBREW_ROOT"/share/npm/bin 
+    path_append "$HOMEBREW_ROOT"/share/npm/bin
 fi
 
-if [[ -d "$HOME"/.nodenv ]]; then 
+if [[ -d "$HOME"/.nodenv ]]; then
     export NODENV_ROOT="$HOME"/.nodenv
 fi
 
@@ -14,4 +14,3 @@ fi
 if command -v nodenv >/dev/null 2>&1; then
     eval "$(nodenv init -)"
 fi
-
