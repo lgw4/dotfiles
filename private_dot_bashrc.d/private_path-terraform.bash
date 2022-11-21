@@ -5,7 +5,7 @@ fi
 
 if [[ -d "$TFENV_ROOT"/bin ]]; then
     path_prepend "$TFENV_ROOT"/bin
-    tfenv-update () {
+    tfenv-update() {
         git --git-dir="$TFENV_ROOT"/.git pull
     }
 fi
