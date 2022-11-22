@@ -11,29 +11,29 @@ fi
 # Functions to help us manage paths.  Second argument is the name of the
 # path variable to be modified (default: PATH).
 # Taken from: https://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html
-path_remove () {
-        local IFS=':'
-        local NEWPATH
-        local DIR
-        local PATHVARIABLE=${2:-PATH}
-        for DIR in ${!PATHVARIABLE} ; do
-                if [ "$DIR" != "$1" ] ; then
-                  NEWPATH=${NEWPATH:+$NEWPATH:}$DIR
-                fi
-        done
-        export "$PATHVARIABLE"="$NEWPATH"
+path_remove() {
+    local IFS=':'
+    local NEWPATH
+    local DIR
+    local PATHVARIABLE=${2:-PATH}
+    for DIR in ${!PATHVARIABLE}; do
+        if [ "$DIR" != "$1" ]; then
+            NEWPATH=${NEWPATH:+$NEWPATH:}$DIR
+        fi
+    done
+    export "$PATHVARIABLE"="$NEWPATH"
 }
 
-path_prepend () {
-        path_remove "$1" "$2"
-        local PATHVARIABLE=${2:-PATH}
-        export "$PATHVARIABLE"="$1${!PATHVARIABLE:+:${!PATHVARIABLE}}"
+path_prepend() {
+    path_remove "$1" "$2"
+    local PATHVARIABLE=${2:-PATH}
+    export "$PATHVARIABLE"="$1${!PATHVARIABLE:+:${!PATHVARIABLE}}"
 }
 
-path_append () {
-        path_remove "$1" "$2"
-        local PATHVARIABLE=${2:-PATH}
-        export "$PATHVARIABLE"="${!PATHVARIABLE:+${!PATHVARIABLE}:}$1"
+path_append() {
+    path_remove "$1" "$2"
+    local PATHVARIABLE=${2:-PATH}
+    export "$PATHVARIABLE"="${!PATHVARIABLE:+${!PATHVARIABLE}:}$1"
 }
 
 # export -f path_remove path_prepend path_append
@@ -48,7 +48,7 @@ if [[ -d /usr/local/bin ]]; then
     path_prepend /usr/local/bin
 fi
 
-if [[ -e /opt/homebrew/bin/brew ]]; then 
+if [[ -e /opt/homebrew/bin/brew ]]; then
     export HOMEBREW_ROOT="$(/opt/homebrew/bin/brew --prefix)"
 elif [[ -e /usr/local/bin/brew ]]; then
     export HOMEBREW_ROOT="$(/usr/local/bin/brew --prefix)"
@@ -127,4 +127,3 @@ fi
 if [[ -e "$HOME"/.iterm2_shell_integration.bash ]]; then
     source "$HOME"/.iterm2_shell_integration.bash
 fi
-
