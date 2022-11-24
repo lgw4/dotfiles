@@ -36,8 +36,6 @@ path_append() {
     export "$PATHVARIABLE"="${!PATHVARIABLE:+${!PATHVARIABLE}:}$1"
 }
 
-# export -f path_remove path_prepend path_append
-
 # Check for /usr/local/sbin in PATH
 if [[ -d /usr/local/sbin ]]; then
     path_prepend /usr/local/sbin
@@ -63,7 +61,7 @@ fi
 
 # Import files from $HOME/.bashrc.d
 if [[ -d "$HOME"/.bashrc.d ]]; then
-    for config in "$HOME"/.bashrc.d/*.bash; do
+    for config in "$HOME"/.bashrc.d/**/*.bash; do
         [[ -r "$config" ]] || continue
         source "$config"
     done
@@ -105,6 +103,23 @@ if [[ -d "$HOMEBREW_ROOT" ]] && command -v brew >/dev/null 2>&1; then
     fi
 fi
 
+# Prepend $HOME/.local/bin to PATH
+if [[ -d "$HOME"/.local/bin ]]; then
+    path_prepend "$HOME"/.local/bin
+fi
+
+# macOS curl config
+if [[ "$OSTYPE" == darwin* ]]; then
+    export CURL_SSL_BACKEND=secure-transport
+fi
+
+# Set EDITOR
+if command -v code >/dev/null 2>&1 && [[ ! -v SSH_CONNECTION ]]; then
+    export EDITOR="code"
+else
+    export EDITOR="vim"
+fi
+
 # Enable pipx
 if command -v pipx >/dev/null 2>&1; then
     eval "$(register-python-argcomplete pipx)"
@@ -117,6 +132,7 @@ if command -v starship >/dev/null 2>&1; then
 else
     export PROMPT_COMMAND=set_win_title
     export PROMPT_DIRTRIM=1
+    export PS1="\n\u@\h: \w\n\\$ \[$(tput sgr0)\]"
 fi
 
 if command -v direnv >/dev/null 2>&1; then
