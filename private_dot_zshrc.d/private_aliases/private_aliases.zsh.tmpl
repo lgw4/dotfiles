@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+{{- if (eq .chezmoi.os "darwin") }}
+alias ls='ls -FG'
+alias finder='open -a Finder ./'
+if [[ -d "/Applications/Yoink.app" ]]; then
+    alias yoink='open -a Yoink'
+fi
+{{- end }}
+{{- if (eq .chezmoi.os "linux") }}
+alias ls='ls -F --color=auto'
+alias gvim='gvim -f'
+{{- end }}
+alias history='fc -l 1'
