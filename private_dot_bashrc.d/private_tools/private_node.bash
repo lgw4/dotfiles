@@ -7,7 +7,7 @@ if [[ -d "$HOME"/.nodenv ]]; then
     export NODENV_ROOT="$HOME"/.nodenv
 fi
 
-if [[ -d "$NODENV_ROOT"/bin ]]; then
+if [[ -v NODENV_ROOT ]] && [[ -d "$NODENV_ROOT"/bin ]]; then
     path_prepend "$NODENV_ROOT"/bin
 fi
 

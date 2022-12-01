@@ -5,7 +5,7 @@ if [[ -d "$HOME"/.pyenv ]]; then
     export PYENV_ROOT="$HOME"/.pyenv
 fi
 
-if [[ -d "$PYENV_ROOT"/bin ]]; then
+if [[ -v PYENV_ROOT ]] && [[ -d "$PYENV_ROOT"/bin ]]; then
     path_prepend "$PYENV_ROOT"/bin
 fi
 

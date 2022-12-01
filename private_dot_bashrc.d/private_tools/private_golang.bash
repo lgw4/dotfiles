@@ -3,7 +3,7 @@ if [[ -d "$HOME"/.goenv ]]; then
     export GOENV_ROOT="$HOME"/.goenv
 fi
 
-if [[ -d "$GOENV_ROOT"/bin ]]; then
+if [[ -v GOENV_ROOT ]] && [[ -d "$GOENV_ROOT"/bin ]]; then
     path_prepend "$GOENV_ROOT"/bin
 fi
 
