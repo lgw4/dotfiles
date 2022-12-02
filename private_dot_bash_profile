@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 # shellcheck disable=SC1091
-if [ -f "$HOME"/.bashrc ]; then
-    source "$HOME"/.bashrc
+if [ -f "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
 fi
 
 # Tell me a fortune…

@@ -9,11 +9,12 @@ if [[ -x "/usr/libexec/path_helper" ]]; then
     eval $(/usr/libexec/path_helper -s)
 fi
 {{ end }}
-for file in "${HOME}"/.zshenv.d/**/*.zsh(N); do
-    if [[ -r $file ]]; then
-        source $file
+for config in "$HOME"/.zshenv.d/**/*.zsh(N); do
+    if [[ -r $config ]]; then
+        source $config
     fi
 done
+unset -v config
 {{ if eq .chezmoi.os "darwin" }}
 {{ if eq .chezmoi.arch "arm64" }}
 if [[ -d "/opt/homebrew/bin" ]]; then
@@ -24,14 +25,14 @@ if [[ -d "/usr/local/bin" ]]; then
     path_prepend "/usr/local/bin"
 fi
 {{ end }}
-if (( $+commands[brew] )); then
+if (( ${+commands[brew]} )); then
     export HOMEBREW_ROOT="$(brew --prefix)"
 fi
 
 if [[ -v HOMEBREW_ROOT ]]; then
-    fpath=("${HOMEBREW_ROOT}/share/zsh-completions" "${HOMEBREW_ROOT}/share/zsh/site-functions" "${fpath[@]}")
+    fpath=("$HOMEBREW_ROOT/share/zsh-completions" "$HOMEBREW_ROOT/share/zsh/site-functions" "$fpath[@]")
 fi
 {{ end }}
-if [[ -d "${HOME}/.local/share/zsh/local-functions" ]]; then
-    fpath=("${HOME}/.local/share/zsh/local-functions" "${fpath[@]}")
+if [[ -d "$HOME/.local/share/zsh/local-functions" ]]; then
+    fpath=("$HOME/.local/share/zsh/local-functions" "${fpath[@]}")
 fi

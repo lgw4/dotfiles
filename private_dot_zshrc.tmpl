@@ -3,21 +3,22 @@
 # Source macOS system-level zshrc file
 source /private/etc/zshrc
 {{ end }}
-for file in "${HOME}"/.zshrc.d/**/*.zsh(N); do
-    if [[ -r $file ]]; then
-        source $file
+for config in "$HOME"/.zshrc.d/**/*.zsh(N); do
+    if [[ -r $config ]]; then
+        source $config
     fi
 done
+unset -v config
 setopt extendedglob
 bindkey -e
 autoload -Uz compinit
 compinit
 
-if [[ -e "${HOME}/.iterm2_shell_integration.zsh" ]]; then
-    source "${HOME}/.iterm2_shell_integration.zsh"
+if [[ -e "$HOME/.iterm2_shell_integration.zsh" ]]; then
+    source "$HOME/.iterm2_shell_integration.zsh"
 fi
 
-if (( $+commands[starship] )); then
+if (( ${+commands[starship]} )); then
     eval "$(starship init zsh)"
 else
     PROMPT=$'\n%F{red}%n%f at %F{magenta}%m%f in %F{blue}%1~%f\n%(!.#.$) '
@@ -25,6 +26,6 @@ fi
 
 precmd_functions+=(set_window_title)
 
-if [[ -d "${HOME}/.local/bin" ]]; then
-    path_prepend "${HOME}/.local/bin"
+if [[ -d "$HOME/.local/bin" ]]; then
+    path_prepend "$HOME/.local/bin"
 fi

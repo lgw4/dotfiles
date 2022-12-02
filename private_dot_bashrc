@@ -11,7 +11,7 @@ fi
 # Functions to help us manage paths.  Second argument is the name of the
 # path variable to be modified (default: PATH).
 # Taken from: https://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html
-path_remove() {
+path_remove () {
     local IFS=':'
     local NEWPATH
     local DIR
@@ -24,43 +24,43 @@ path_remove() {
     export "$PATHVARIABLE"="$NEWPATH"
 }
 
-path_prepend() {
+path_prepend () {
     path_remove "$1" "$2"
     local PATHVARIABLE=${2:-PATH}
     export "$PATHVARIABLE"="$1${!PATHVARIABLE:+:${!PATHVARIABLE}}"
 }
 
-path_append() {
+path_append () {
     path_remove "$1" "$2"
     local PATHVARIABLE=${2:-PATH}
     export "$PATHVARIABLE"="${!PATHVARIABLE:+${!PATHVARIABLE}:}$1"
 }
 
 # Check for /usr/local/sbin in PATH
-if [[ -d /usr/local/sbin ]]; then
-    path_prepend /usr/local/sbin
+if [[ -d "/usr/local/sbin" ]]; then
+    path_prepend "/usr/local/sbin"
 fi
 
 # Check for /usr/local/bin in PATH
-if [[ -d /usr/local/bin ]]; then
-    path_prepend /usr/local/bin
+if [[ -d "/usr/local/bin" ]]; then
+    path_prepend "/usr/local/bin"
 fi
 
-if [[ -e /opt/homebrew/bin/brew ]]; then
+if [[ -e "/opt/homebrew/bin/brew" ]]; then
     export HOMEBREW_ROOT="$(/opt/homebrew/bin/brew --prefix)"
-elif [[ -e /usr/local/bin/brew ]]; then
+elif [[ -e "/usr/local/bin/brew" ]]; then
     export HOMEBREW_ROOT="$(/usr/local/bin/brew --prefix)"
 fi
 
-if [[ -d "$HOMEBREW_ROOT"/bin ]]; then
-    path_prepend "$HOMEBREW_ROOT"/bin
+if [[ -d "$HOMEBREW_ROOT/bin" ]]; then
+    path_prepend "$HOMEBREW_ROOT/bin"
 fi
-if [[ -d "$HOMEBREW_ROOT"/snin ]]; then
-    path_prepend "$HOMEBREW_ROOT"/sbin
+if [[ -d "$HOMEBREW_ROOT/sbin" ]]; then
+    path_prepend "$HOMEBREW_ROOT/sbin"
 fi
 
 # Import files from $HOME/.bashrc.d
-if [[ -d "$HOME"/.bashrc.d ]]; then
+if [[ -d "$HOME/.bashrc.d" ]]; then
     for config in "$HOME"/.bashrc.d/**/*.bash; do
         [[ -r "$config" ]] || continue
         source "$config"
@@ -97,15 +97,15 @@ if [[ -d "$HOMEBREW_ROOT" ]] && command -v brew >/dev/null 2>&1; then
     # Set Homebrew Cask default Applications directory
     export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
     # Enable bash-completion with Homebrew
-    export BASH_COMPLETION_COMPAT_DIR="$HOMEBREW_ROOT"/etc/bash_completion.d
-    if [[ -f "$HOMEBREW_ROOT"/etc/profile.d/bash_completion.sh ]]; then
-        source "$HOMEBREW_ROOT"/etc/profile.d/bash_completion.sh
+    export BASH_COMPLETION_COMPAT_DIR="$HOMEBREW_ROOT/etc/bash_completion.d"
+    if [[ -f "$HOMEBREW_ROOT/etc/profile.d/bash_completion.sh" ]]; then
+        source "$HOMEBREW_ROOT/etc/profile.d/bash_completion.sh"
     fi
 fi
 
 # Prepend $HOME/.local/bin to PATH
-if [[ -d "$HOME"/.local/bin ]]; then
-    path_prepend "$HOME"/.local/bin
+if [[ -d "$HOME/.local/bin" ]]; then
+    path_prepend "$HOME/.local/bin"
 fi
 
 # macOS curl config
@@ -140,6 +140,6 @@ if command -v direnv >/dev/null 2>&1; then
 fi
 
 # iTerm2 shell integration
-if [[ -e "$HOME"/.iterm2_shell_integration.bash ]]; then
-    source "$HOME"/.iterm2_shell_integration.bash
+if [[ -e "$HOME/.iterm2_shell_integration.bash" ]]; then
+    source "$HOME/.iterm2_shell_integration.bash"
 fi

@@ -2,8 +2,8 @@
 # shellcheck disable=SC1091,SC2155
 alias alks="NO_COLOR=true alks"
 
-if [[ -f "$HOME"/.config/tabtab/__tabtab.bash ]]; then
-    source "$HOME"/.config/tabtab/__tabtab.bash
+if [[ -f "$HOME/.config/tabtab/__tabtab.bash" ]]; then
+    source "$HOME/.config/tabtab/__tabtab.bash"
 fi
 
 alks-artifactory-np () {
@@ -131,8 +131,8 @@ alks-disconnect () {
     unset AWS_SECRET_ACCESS_KEY
     unset AWS_SESSION_EXPIRES
     unset AWS_SESSION_TOKEN
-    if [[ -d "$HOME"/.aws ]]; then
-        rm -rf "$HOME"/.aws
+    if [[ -d "$HOME/.aws" ]]; then
+        rm -rf "$HOME/.aws"
     fi
 }
 
