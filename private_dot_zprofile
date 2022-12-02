@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+# Tell me a fortune…
+if (( ${+commands[fortune]} )); then
+    echo
+    fortune
+fi
