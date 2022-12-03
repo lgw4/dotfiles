@@ -19,7 +19,7 @@ if test -n "$HOMEBREW_ROOT"
     set -x HOMEBREW_CASK_OPTS --appdir=~/Applications
 end
 {{ end }}
-{{ if and ((eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian")) }}
+{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian")) }}
 fish_add_path -mpP /sbin
 fish_add_path -mpP /usr/sbin
 {{ end }}
