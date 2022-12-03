@@ -1,0 +1,173 @@
+function alks -d "Add set -lx NO_COLOR true to alks commands"
+    set -lx NO_COLOR true
+    command alks $argv
+end
+
+if test -f $HOME/.config/tabtab/__tabtab.fish
+    source $HOME/.config/tabtab/__tabtab.fish
+end
+
+function alks-artifactory-np -d "Open ALKS session to Artifactory non-production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "w7k6gsrwhreczd6r6o57ys43wy").notesPlain.value }}")
+end
+
+function alks-artifactory-np-creds -d "Write ALKS credentials file for Artifactory non-production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "w7k6gsrwhreczd6r6o57ys43wy").notesPlain.value }}" -o creds -f
+end
+
+function alks-artifactory-prod -d "Open ALKS session to Artifactory production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "2s4dygls7vby5grgigfts4wd6i").notesPlain.value }}")
+end
+
+function alks-artifactory-prod-creds -d "Write ALKS credentials file for Artifactory production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "2s4dygls7vby5grgigfts4wd6i").notesPlain.value }}" -o creds -f
+end
+
+function alks-cloud-management-dev -d "Open ALKS session to Cloud Management dev"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "eyafx3yvtnafdiewtukllevcmy").notesPlain.value }}")
+end
+
+function alks-cloud-management-dev-creds -d "Write ALKS credentials file for Cloud Management dev"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "eyafx3yvtnafdiewtukllevcmy").notesPlain.value }}" -o creds -f
+end
+
+function alks-cloud-management-dev2 -d "Open ALKS session to Cloud Management dev2"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "oyqcdm7fgbabxjlc2xqn7t55cu").notesPlain.value }}")
+end
+
+function alks-cloud-management-dev2-creds -d "Write ALKS credentials file for Cloud Management dev2"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "oyqcdm7fgbabxjlc2xqn7t55cu").notesPlain.value }}" -o creds -f
+end
+
+function alks-cloud-management-np -d "Open ALKS session to Cloud Management non-production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "dby7h6k5mrhkhnkjhlpe763ayy").notesPlain.value }}")
+end
+
+function alks-cloud-management-np-creds -d "Write ALKS credentials file for Cloud Management non-production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "dby7h6k5mrhkhnkjhlpe763ayy").notesPlain.value }}" -o creds -f
+end
+
+function alks-cloud-management-prod -d "Open ALKS session to Cloud Management production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "v5wsgqjjezdabir6bc6al5gkem").notesPlain.value }}")
+end
+
+function alks-cloud-management-prod-creds -d "Write ALKS credentials file for Cloud Management production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "v5wsgqjjezdabir6bc6al5gkem").notesPlain.value }}" -o creds -f
+end
+
+function alks-cots-np -d "Open ALKS session to COTS non-production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "l5suvzdc7jbijct3ewhyrp6rdq").notesPlain.value }}")
+end
+
+function alks-cots-np-creds -d "Write ALKS credentials file for COTS non-production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "l5suvzdc7jbijct3ewhyrp6rdq").notesPlain.value }}" -o creds -f
+end
+
+function alks-cots-prod -d "Open ALKS session to COTS production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "lpprhx6bgjdurpgruox4c3rc24").notesPlain.value }}")
+end
+
+function alks-cots-prod-creds -d "Write ALKS credentials file for COTS production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "lpprhx6bgjdurpgruox4c3rc24").notesPlain.value }}" -o creds -f
+end
+
+function alks-ghes-np -d "Open ALKS session to GHES non-production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "l6wlu6bbkjgiljjbtgbedzfk4a").notesPlain.value }}")
+end
+
+function alks-ghes-np-creds -d "Write ALKS credentials file for GHES non-production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "l6wlu6bbkjgiljjbtgbedzfk4a").notesPlain.value }}" -o creds -f
+end
+
+function alks-ghes-prod -d "Open ALKS session to GHES production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "alzkq4cc4baltjvhvlqt3h72pm").notesPlain.value }}")
+end
+
+function alks-ghes-prod-creds -d "Write ALKS credentials file for GHES production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "alzkq4cc4baltjvhvlqt3h72pm").notesPlain.value }}" -o creds -f
+end
+
+function alks-ghes-runners-np -d "Open ALKS session to GHES Runners non-production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "tpa6yqy6abar3ofrjr2lpcretu").notesPlain.value }}")
+end
+
+function alks-ghes-runners-np-creds -d "Write ALKS credentials file for GHES Runners non-production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "tpa6yqy6abar3ofrjr2lpcretu").notesPlain.value }}" -o creds -f
+end
+
+function alks-ghes-runners-prod -d "Open ALKS session to GHES Runners production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "gc2s3c3gfvhypgwfg6ybz4y2hm").notesPlain.value }}")
+end
+
+function alks-ghes-runners-prod-creds -d "Write ALKS credentials file for GHES Runners production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "gc2s3c3gfvhypgwfg6ybz4y2hm").notesPlain.value }}" -o creds -f
+end
+
+function alks-labs-224 -d "Open ALKS session to Labs224"
+    eval (alks sessions open -i -r LabAdmin -a "{{ (onepasswordDetailsFields "5n7yjzeeqnfudilpuzscr6vovu").notesPlain.value }}")
+end
+
+function alks-labs-224-creds -d "Write ALKS credentials file for Labs224"
+    alks sessions open -i -r LabAdmin -a "{{ (onepasswordDetailsFields "5n7yjzeeqnfudilpuzscr6vovu").notesPlain.value }}" -o creds -f
+end
+
+function alks-splunk-np -d "Open ALKS session to Splunk non-production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "ysk6c4pvbfekdc3lnzllf2c6a4").notesPlain.value }}")
+end
+
+function alks-splunk-np-creds -d "Write ALKS credentials file for Splunk non-production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "ysk6c4pvbfekdc3lnzllf2c6a4").notesPlain.value }}" -o creds -f
+end
+
+function alks-splunk-prod -d "Open ALKS session to Splunk production"
+    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "uqym5wm6t5djrfz2nj5cw6mjx4").notesPlain.value }}")
+end
+
+function alks-splunk-prod-creds -d "Write ALKS credentials file for Splunk production"
+    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "uqym5wm6t5djrfz2nj5cw6mjx4").notesPlain.value }}" -o creds -f
+end
+
+function alks-disconnect -d "Disconnect any active ALKS session"
+    set -e AWS_ACCESS_KEY_ID
+    set -e AWS_SECRET_ACCESS_KEY
+    set -e AWS_SESSION_EXPIRES
+    set -e AWS_SESSION_TOKEN
+    if test -f "$HOME/.aws/credentials"
+        rm -rf "$HOME/.aws/credentials"
+    end
+end
+
+function aws-instance-id -d "Get AWS instance ID"
+    set -lx NAME $argv[1]
+    set -lx REGION $argv[2]
+    aws ec2 describe-instances \
+        --region $REGION \
+        --filters Name=instance-state-name,Values=running "Name=tag:Name,Values=*$NAME*" \
+        --query "Reservations[0].Instances[0].InstanceId" \
+        --output text
+end
+
+function aws-shell -d "Open AWS shell session"
+    set -lx NAME $argv[1]
+    set -lx REGION $argv[2]
+    set -lx INSTANCE_ID (aws-instance-id $NAME $REGION)
+    aws ssm start-session --region $REGION --target $INSTANCE_ID
+end
+
+function ghes-tunnel -d "Open GHES tunnel for management console"
+    set -lx NAME $argv[1]
+    set -lx REGION $argv[2]
+    set -lx INSTANCE_ID (aws-instance-id $NAME $REGION)
+    aws secretsmanager get-secret-value \
+        --region us-east-1 \
+        --secret-id ghe_mc_password \
+        --query SecretString \
+        --output text | pbcopy
+    printf "The Management Console password has been copied to your clipboard.\n"
+    printf "You can now access the GHES Management Console here: https://localhost:8443\n"
+    aws ssm start-session \
+        --region $REGION \
+        --target $INSTANCE_ID \
+        --document-name AWS-StartPortForwardingSession \
+        --parameters '{"portNumber":["8443"],"localPortNumber":["8443"]}'
+end
