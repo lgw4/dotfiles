@@ -7,6 +7,7 @@ Plug 'ajh17/VimCompletesMe'
 Plug 'alker0/chezmoi.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dag/vim-fish'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'itchyny/lightline.vim'
 Plug 'jeetsukumaran/vim-pythonsense'
