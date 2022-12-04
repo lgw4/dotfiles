@@ -17,7 +17,7 @@ end
 {{ end }}
 {{ if eq .chezmoi.os "darwin" }}
 if type -q brew
-    set x HOMEBREW_ROOT $(brew --prefix)
+    set -x HOMEBREW_ROOT $(brew --prefix)
 end
 
 if test -n "$HOMEBREW_ROOT"
