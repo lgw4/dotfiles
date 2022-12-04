@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
+# shellcheck shell=sh
 /usr/bin/codesign --all-architectures --deep --force --verify --verbose --sign "Developer ID Application: Introspective Robot, LLC (YT6L27SM77)" ~/Applications/MakeMKV.app
-
