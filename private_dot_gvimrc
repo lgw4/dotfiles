@@ -1,6 +1,6 @@
 " ${HOME}/.gvimrc
 if has("mac")
-    set guifont=JetBrainsMono-Medium:h13
+    set guifont=JetBrainsMonoRoman-Medium:h13
 else
     set guifont=JetBrains\ Mono\ 11
 endif
