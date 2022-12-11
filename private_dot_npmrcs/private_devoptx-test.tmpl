@@ -1,0 +1,7 @@
+# vim: ft=text
+# code: language=plaintext insertSpaces=true tabSize=4
+@testscope:registry=https://{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/devoptx-npm-test-local/
+registry=https://{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/devoptx-npm-test-local/
+//{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/devoptx-npm-test-local/:_auth={{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").credential.value }}
+always-auth=true
+email={{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").username.value }}
