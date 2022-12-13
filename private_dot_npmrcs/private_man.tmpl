@@ -1,6 +1,6 @@
 # vim: ft=text
 # code: language=plaintext insertSpaces=true tabSize=4
 registry=https://{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/man-npm/
-//{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/man-npm/:_auth={{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").credential.value }}
+//{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/man-npm/:_auth={{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").base64.value }}
 always-auth=true
 email={{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").username.value }}

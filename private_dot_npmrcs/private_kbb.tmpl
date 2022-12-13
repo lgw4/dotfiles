@@ -4,7 +4,7 @@
 @consumer:registry=https://{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/kbb-npm/
 @kbbcomponentlibrary:registry=https://{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/kbb-npm-local/
 @kbbsdk:registry=https://{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/kbb-npm-local/
-//{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/kbb-npm-local/:_auth={{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").credential.value }}
-//{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/kbb-npm/:_auth={{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").credential.value }}
+//{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/kbb-npm-local/:_auth={{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").base64.value }}
+//{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/npm/kbb-npm/:_auth={{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").base64.value }}
 always-auth=true
 email={{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").username.value }}
