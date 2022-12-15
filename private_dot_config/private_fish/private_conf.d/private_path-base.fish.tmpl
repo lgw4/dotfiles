@@ -16,7 +16,7 @@ if test -x "/usr/local/bin/brew"
 end
 {{ end }}
 {{ if eq .chezmoi.os "darwin" }}
-if test -n "$HOMEBREW_ROOT"
+if test -n "$HOMEBREW_BASE"
     set -x HOMEBREW_CASK_OPTS --appdir=~/Applications
 end
 {{- end }}
