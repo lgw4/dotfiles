@@ -47,16 +47,9 @@ if [[ -d "/usr/local/bin" ]]; then
 fi
 
 if [[ -e "/opt/homebrew/bin/brew" ]]; then
-    export HOMEBREW_ROOT="$(/opt/homebrew/bin/brew --prefix)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [[ -e "/usr/local/bin/brew" ]]; then
-    export HOMEBREW_ROOT="$(/usr/local/bin/brew --prefix)"
-fi
-
-if [[ -d "$HOMEBREW_ROOT/bin" ]]; then
-    path_prepend "$HOMEBREW_ROOT/bin"
-fi
-if [[ -d "$HOMEBREW_ROOT/sbin" ]]; then
-    path_prepend "$HOMEBREW_ROOT/sbin"
+    eval "$(/usr/local/bin/brew shellenv)"
 fi
 
 # Import files from $HOME/.bashrc.d
@@ -93,7 +86,7 @@ HISTTIMEFORMAT='%F %T '
 shopt -s checkwinsize
 
 # macOS settings
-if [[ -d "$HOMEBREW_ROOT" ]] && command -v brew >/dev/null 2>&1; then
+if [[ -v HOMEBREW_ROOT ]]; then
     # Set Homebrew Cask default Applications directory
     export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
     # Enable bash-completion with Homebrew

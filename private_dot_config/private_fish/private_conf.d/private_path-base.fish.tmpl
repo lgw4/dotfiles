@@ -6,20 +6,16 @@ if test -d "/usr/local/bin"
     fish_add_path -mpP /usr/local/bin
 end
 {{ if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")) }}
-if test -d "/opt/homebrew/bin"
-    fish_add_path -mpP /opt/homebrew/bin
+if test -q "/opt/homebrew/bin/brew"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 end
 {{- end }}
 {{- if (and (eq .chezmoi.os "darwin") (ne .chezmoi.arch "arm64")) }}
-if test -d "/usr/local/bin"
-    fish_add_path -mpP "/usr/local/bin"
+if test -q "/usr/local/bin/brew"
+    eval "$(/usr/local/bin/brew shellenv)"
 end
 {{ end }}
 {{ if eq .chezmoi.os "darwin" }}
-if type -q brew
-    set -x HOMEBREW_ROOT $(brew --prefix)
-end
-
 if test -n "$HOMEBREW_ROOT"
     set -x HOMEBREW_CASK_OPTS --appdir=~/Applications
 end
