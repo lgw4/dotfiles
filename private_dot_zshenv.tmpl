@@ -25,9 +25,9 @@ if [[ -e "/usr/local/bin/brew" ]]; then
     eval "$(/usr/local/bin/brew shellenv)"
 fi
 {{ end }}
-if [[ -v HOMEBREW_BASE ]]; then
+if [[ -v HOMEBREW_PREFIX ]]; then
     export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
-    fpath=("$HOMEBREW_BASE/share/zsh-completions" "$HOMEBREW_BASE/share/zsh/site-functions" "$fpath[@]")
+    fpath=("$HOMEBREW_PREFIX/share/zsh-completions" "$HOMEBREW_PREFIX/share/zsh/site-functions" "$fpath[@]")
 fi
 {{ end }}
 if [[ -d "$HOME/.local/share/zsh/local-functions" ]]; then

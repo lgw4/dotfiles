@@ -1,5 +1,5 @@
-if test -d "$HOMEBREW_BASE/share/npm/bin"
-    fish_add_path -mpP $HOMEBREW_BASE/share/npm/bin
+if test -d "$HOMEBREW_PREFIX/share/npm/bin"
+    fish_add_path -mpP $HOMEBREW_PREFIX/share/npm/bin
 end
 
 if test -d "$HOME/.nodenv"

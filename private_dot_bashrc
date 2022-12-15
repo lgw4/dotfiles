@@ -86,13 +86,13 @@ HISTTIMEFORMAT='%F %T '
 shopt -s checkwinsize
 
 # macOS settings
-if [[ -v HOMEBREW_BASE ]]; then
+if [[ -v HOMEBREW_PREFIX ]]; then
     # Set Homebrew Cask default Applications directory
     export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
     # Enable bash-completion with Homebrew
-    export BASH_COMPLETION_COMPAT_DIR="$HOMEBREW_BASE/etc/bash_completion.d"
-    if [[ -f "$HOMEBREW_BASE/etc/profile.d/bash_completion.sh" ]]; then
-        source "$HOMEBREW_BASE/etc/profile.d/bash_completion.sh"
+    export BASH_COMPLETION_COMPAT_DIR="$HOMEBREW_PREFIX/etc/bash_completion.d"
+    if [[ -f "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
+        source "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
     fi
 fi
 

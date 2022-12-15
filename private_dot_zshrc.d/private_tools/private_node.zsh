@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
-if [[ -d "$HOMEBREW_BASE/share/npm/bin" ]]; then
-    path_append "$HOMEBREW_BASE/share/npm/bin"
+if [[ -d "$HOMEBREW_PREFIX/share/npm/bin" ]]; then
+    path_append "$HOMEBREW_PREFIX/share/npm/bin"
 fi
 
 if [[ -d "$HOME/.nodenv" ]]; then
