@@ -1,7 +1,9 @@
 #!/usr/bin/env zsh
 {{- if eq .chezmoi.os "darwin" }}
 # Source macOS system-level zshrc file
-source /private/etc/zshrc
+if [[ -r /private/etc/zshrc ]]; then
+    source /private/etc/zshrc
+fi
 {{ end }}
 for config in "$HOME"/.zshrc.d/**/*.zsh(N); do
     if [[ -r $config ]]; then
@@ -9,7 +11,7 @@ for config in "$HOME"/.zshrc.d/**/*.zsh(N); do
     fi
 done
 unset -v config
-setopt extendedglob
+
 bindkey -e
 autoload -Uz compinit
 compinit

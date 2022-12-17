@@ -1,12 +1,16 @@
 #!/usr/bin/env zsh
 {{- if eq .chezmoi.os "darwin" }}
-# Disable sourcing global zsh configuration files (from /private/etc/)
-unsetopt GLOBAL_RCS
+# Apple is stupid. They use /private/etc/zprofile to set the base PATH,
+# instead of /private/etc/zshenv (as they should).
+# Disable sourcing global Z Shell configuration files (to fix Apple's stupid decision).
 setopt NO_GLOBAL_RCS
+unsetopt GLOBAL_RCS
 {{ end }}
 {{ if eq .chezmoi.os "darwin" }}
+# We _do_ want to get the values from /private/etc/paths and /private/etc/paths.d/,
+# so we run /usr/libexec/path_helper -s. Apple, _please_ fix your shit.
 if [[ -x "/usr/libexec/path_helper" ]]; then
-    eval $(/usr/libexec/path_helper -s)
+    eval "$(/usr/libexec/path_helper -s)"
 fi
 {{ end }}
 for config in "$HOME"/.zshenv.d/**/*.zsh(N); do
