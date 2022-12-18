@@ -14,9 +14,9 @@ export LSCOLORS="exfxcxdxbxegedabagacad"
 zmodload zsh/complist
 autoload -Uz compinit
 _comp_options+=(globdots)
-# zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:default' list-colors ${(s.:.)LSCOLORS}
 zstyle ':completion:*' complete-options true
+# zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ${(s.:.)LSCOLORS}
 zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' menu select
 zstyle ':completion:*' squeeze-slashes true
