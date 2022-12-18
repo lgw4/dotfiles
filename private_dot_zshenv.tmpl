@@ -5,21 +5,12 @@
 # Disable sourcing global Z Shell configuration files (to fix Apple's stupid decision).
 setopt NO_GLOBAL_RCS
 unsetopt GLOBAL_RCS
-{{ end }}
-{{ if eq .chezmoi.os "darwin" }}
+
 # We _do_ want to get the values from /private/etc/paths and /private/etc/paths.d/,
 # so we run /usr/libexec/path_helper -s. Apple, _please_ fix your shit.
 if [[ -x "/usr/libexec/path_helper" ]]; then
     eval "$(/usr/libexec/path_helper -s)"
 fi
-{{ end }}
-for config in "$HOME"/.zshenv.d/**/*.zsh(N); do
-    if [[ -r $config ]]; then
-        source $config
-    fi
-done
-unset -v config
-{{ if eq .chezmoi.os "darwin" }}
 {{ if eq .chezmoi.arch "arm64" }}
 if [[ -e "/opt/homebrew/bin/brew" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -34,6 +25,13 @@ if [[ -v HOMEBREW_PREFIX ]]; then
     fpath=("$HOMEBREW_PREFIX/share/zsh-completions" "$HOMEBREW_PREFIX/share/zsh/site-functions" "$fpath[@]")
 fi
 {{ end }}
+for config in "$HOME"/.zshenv.d/**/*.zsh(N); do
+    if [[ -r $config ]]; then
+        source $config
+    fi
+done
+unset -v config
+
 if [[ -d "$HOME/.local/share/zsh/local-functions" ]]; then
     fpath=("$HOME/.local/share/zsh/local-functions" "${fpath[@]}")
 fi
