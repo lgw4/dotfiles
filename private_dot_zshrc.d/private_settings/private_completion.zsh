@@ -10,7 +10,8 @@ setopt NO_MENU_COMPLETE
 zmodload zsh/complist
 autoload -Uz compinit
 _comp_options+=(globdots)
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+# zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:default' list-colors ${(s.:.)LSCOLORS}
 zstyle ':completion:*' complete-options true
 zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' menu select
