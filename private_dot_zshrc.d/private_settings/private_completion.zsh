@@ -7,8 +7,12 @@ setopt COMPLETE_IN_WORD
 setopt HASH_LIST_ALL
 setopt NO_MENU_COMPLETE
 
+zmodload zsh/complist
 autoload -Uz compinit
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
+_comp_options+=(globdots)
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' complete-options true
+zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select
+zstyle ':completion:*' squeeze-slashes true
 compinit
