@@ -9,6 +9,7 @@ setopt NO_MENU_COMPLETE
 
 export CLICOLOR=1
 autoload -Uz colors && colors
+export LSCOLORS="exfxcxdxbxegedabagacad"
 
 zmodload zsh/complist
 autoload -Uz compinit
