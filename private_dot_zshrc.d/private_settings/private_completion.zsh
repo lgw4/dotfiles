@@ -7,6 +7,9 @@ setopt COMPLETE_IN_WORD
 setopt HASH_LIST_ALL
 setopt NO_MENU_COMPLETE
 
+export CLICOLOR=1
+autoload -Uz colors && colors
+
 zmodload zsh/complist
 autoload -Uz compinit
 _comp_options+=(globdots)
