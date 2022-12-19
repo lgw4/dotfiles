@@ -2,11 +2,11 @@
 # Configure Bash history
 shopt -s histappend  # Append to the history file, don't overwrite it
 shopt -s cmdhist  # Save multi-line commands as one command
-export HISTSIZE=8192
-export HISTFILESIZE=8192
-export HISTCONTROL=erasedups:ignoreboth
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history"
-export HISTTIMEFORMAT='%F %T '
+HISTSIZE=8192
+HISTFILESIZE=8192
+HISTCONTROL=erasedups:ignoreboth
+HISTIGNORE="bg:clear:env:exit:fg:history:ls:pwd"
+HISTTIMEFORMAT='%F %T '
 
 # Taken from https://unix.stackexchange.com/a/48116
 _bash_history_sync () {
