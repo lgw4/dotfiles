@@ -42,6 +42,11 @@ if [[ -v VIRTUALENVWRAPPER ]]; then
     source "$VIRTUALENVWRAPPER"
 fi
 
+# Enable pipx
+if command -v pipx >/dev/null 2>&1; then
+    eval "$(register-python-argcomplete pipx)"
+fi
+
 # Enable pip completion
 _pip_completion () {
     COMPREPLY=($(COMP_WORDS="${COMP_WORDS[*]}" \
