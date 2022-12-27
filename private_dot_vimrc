@@ -9,6 +9,19 @@ endif
 " Enable all Vim-specific features
 set nocompatible
 
+" Set shell to Bash if running Fish
+if &shell =~# 'fish$'
+    if filereadable('/opt/homebrew/bin/bash')
+        set shell=/opt/homebrew/bin/bash
+    elseif filereadable('/usr/local/bin/bash')
+        set shell=/usr/local/bin/bash
+    elseif filereadable('/bin/bash')
+        set shell=/bin/bash
+    else
+        set shell=sh  " Hopefully, we do not get here
+    endif
+endif
+
 " Black Python code formatter
 if filereadable(glob("~/.local/pipx/venvs/black/pyvenv.cfg"))
     let g:black_virtualenv="~/.local/pipx/venvs/black"
