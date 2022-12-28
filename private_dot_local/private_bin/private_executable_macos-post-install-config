@@ -105,8 +105,8 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 defaults write -globalDomain NSUserKeyEquivalents -dict-add 'Save As...' '@$S'
 
 # Configure Mac App Store
-defaults write com.apple.appstore AutoPlayVideoSetting -string "off"
-defaults write com.apple.appstore InAppReviewEnabled -bool false
+defaults write com.apple.AppStore AutoPlayVideoSetting -string "off"
+defaults write com.apple.AppStore InAppReviewEnabled -bool false
 
 
 # Disable shadows in screenshots
