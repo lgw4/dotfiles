@@ -108,7 +108,7 @@ defaults write -globalDomain NSUserKeyEquivalents -dict-add 'Save As...' '@$S'
 # Configure Mac App Store
 defaults write com.apple.AppStore AutoPlayVideoSetting -string "off"
 defaults write com.apple.AppStore InAppReviewEnabled -bool false
-
+defaults write com.apple.AppStore UserSetAutoPlayVideoSetting -bool true
 
 # Disable shadows in screenshots
 defaults write com.apple.screencapture "disable-shadow" -bool true
