@@ -104,8 +104,10 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 # Restore Save As… to File menu
 defaults write -globalDomain NSUserKeyEquivalents -dict-add 'Save As...' '@$S'
 
-# Enable debug menu in Mac App Store
-defaults write com.apple.appstore ShowDebugMenu -bool true
+# Configure Mac App Store
+defaults write com.apple.appstore AutoPlayVideoSetting -string "off"
+defaults write com.apple.appstore InAppReviewEnabled -bool false
+
 
 # Disable shadows in screenshots
 defaults write com.apple.screencapture "disable-shadow" -bool true
