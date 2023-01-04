@@ -14,8 +14,7 @@ empty_symbol = "❗ "
 disabled = false
 style = "bold blue"
 truncate_to_repo = true
-truncation_length = 3
-truncation_symbol = '…/'
+truncation_length = 1
 
 [docker_context]
 disabled = false
@@ -42,7 +41,7 @@ style = "bold cyan"
 [hostname]
 disabled = false
 format = "[$hostname]($style) in "
-ssh_only = true
+ssh_only = false
 style = "bold purple"
 trim_at = '.'
 
@@ -54,7 +53,8 @@ format = "[\\($symbol$version\\)]($style) "
 [nodejs]
 disabled = false
 format = "[\\($symbol$version\\)]($style) "
-symbol = "[⬢](bold green) "
+style = "bold green"
+symbol = "⬢ "
 
 [package]
 disabled = true
@@ -81,7 +81,7 @@ format = "[\\($symbol$workspace\\)]($style) "
 
 [username]
 disabled = false
-format = "[$user]($style) in "
-show_always = false
-style_root = "bold red"
-style_user = "bold #cb4b16"
+format = "[$user]($style) at "
+show_always = true
+style_root = "bold black"
+style_user = "bold red"
