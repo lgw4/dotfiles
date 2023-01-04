@@ -1,14 +1,14 @@
-command_timeout = 3000
+command_timeout = 5000
 
 [aws]
 disabled = true
 
 [battery]
-charging_symbol = "↑"
-discharging_symbol = "↓"
-empty_symbol = "∅"
-full_symbol = "●"
-unknown_symbol = "↕"
+full_symbol = "• "
+charging_symbol = "⇡ "
+discharging_symbol = "⇣ "
+unknown_symbol = "❓ "
+empty_symbol = "❗ "
 
 [directory]
 disabled = false
@@ -26,7 +26,7 @@ format = "[\\($symbol$version \\(OTP $otp_version\\)\\)]($style) "
 [erlang]
 disabled = false
 format = "[\\($symbol$version\\)]($style) "
-symbol = "℮ "
+symbol = "ⓔ "
 
 [git_branch]
 disabled = false
@@ -51,7 +51,7 @@ format = "[\\($symbol$version\\)]($style) "
 [nodejs]
 disabled = false
 format = "[\\($symbol$version\\)]($style) "
-symbol = "⬢ "
+symbol = "[⬢](bold green) "
 
 [package]
 disabled = true
@@ -60,6 +60,9 @@ disabled = true
 disabled = false
 format = "[\\($symbol$version( \\($virtualenv\\))\\)]($style) "
 style = "bold #cb4b16"
+
+[pulumi]
+symbol = "🧊 "
 
 [ruby]
 disabled = false
