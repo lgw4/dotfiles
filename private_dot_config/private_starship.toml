@@ -13,7 +13,9 @@ empty_symbol = "❗ "
 [directory]
 disabled = false
 style = "bold blue"
-truncation_length = 1
+truncate_to_repo = true
+truncation_length = 3
+truncation_symbol = '…/'
 
 [docker_context]
 disabled = false
@@ -40,7 +42,7 @@ style = "bold cyan"
 [hostname]
 disabled = false
 format = "[$hostname]($style) in "
-ssh_only = false
+ssh_only = true
 style = "bold purple"
 
 [lua]
@@ -77,7 +79,7 @@ disabled = false
 format = "[\\($symbol$workspace\\)]($style) "
 
 [username]
-disabled = false
+disabled = true
 format = "[$user]($style) at "
 show_always = true
 style_root = "bold black"
