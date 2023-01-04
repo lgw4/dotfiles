@@ -41,9 +41,11 @@ style = "bold cyan"
 
 [hostname]
 disabled = false
-format = "[$hostname]($style) in "
+format = "[$ssh_symbol$hostname]($style) in "
 ssh_only = true
+ssh_symbol = '🌐 '
 style = "bold purple"
+trim_at = '.'
 
 [lua]
 detect_folders = []
@@ -79,8 +81,8 @@ disabled = false
 format = "[\\($symbol$workspace\\)]($style) "
 
 [username]
-disabled = true
-format = "[$user]($style) at "
-show_always = true
-style_root = "bold black"
-style_user = "bold red"
+disabled = false
+format = "[$user]($style) in "
+show_always = false
+style_root = "bold red"
+style_user = "bold cyan"
