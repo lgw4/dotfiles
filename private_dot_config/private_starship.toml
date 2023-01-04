@@ -84,4 +84,4 @@ disabled = false
 format = "[$user]($style) in "
 show_always = false
 style_root = "bold red"
-style_user = "bold cyan"
+style_user = "bold #cb4b16"
