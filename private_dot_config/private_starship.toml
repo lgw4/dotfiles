@@ -41,9 +41,8 @@ style = "bold cyan"
 
 [hostname]
 disabled = false
-format = "[$ssh_symbol$hostname]($style) in "
+format = "[$hostname]($style) in "
 ssh_only = true
-ssh_symbol = '🌐 '
 style = "bold purple"
 trim_at = '.'
 
