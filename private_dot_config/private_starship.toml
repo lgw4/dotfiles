@@ -1,6 +1,3 @@
-# Get editor completions based on the config schema
-"$schema" = 'https://starship.rs/config-schema.json'
-
 # Allow 5 seconds for commands executed by Starship
 command_timeout = 5000
 
@@ -11,8 +8,13 @@ discharging_symbol = "⇣ "
 unknown_symbol = "❓ "
 empty_symbol = "❗ "
 
+[directory]
+truncation_length = 2
+truncation_symbol = '…/'
+
 [hostname]
 format = '[$hostname]($style) in '
+ssh_only = false
 
 [erlang]
 symbol = "ⓔ "
@@ -26,3 +28,7 @@ symbol = '⬢ '
 
 [pulumi]
 symbol = "🧊 "
+
+[username]
+format = '[$user]($style) at '
+show_always = true
