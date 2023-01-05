@@ -1,7 +1,8 @@
-command_timeout = 5000
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
 
-[aws]
-disabled = true
+# Allow 5 seconds for commands executed by Starship
+command_timeout = 5000
 
 [battery]
 full_symbol = "• "
@@ -10,78 +11,18 @@ discharging_symbol = "⇣ "
 unknown_symbol = "❓ "
 empty_symbol = "❗ "
 
-[directory]
-disabled = false
-style = "bold blue"
-truncate_to_repo = true
-truncation_length = 1
-
-[docker_context]
-disabled = false
-format = "[\\($symbol$context\\)]($style) "
-
-[elixir]
-disabled = false
-format = "[\\($symbol$version \\(OTP $otp_version\\)\\)]($style) "
+[hostname]
+format = '[$hostname]($style) in '
 
 [erlang]
-disabled = false
-format = "[\\($symbol$version\\)]($style) "
 symbol = "ⓔ "
-
-[git_branch]
-disabled = false
-style = "bold #6c71c4"
-
-[golang]
-disabled = false
-format = "[\\($symbol$version\\)]($style) "
-style = "bold cyan"
-
-[hostname]
-disabled = false
-format = "[$hostname]($style) in "
-ssh_only = false
-style = "bold purple"
-trim_at = '.'
 
 [lua]
 detect_folders = []
-disabled = false
-format = "[\\($symbol$version\\)]($style) "
 
 [nodejs]
-disabled = false
-format = "[\\($symbol$version\\)]($style) "
-style = "bold green"
-symbol = "⬢ "
-
-[package]
-disabled = true
-
-[python]
-disabled = false
-format = "[\\($symbol$version( \\($virtualenv\\))\\)]($style) "
-style = "bold #cb4b16"
+style = 'bold green'
+symbol = '⬢ '
 
 [pulumi]
 symbol = "🧊 "
-
-[ruby]
-disabled = false
-format = "[\\($symbol$version\\)]($style) "
-
-[rust]
-disabled = false
-format = "[\\($symbol$version\\)]($style) "
-
-[terraform]
-disabled = false
-format = "[\\($symbol$workspace\\)]($style) "
-
-[username]
-disabled = false
-format = "[$user]($style) at "
-show_always = true
-style_root = "bold black"
-style_user = "bold red"
