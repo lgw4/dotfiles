@@ -15,6 +15,7 @@ truncation_symbol = '…/'
 [hostname]
 format = '[$hostname]($style) in '
 ssh_only = false
+style = 'green bold'
 
 [erlang]
 symbol = "ⓔ "
