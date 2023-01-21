@@ -75,6 +75,7 @@ defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
 defaults write com.apple.Safari DownloadsClearingPolicy -int 2
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 defaults write com.apple.Safari OpenNewTabsInFront -bool true
 defaults write com.apple.Safari SearchProviderShortName -string "DuckDuckGo"
@@ -82,6 +83,27 @@ defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
 defaults write com.apple.Safari ShowOverlayStatusBar -bool true
 defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
 defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
+defaults write com.apple.Safari.SandboxBroker "ShowFavoritesBar-v2" -bool true
+defaults write com.apple.Safari.SandboxBroker "WebKitPreferences.invisibleMediaAutoplayNotPermitted" -bool true
+defaults write com.apple.Safari.SandboxBroker "WebKitPreferences.minimumFontSize" -int 13
+defaults write com.apple.Safari.SandboxBroker "WebKitPreferences.tabFocusesLinks" -bool true
+defaults write com.apple.Safari.SandboxBroker AutoFillCreditCardData -bool false
+defaults write com.apple.Safari.SandboxBroker AutoFillFromAddressBook -bool false
+defaults write com.apple.Safari.SandboxBroker AutoFillMiscellaneousForms -bool false
+defaults write com.apple.Safari.SandboxBroker AutoFillPasswords -bool false
+defaults write com.apple.Safari.SandboxBroker AutoOpenSafeDownloads -bool false
+defaults write com.apple.Safari.SandboxBroker com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+defaults write com.apple.Safari.SandboxBroker DownloadsClearingPolicy -int 2
+defaults write com.apple.Safari.SandboxBroker IncludeDevelopMenu -bool true
+defaults write com.apple.Safari.SandboxBroker IncludeDevelopMenu -bool true
+defaults write com.apple.Safari.SandboxBroker IncludeInternalDebugMenu -bool true
+defaults write com.apple.Safari.SandboxBroker OpenNewTabsInFront -bool true
+defaults write com.apple.Safari.SandboxBroker SearchProviderShortName -string "DuckDuckGo"
+defaults write com.apple.Safari.SandboxBroker ShowDevelopMenu -bool true
+defaults write com.apple.Safari.SandboxBroker ShowFullURLInSmartSearchField -bool true
+defaults write com.apple.Safari.SandboxBroker ShowOverlayStatusBar -bool true
+defaults write com.apple.Safari.SandboxBroker WebKitMediaPlaybackAllowsInline -bool false
+defaults write com.apple.Safari.SandboxBroker WebKitTabToLinksPreferenceKey -bool true
 
 # Configure TextEdit
 defaults write com.apple.TextEdit HeightInChars -int 37
