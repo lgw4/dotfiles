@@ -1,6 +1,3 @@
-#!/usr/bin/env zsh
-# Tell me a fortune…
-if (( ${+commands[fortune]} )); then
-    echo
-    fortune
-fi
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
