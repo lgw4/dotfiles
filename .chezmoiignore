@@ -14,6 +14,7 @@ README.markdown
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
 .local/bin/cpu-temp
+.zprofile
 {{ end }}
 {{ if eq .chezmoi.os "windows" }}
 .netrc
