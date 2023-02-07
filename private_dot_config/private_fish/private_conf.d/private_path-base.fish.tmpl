@@ -17,7 +17,6 @@ end
 {{ end }}
 {{ if eq .chezmoi.os "darwin" }}
 if test -n "$HOMEBREW_PREFIX"
-    set -x HOMEBREW_NO_INSTALL_FROM_API 1
     set -x HOMEBREW_CASK_OPTS --appdir=~/Applications
 end
 {{- end }}
