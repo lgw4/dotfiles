@@ -11,7 +11,6 @@ if test -n "$NODENV_ROOT" && test -d "$NODENV_ROOT/bin"
 end
 
 if type -q nodenv
-    and not contains $NODENV_ROOT/shims $PATH
     and status --is-interactive
-    nodenv init - | source
+    eval "$(nodenv init -)" 
 end
