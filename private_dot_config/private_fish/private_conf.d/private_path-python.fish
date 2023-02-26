@@ -6,9 +6,7 @@ if test -n "$PYENV_ROOT" && test -d "$PYENV_ROOT/bin"
     fish_add_path -mpP $PYENV_ROOT/bin
 end
 
-if type -q pyenv
-    and not contains $PYENV_ROOT/shims $PATH
-    and status --is-interactive
+if type -q pyenv && status --is-interactive
     set -x PYENV_VIRTUALENV_DISABLE_PROMPT 1
-    pyenv init - | source
+    pyenv init - fish | source
 end

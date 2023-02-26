@@ -6,10 +6,8 @@ if test -n "$GOENV_ROOT" && test -d "$GOENV_ROOT/bin"
     fish_add_path -mpP $GOENV_ROOT/bin
 end
 
-if type -q goenv
-    and not contains $GOENV_ROOT/shims $PATH
-    and status --is-interactive
-    goenv init - | source
+if type -q goenv && status --is-interactive
+    goenv init - fish | source
     fish_add_path -mpP $GOENV_ROOT/shims
 end
 

@@ -12,8 +12,6 @@ if test -n "$TFENV_ROOT" && test -d "$TFENV_ROOT/bin"
     end
 end
 
-if type -q tfenv
-    and not contains $TFENV_ROOT/shims $PATH
-    and status --is-interactive
+if type -q tfenv && status --is-interactive
     tfenv init - | source
 end

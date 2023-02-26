@@ -10,7 +10,6 @@ if test -n "$NODENV_ROOT" && test -d "$NODENV_ROOT/bin"
     fish_add_path -mpP $NODENV_ROOT/bin
 end
 
-if type -q nodenv
-    and status --is-interactive
-    eval "$(nodenv init -)" 
+if type -q nodenv && status --is-interactive
+    nodenv init - fish | source
 end
