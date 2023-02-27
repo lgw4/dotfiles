@@ -41,10 +41,11 @@ git clone https://github.com/pyenv/pyenv-update.git "$HOME"/.pyenv/plugins/pyenv
 cd "$HOME"/.pyenv && src/configure && make -C src && cd "$HOME"
 chmod 700 "$HOME"/.pyenv
 
-# Install
+# Install rbenv
 printf "\nInstalling rbenv…\n"
 git clone https://github.com/rbenv/rbenv.git "$HOME"/.rbenv
 git clone https://github.com/rbenv/ruby-build.git "$HOME"/.rbenv/plugins/ruby-build
+git clone https://github.com/rkh/rbenv-update.git "$HOME"/.rbenv/plugins/rbenv-update
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.rbenv/plugins/xxenv-latest
 cd "$HOME"/.rbenv && src/configure && make -C src && cd "$HOME"
 chmod 700 "$HOME"/.rbenv
