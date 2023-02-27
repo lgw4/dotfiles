@@ -8,9 +8,9 @@ brew install autoconf gmp libyaml openssl@1.1 openssl@3 pkg-config python-tk@3.1
 readline rust sqlite3 tcl-tk xz zlib
 {{- else if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora")) }}
 sudo dnf install -y autoconf bzip2 bzip2-devel gcc gdbm-devel libffi-devel libnsl2-devel \
-libuuid-devel libyaml-devel make ncurses-devel openssl-devel patch pkgconf pkgconf-pkg-config \
-python3.10 python3.10-devel python3.10-libs readline-devel rust sqlite sqlite-devel tk-devel \
-xz-devel zlib-devel
+libuuid-devel libyaml-devel make ncurses-devel openssl-devel patch perl-FindBin pkgconf \
+pkgconf-pkg-config python3.10 python3.10-devel python3.10-libs readline-devel rust sqlite \
+sqlite-devel tk-devel xz-devel zlib-devel
 {{- end }}
 
 # Install goenv
