@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-# shellcheck disable=SC2164
-
-# Install goenv
-git clone https://github.com/syndbg/goenv.git "$HOME"/.goenv
-git clone https://github.com/jcmuller/goenv-update.git "$HOME"/.goenv/plugins/goenv-update
-git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.goenv/plugins/xxenv-latest
-cd "$HOME"/.goenv && src/configure && make -C src && cd "$HOME"
-chmod 700 "$HOME"/.goenv

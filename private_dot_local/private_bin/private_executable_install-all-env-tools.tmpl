@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+# shellcheck disable=SC2164
+
+# Install dependencies
+echo "Installing dependencies…"
+{{- if eq .chezmoi.os "darwin" }}
+brew install autoconf gmp libyaml openssl@1.1 openssl@3 pkg-config python-tk@3.10 python@3.10 \
+readline rust sqlite3 tcl-tk xz zlib
+{{- else if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora")) }}
+sudo dnf install -y autoconf bzip2 bzip2-devel gcc gdbm-devel libffi-devel libnsl2-devel \
+libuuid-devel libyaml-devel make ncurses-devel openssl-devel patch pkgconf pkgconf-pkg-config \
+python3.10 python3.10-devel python3.10-libs readline-devel rust sqlite sqlite-devel tk-devel \
+xz-devel zlib-devel
+{{- end }}
+
+# Install goenv
+echo "Intalling goenv…"
+git clone https://github.com/syndbg/goenv.git "$HOME"/.goenv
+git clone https://github.com/jcmuller/goenv-update.git "$HOME"/.goenv/plugins/goenv-update
+git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.goenv/plugins/xxenv-latest
+cd "$HOME"/.goenv && src/configure && make -C src && cd "$HOME"
+chmod 700 "$HOME"/.goenv
+
+# Install nodenv
+echo "Installing nodenv…"
+git clone https://github.com/nodenv/nodenv.git "$HOME"/.nodenv
+git clone https://github.com/nodenv/node-build.git "$HOME"/.nodenv/plugins/node-build
+git clone https://github.com/nodenv/node-build-update-defs.git "$HOME"/.nodenv/plugins/node-build-update-defs
+git clone https://github.com/nodenv/nodenv-update.git "$HOME"/.nodenv/plugins/nodenv-update
+git clone https://github.com/nodenv/nodenv-default-packages.git "$HOME"/.nodenv/plugins/nodenv-default-packages
+git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.nodenv/plugins/xxenv-latest
+cd "$HOME"/.nodenv && src/configure && make -C src && cd "$HOME"
+printf "alks\n" > "$HOME"/.nodenv/default-packages
+printf "npmrc\n" >> "$HOME"/.nodenv/default-packages
+chmod 700 "$HOME"/.nodenv
+
+# Install pyenv
+echo "Installing pyenv…"
+git clone https://github.com/pyenv/pyenv.git "$HOME"/.pyenv
+git clone https://github.com/pyenv/pyenv-update.git "$HOME"/.pyenv/plugins/pyenv-update
+cd "$HOME"/.pyenv && src/configure && make -C src && cd "$HOME"
+chmod 700 "$HOME"/.pyenv
+
+# Install
+echo "Installing rbenv…"
+git clone https://github.com/rbenv/rbenv.git "$HOME"/.rbenv
+git clone https://github.com/rbenv/ruby-build.git "$HOME"/.rbenv/plugins/ruby-build
+git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.rbenv/plugins/xxenv-latest
+cd "$HOME"/.rbenv && src/configure && make -C src && cd "$HOME"
+chmod 700 "$HOME"/.rbenv
+
+# Install tfenv
+echo "Installing tfenv…"
+git clone --depth=1 https://github.com/tfutils/tfenv.git "$HOME"/.tfenv
+printf "trust-tfenv: yes\n" > "$HOME"/.tfenv/use-gpgv
+chmod 700 "$HOME"/.tfenv
