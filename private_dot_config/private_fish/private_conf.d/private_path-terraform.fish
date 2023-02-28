@@ -5,10 +5,13 @@ end
 if test -n "$TFENV_ROOT" && test -d "$TFENV_ROOT/bin"
     fish_add_path -mpP $TFENV_ROOT/bin
     function tfenv-update -d "Update tfenv installation"
+        set current_directory (pwd)
+        printf "Updating tfenv…\n"
         cd $TFENV_ROOT
         git fetch
-        git pull origin master
-        cd $HOME
+        git pull
+        cd $current_directory
+        set -u current_directory
     end
 end
 
