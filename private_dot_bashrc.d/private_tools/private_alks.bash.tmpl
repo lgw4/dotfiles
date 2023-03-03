@@ -131,8 +131,8 @@ alks-disconnect () {
     unset AWS_SECRET_ACCESS_KEY
     unset AWS_SESSION_EXPIRES
     unset AWS_SESSION_TOKEN
-    if [[ -d "$HOME/.aws" ]]; then
-        rm -rf "$HOME/.aws"
+    if [[ -f "$HOME/.aws/credentials" ]]; then
+        rm -f "$HOME/.aws/credentials"
     fi
 }
 

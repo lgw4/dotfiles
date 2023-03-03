@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# shellcheck disable=SC1090,SC2207
+# shellcheck disable=SC1090,SC2103,SC2155,SC2164,SC2207
 # Enable pyenv
 if [[ -d "$HOME/.pyenv" ]]; then
     export PYENV_ROOT="$HOME/.pyenv"
@@ -7,6 +7,22 @@ fi
 
 if [[ -v PYENV_ROOT ]] && [[ -d "$PYENV_ROOT/bin" ]]; then
     path_prepend "$PYENV_ROOT/bin"
+    pyenv-update () {
+        local current_directory=$(pwd)
+        cd "$PYENV_ROOT"
+        git fetch
+        git pull
+        cd plugins
+        for directory in $(command ls); do
+            printf "Updating %s…\n" "$directory"
+            cd "$directory"
+            git fetch
+            git pull
+            cd ..
+        done
+        cd "$current_directory"
+        unset current_directory
+    }
 fi
 
 if command -v pyenv >/dev/null 2>&1; then

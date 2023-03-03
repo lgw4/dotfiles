@@ -133,7 +133,7 @@ function alks-disconnect -d "Disconnect any active ALKS session"
     set -e AWS_SESSION_EXPIRES
     set -e AWS_SESSION_TOKEN
     if test -f "$HOME/.aws/credentials"
-        rm -rf "$HOME/.aws/credentials"
+        rm -f "$HOME/.aws/credentials"
     end
 end
 
