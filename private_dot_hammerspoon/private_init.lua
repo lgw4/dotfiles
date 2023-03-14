@@ -12,20 +12,31 @@ local mod_shift = {"control", "command", "shift"}
 
 -- Spoons
 hs.loadSpoon("SpoonInstall")
+if not (fs.attributes("/Applications/Amphetamine.app") or
+    fs.attributes("/Applications/KeepingYouAwake.app") or
+    fs.attributes("/Applications/Lungo.app")) then
+    spoon.SpoonInstall:andUse("Caffeine", {
+        hotkeys = {toggle = {mod, "C"}},
+        start = true
+    })
+end
+spoon.SpoonInstall:andUse("EjectMenu", {
+    eject_on_lid_close = false,
+    notify = true,
+    show_in_menu_bar = true,
+    start = true
+})
 spoon.SpoonInstall:andUse("MouseCircle", {
     config = {
         color = {alpha = 0.75, blue = 0.0, green = 0.6, red = 0.521568627}
     },
     hotkeys = {show = {mod_shift, "D"}}
 })
-if not (fs.attributes("/Applications/Amphetamine.app") or
-    fs.attributes("/Applications/KeepingYouAwake.app") or
-    fs.attributes("/Applications/Lungo.app")) then
-    spoon.SpoonInstall:andUse("Caffeine", {
-        start = true,
-        hotkeys = {toggle = {mod, "C"}}
-    })
-end
+spoon.SpoonInstall:andUse("ReloadConfiguration", {
+    hotkeys = {reloadConfiguration = {mod_shift, "R"}},
+    hs.notify.new({title="Hammerspoon", informativeText="Configuration loaded."}):send(),
+    start = true
+})
 
 -- Get list of screens and refresh that list whenever screens are plugged or unplugged:
 local screens = screen.allScreens()
@@ -159,19 +170,3 @@ hotkey.bind(mod_shift, "LEFT", grid.resizeWindowThinner)
 hotkey.bind(mod, ";", function() grid.snap(window.frontmostWindow()) end)
 hotkey.bind(mod, "'",
             function() fnutils.map(window.visibleWindows(), grid.snap) end)
-
--- Manually reload configuration
--- Found in the "Getting Started with Hammerspoon" guide (http://www.hammerspoon.org/go/)
-hotkey.bind(mod_shift, "R", function() hs.reload() end)
-
--- Automatically reload configuration on save
--- Found in the "Getting Started with Hammerspoon" guide (http://www.hammerspoon.org/go/)
-function reloadConfig(files)
-    doReload = false
-    for _, file in pairs(files) do
-        if file:sub(-4) == ".lua" then doReload = true end
-    end
-    if doReload then hs.reload() end
-end
-hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
-hs.alert.show("Hammerspoon configuration loaded.")
