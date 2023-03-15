@@ -7,8 +7,8 @@ local screen = require "hs.screen"
 local window = require "hs.window"
 
 -- Modifier keys
-local mod = {"control", "command"}
-local mod_shift = {"control", "command", "shift"}
+local mod = { "control", "command" }
+local mod_shift = { "control", "command", "shift" }
 
 -- Spoons
 hs.loadSpoon("SpoonInstall")
@@ -16,32 +16,41 @@ if not (fs.attributes("/Applications/Amphetamine.app") or
     fs.attributes("/Applications/KeepingYouAwake.app") or
     fs.attributes("/Applications/Lungo.app")) then
     spoon.SpoonInstall:andUse("Caffeine", {
-        hotkeys = {toggle = {mod, "C"}},
+        hotkeys = { toggle = { mod, "C" } },
         start = true
     })
 end
 spoon.SpoonInstall:andUse("EjectMenu", {
-    eject_on_lid_close = false,
-    notify = true,
-    show_in_menu_bar = true,
+    config = {
+        eject_on_lid_close = false,
+        notify = true,
+        show_in_menu_bar = true,
+    },
+    hotkeys = { ejectAll = { mod_shift, "E" } },
     start = true
 })
 spoon.SpoonInstall:andUse("MouseCircle", {
     config = {
-        color = {alpha = 0.75, blue = 0.0, green = 0.6, red = 0.521568627}
+        color = {
+            alpha = 0.75,
+            blue = 0.0,
+            green = 0.6,
+            red = 0.521568627
+        }
     },
-    hotkeys = {show = {mod_shift, "D"}}
+    hotkeys = { show = { mod_shift, "D" } },
+    start = true
 })
 spoon.SpoonInstall:andUse("ReloadConfiguration", {
-    hotkeys = {reloadConfiguration = {mod_shift, "R"}},
-    hs.notify.new({title="Hammerspoon", informativeText="Configuration loaded."}):send(),
+    hotkeys = { reloadConfiguration = { mod_shift, "R" } },
+    hs.notify.new({ title = "Hammerspoon", informativeText = "Configuration loaded." }):send(),
     start = true
 })
 
 -- Get list of screens and refresh that list whenever screens are plugged or unplugged:
 local screens = screen.allScreens()
 local screenwatcher = screen.watcher.new(
-                          function() screens = screen.allScreens() end)
+    function() screens = screen.allScreens() end)
 screenwatcher:start()
 
 -- Default grid settings
@@ -90,7 +99,7 @@ local function moveWindow(direction)
 
         -- Add watcher so we can reset the original_position if window is closed
         local watcher = win:newWatcher(resetWindowPosition, id)
-        watcher:start({hs.uielement.watcher.elementDestroyed})
+        watcher:start({ hs.uielement.watcher.elementDestroyed })
 
         if direction == "left" then f.x = (res.w - (res.w * 2)) + 10 end
         if direction == "right" then f.x = (res.w + res.w) - 10 end
@@ -109,14 +118,14 @@ hotkey.bind(mod, "D", function() moveWindow("right") end)
 hotkey.bind(mod, "S", function() moveWindow("down") end)
 
 -- Center frontmost window
-function centerWindow()
+function CenterWindow()
     local win = window.frontmostWindow()
 
     win:centerOnScreen(ensureInScreenBounds)
 end
 
 -- Move frontmost window down 100 pixels
-function down100Pixels()
+function Down100Pixels()
     local win = hs.window.frontmostWindow()
     local f = win:frame()
 
@@ -125,7 +134,7 @@ function down100Pixels()
 end
 
 -- Set size of frontmost window to w x h
-function setWindowSize(w, h)
+function SetWindowSize(w, h)
     local win = window.frontmostWindow()
     local size = hs.geometry.size(w, h)
 
@@ -133,22 +142,22 @@ function setWindowSize(w, h)
 end
 
 -- Center frontmost window
-hotkey.bind(mod, "=", function() centerWindow() end)
+hotkey.bind(mod, "=", function() CenterWindow() end)
 
 -- Center frontmost window macOS-style
 hotkey.bind(mod_shift, "=", function()
-    centerWindow()
-    down100Pixels()
+    CenterWindow()
+    Down100Pixels()
 end)
 
 -- Set dimensions of frontmost window
-hotkey.bind(mod_shift, "1", function() setWindowSize(1024, 768) end)
-hotkey.bind(mod_shift, "2", function() setWindowSize(1280, 720) end)
-hotkey.bind(mod_shift, "3", function() setWindowSize(1366, 768) end)
-hotkey.bind(mod_shift, "5", function() setWindowSize(1152, 864) end)
-hotkey.bind(mod_shift, "6", function() setWindowSize(640, 480) end)
-hotkey.bind(mod_shift, "8", function() setWindowSize(800, 600) end)
-hotkey.bind(mod_shift, "F", function() setWindowSize(720, 539) end)
+hotkey.bind(mod_shift, "1", function() SetWindowSize(1024, 768) end)
+hotkey.bind(mod_shift, "2", function() SetWindowSize(1280, 720) end)
+hotkey.bind(mod_shift, "3", function() SetWindowSize(1366, 768) end)
+hotkey.bind(mod_shift, "5", function() SetWindowSize(1152, 864) end)
+hotkey.bind(mod_shift, "6", function() SetWindowSize(640, 480) end)
+hotkey.bind(mod_shift, "8", function() SetWindowSize(800, 600) end)
+hotkey.bind(mod_shift, "F", function() SetWindowSize(720, 539) end)
 
 -- Move windows
 hotkey.bind(mod, "DOWN", grid.pushWindowDown)
@@ -169,4 +178,4 @@ hotkey.bind(mod_shift, "LEFT", grid.resizeWindowThinner)
 -- Snap windows
 hotkey.bind(mod, ";", function() grid.snap(window.frontmostWindow()) end)
 hotkey.bind(mod, "'",
-            function() fnutils.map(window.visibleWindows(), grid.snap) end)
+    function() fnutils.map(window.visibleWindows(), grid.snap) end)

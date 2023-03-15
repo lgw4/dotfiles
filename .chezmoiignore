@@ -12,12 +12,13 @@ README.markdown
 .local/bin/reset-wifi
 .local/bin/self-sign-makemkv
 .local/bin/set-htop-permissions
+.zprofile
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
 .local/bin/cpu-temp
-.zprofile
 {{ end }}
 {{ if eq .chezmoi.os "windows" }}
 .netrc
 {{ end }}
 .keep
+.vscode
