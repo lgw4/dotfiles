@@ -12,23 +12,30 @@ local mod_shift = { "control", "command", "shift" }
 
 -- Spoons
 hs.loadSpoon("SpoonInstall")
-if not (fs.attributes("/Applications/Amphetamine.app") or
+if not (
+    fs.attributes("/Applications/Amphetamine.app") or
     fs.attributes("/Applications/KeepingYouAwake.app") or
-    fs.attributes("/Applications/Lungo.app")) then
+    fs.attributes("/Applications/Lungo.app")
+    ) then
     spoon.SpoonInstall:andUse("Caffeine", {
         hotkeys = { toggle = { mod, "C" } },
         start = true
     })
 end
-spoon.SpoonInstall:andUse("EjectMenu", {
-    config = {
-        eject_on_lid_close = false,
-        notify = true,
-        show_in_menu_bar = true,
-    },
-    hotkeys = { ejectAll = { mod_shift, "E" } },
-    start = true
-})
+if not (
+    fs.attributes("/Applications/Disk Master.app") or
+    fs.attributes("/Applications/Jettison.app")
+    ) then
+    spoon.SpoonInstall:andUse("EjectMenu", {
+        config = {
+            eject_on_lid_close = false,
+            notify = true,
+            show_in_menu_bar = true,
+        },
+        hotkeys = { ejectAll = { mod_shift, "E" } },
+        start = true
+    })
+end
 spoon.SpoonInstall:andUse("MouseCircle", {
     config = {
         color = {
@@ -39,7 +46,6 @@ spoon.SpoonInstall:andUse("MouseCircle", {
         }
     },
     hotkeys = { show = { mod_shift, "D" } },
-    start = true
 })
 spoon.SpoonInstall:andUse("ReloadConfiguration", {
     hotkeys = { reloadConfiguration = { mod_shift, "R" } },
@@ -96,11 +102,9 @@ local function moveWindow(direction)
         -- original_position for this window id
         local f = win:frame()
         original_position[id] = win:frame()
-
         -- Add watcher so we can reset the original_position if window is closed
         local watcher = win:newWatcher(resetWindowPosition, id)
         watcher:start({ hs.uielement.watcher.elementDestroyed })
-
         if direction == "left" then f.x = (res.w - (res.w * 2)) + 10 end
         if direction == "right" then f.x = (res.w + res.w) - 10 end
         if direction == "down" then f.y = (res.h + res.h) - 10 end
@@ -128,7 +132,6 @@ end
 function Down100Pixels()
     local win = hs.window.frontmostWindow()
     local f = win:frame()
-
     f.y = 100
     win:setFrameInScreenBounds(f)
 end
@@ -137,7 +140,6 @@ end
 function SetWindowSize(w, h)
     local win = window.frontmostWindow()
     local size = hs.geometry.size(w, h)
-
     win:setSize(size)
 end
 
@@ -176,6 +178,7 @@ hotkey.bind(mod_shift, "RIGHT", grid.resizeWindowWider)
 hotkey.bind(mod_shift, "LEFT", grid.resizeWindowThinner)
 
 -- Snap windows
-hotkey.bind(mod, ";", function() grid.snap(window.frontmostWindow()) end)
+hotkey.bind(mod, ";",
+    function() grid.snap(window.frontmostWindow()) end)
 hotkey.bind(mod, "'",
     function() fnutils.map(window.visibleWindows(), grid.snap) end)
