@@ -87,8 +87,10 @@ set showcmd
 set wrapscan
 
 " Colorscheme
+set t_Co=256
+set termguicolors
 set background=light
-colorscheme one 
+colorscheme base16-tomorrow
 
 " Highlight current line
 set cursorline
@@ -107,7 +109,7 @@ let mapleader=","
 " Informative statusline
 set laststatus=2
 let g:lightline = {
-      \ 'colorscheme': 'one',
+      \ 'colorscheme': 'Tomorrow',
       \ }
 set noshowmode
 

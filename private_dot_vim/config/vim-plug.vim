@@ -4,6 +4,7 @@ call plug#begin('~/.vim/plugged')
 
 " Plugins
 Plug 'alker0/chezmoi.vim'
+Plug 'chriskempson/base16-vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim-fish'
 Plug 'ervandew/supertab'
@@ -15,7 +16,6 @@ Plug 'liuchengxu/vista.vim'
 Plug 'nvie/vim-flake8'
 Plug 'plytophogy/vim-virtualenv'
 Plug 'psf/black'
-Plug 'rakr/vim-one'
 Plug 'tpope/vim-commentary'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'w0rp/ale'
