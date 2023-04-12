@@ -20,9 +20,9 @@ brew install goenv
 mkdir "$HOME"/.goenv
 {{- else }}
 git clone https://github.com/syndbg/goenv.git "$HOME"/.goenv
-git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.goenv/plugins/xxenv-latest
 cd "$HOME"/.goenv && src/configure && make -C src && cd "$HOME"
 {{- end }}
+git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.goenv/plugins/xxenv-latest
 chmod 700 "$HOME"/.goenv
 
 # Install nodenv
@@ -33,13 +33,13 @@ mkdir "$HOME"/.nodenv
 {{- else }}
 git clone https://github.com/nodenv/nodenv.git "$HOME"/.nodenv
 git clone https://github.com/nodenv/node-build.git "$HOME"/.nodenv/plugins/node-build
+cd "$HOME"/.nodenv && src/configure && make -C src && cd "$HOME"
+{{- end }}
 git clone https://github.com/nodenv/node-build-update-defs.git "$HOME"/.nodenv/plugins/node-build-update-defs
 git clone https://github.com/nodenv/nodenv-default-packages.git "$HOME"/.nodenv/plugins/nodenv-default-packages
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.nodenv/plugins/xxenv-latest
-cd "$HOME"/.nodenv && src/configure && make -C src && cd "$HOME"
 printf "alks\n" > "$HOME"/.nodenv/default-packages
 printf "npmrc\n" >> "$HOME"/.nodenv/default-packages
-{{- end }}
 chmod 700 "$HOME"/.nodenv
 
 
@@ -62,9 +62,9 @@ mkdir "$HOME"/.rbenv
 {{- else }}
 git clone https://github.com/rbenv/rbenv.git "$HOME"/.rbenv
 git clone https://github.com/rbenv/ruby-build.git "$HOME"/.rbenv/plugins/ruby-build
-git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.rbenv/plugins/xxenv-latest
 cd "$HOME"/.rbenv && src/configure && make -C src && cd "$HOME"
 {{- end }}
+git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.rbenv/plugins/xxenv-latest
 chmod 700 "$HOME"/.rbenv
 
 # Install tfenv
