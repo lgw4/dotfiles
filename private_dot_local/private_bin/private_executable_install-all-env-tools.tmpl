@@ -15,13 +15,22 @@ sqlite-devel tk-devel xz-devel zlib-devel
 
 # Install goenv
 printf "\nInstalling goenv…\n"
+{{- if eq .chezmoi.os "darwin" }}
+brew install goenv
+mkdir "$HOME"/.goenv
+{{- else }}
 git clone https://github.com/syndbg/goenv.git "$HOME"/.goenv
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.goenv/plugins/xxenv-latest
 cd "$HOME"/.goenv && src/configure && make -C src && cd "$HOME"
+{{- end }}
 chmod 700 "$HOME"/.goenv
 
 # Install nodenv
 printf "\nInstalling nodenv…\n"
+{{- if eq .chezmoi.os "darwin" }}
+brew install nodenv node-build
+mkdir "$HOME"/.nodenv
+{{- else }}
 git clone https://github.com/nodenv/nodenv.git "$HOME"/.nodenv
 git clone https://github.com/nodenv/node-build.git "$HOME"/.nodenv/plugins/node-build
 git clone https://github.com/nodenv/node-build-update-defs.git "$HOME"/.nodenv/plugins/node-build-update-defs
@@ -30,26 +39,43 @@ git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.nodenv/plugins/x
 cd "$HOME"/.nodenv && src/configure && make -C src && cd "$HOME"
 printf "alks\n" > "$HOME"/.nodenv/default-packages
 printf "npmrc\n" >> "$HOME"/.nodenv/default-packages
+{{- end }}
 chmod 700 "$HOME"/.nodenv
+
 
 # Install pyenv
 printf "\nInstalling pyenv…\n"
+{{- if eq .chezmoi.os "darwin" }}
+brew install pyenv
+mkdir "$HOME"/.pyenv
+{{- else }}
 git clone https://github.com/pyenv/pyenv.git "$HOME"/.pyenv
 cd "$HOME"/.pyenv && src/configure && make -C src && cd "$HOME"
+{{- end }}
 chmod 700 "$HOME"/.pyenv
 
 # Install rbenv
 printf "\nInstalling rbenv…\n"
+{{- if eq .chezmoi.os "darwin" }}
+brew install rbenv ruby-build
+mkdir "$HOME"/.rbenv
+{{- else }}
 git clone https://github.com/rbenv/rbenv.git "$HOME"/.rbenv
 git clone https://github.com/rbenv/ruby-build.git "$HOME"/.rbenv/plugins/ruby-build
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.rbenv/plugins/xxenv-latest
 cd "$HOME"/.rbenv && src/configure && make -C src && cd "$HOME"
+{{- end }}
 chmod 700 "$HOME"/.rbenv
 
 # Install tfenv
 printf "\nInstalling tfenv…\n"
+{{- if eq .chezmoi.os "darwin" }}
+brew install tfenv
+printf "trust-tfenv: yes\n" > "$(brew --prefix tfenv)"/use-gpgv
+{{- else }}
 git clone --depth=1 https://github.com/tfutils/tfenv.git "$HOME"/.tfenv
 printf "trust-tfenv: yes\n" > "$HOME"/.tfenv/use-gpgv
 chmod 700 "$HOME"/.tfenv
+{{- end }}
 
 printf "\nInstallation complete.\n"
