@@ -87,19 +87,19 @@ set showcmd
 set wrapscan
 
 " Colorscheme
-if exists('$BASE16_THEME')
-      \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
-    let base16colorspace=256
-    colorscheme base16-$BASE16_THEME
-endif
+set t_Co=256
+set background=light
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
+silent! colorscheme solarized
 
 " Highlight current line
 set cursorline
-"highlight CursorLine cterm=NONE ctermbg=gray94
+highlight CursorLine cterm=NONE ctermbg=187
 
 " Set default line ending warning columns
 set colorcolumn=79,99
-"highlight ColorColumn cterm=NONE ctermbg=gray94
+highlight ColorColumn cterm=NONE ctermbg=187
 
 " Search case sensitive only if contains upper-case
 set ignorecase smartcase
@@ -110,7 +110,7 @@ let mapleader=","
 " Informative statusline
 set laststatus=2
 let g:lightline = {
-      \ 'colorscheme': 'Tomorrow',
+      \ 'colorscheme': 'solarized',
       \ }
 set noshowmode
 

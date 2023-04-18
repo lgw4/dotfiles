@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
 
 " Plugins
 Plug 'alker0/chezmoi.vim'
-Plug 'chriskempson/base16-vim'
+Plug 'altercation/vim-colors-solarized'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim-fish'
 Plug 'ervandew/supertab'
