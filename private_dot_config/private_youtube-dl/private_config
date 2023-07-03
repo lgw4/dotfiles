@@ -1,7 +1,7 @@
 # youtube-dl configuration
 
 # download mp4 video and m4a video
---format 'bestvideo[ext=mp4][height<=?1080]+bestaudio[ext=m4a]/best[ext=mp4]'
+--format 'bestvideo[ext=mp4][height<=?1080][vcodec!*=av01]+bestaudio[ext=m4a]/best[ext=mp4][vcodec!*=av01]'
 
 # do not use mtime
 --no-mtime
