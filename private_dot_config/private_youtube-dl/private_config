@@ -7,4 +7,4 @@
 --no-mtime
 
 # output files to ~/Downloads
---output ~/Downloads/%(title)s-%(id)s.%(ext)s
+--output ~/Downloads/%(autonumber)s-%(title)s.%(ext)s
