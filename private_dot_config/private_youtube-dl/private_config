@@ -5,6 +5,9 @@
 
 # do not use mtime
 --no-mtime
+# retries
+--retries "infinite"
+--fragment-retries "infinite"
 
 # output files to ~/Downloads
 --output ~/Downloads/%(autonumber)s-%(title)s.%(ext)s
