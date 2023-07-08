@@ -23,4 +23,7 @@ end
 {{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.id "debian"))) }}
 fish_add_path -mpP /sbin
 fish_add_path -mpP /usr/sbin
+if set -l index (contains -i /snap/bin $PATH)
+    set -e PATH[$index]
+end
 {{ end }}
