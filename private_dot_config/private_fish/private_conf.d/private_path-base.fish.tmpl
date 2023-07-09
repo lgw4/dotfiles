@@ -20,7 +20,7 @@ if test -n "$HOMEBREW_PREFIX"
     set -x HOMEBREW_CASK_OPTS --appdir=~/Applications
 end
 {{- end }}
-{{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.id "debian"))) }}
+{{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 fish_add_path -mpP /sbin
 fish_add_path -mpP /usr/sbin
 if set -l index (contains -i /snap/bin $PATH)

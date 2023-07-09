@@ -6,7 +6,7 @@ printf "\nInstalling dependencies…\n"
 {{- if eq .chezmoi.os "darwin" }}
 brew install autoconf gmp libyaml openssl@1.1 openssl@3 pkg-config python-tk@3.10 python@3.10 \
 readline rust sqlite3 tcl-tk xz zlib
-{{- else if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu")) }}
+{{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian")(eq .chezmoi.osRelease.id "ubuntu"))) }}
 sudo apt update
 sudo apt install -y autoconf build-essential curl libbz2-dev libdb-dev libffi-dev libgdbm-dev \
 libgdbm6 libgmp-dev liblzma-dev libncurses5-dev libncursesw5-dev libreadline-dev libreadline6-dev \

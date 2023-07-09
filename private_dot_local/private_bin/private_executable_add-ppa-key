@@ -1,2 +1,2 @@
-#/usr/bin/env sh
+#!/usr/bin/env sh
 sudo /usr/bin/apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys "$1"
