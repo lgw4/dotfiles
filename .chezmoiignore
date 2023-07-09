@@ -15,6 +15,7 @@ README.markdown
 .zprofile
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
+.local/bin/add-ppa-key
 .local/bin/cpu-temp
 {{ end }}
 {{ if eq .chezmoi.os "windows" }}
