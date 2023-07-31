@@ -2,7 +2,7 @@
 command_timeout = 5000
 
 [battery]
-{{ if (eq .chezmoi.hostname "cerritos") }}
+{{- if (eq .chezmoi.hostname "cerritos") }}
 full_symbol = "• "
 charging_symbol = "⇡ "
 discharging_symbol = "⇣ "
