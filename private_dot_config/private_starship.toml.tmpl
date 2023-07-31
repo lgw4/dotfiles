@@ -2,11 +2,15 @@
 command_timeout = 5000
 
 [battery]
+{{ if (eq .chezmoi.hostname "cerritos") }}
 full_symbol = "• "
 charging_symbol = "⇡ "
 discharging_symbol = "⇣ "
 unknown_symbol = "❓ "
 empty_symbol = "❗ "
+{{ else }}
+disabled = true
+{{- end }}
 
 [directory]
 truncation_length = 2
