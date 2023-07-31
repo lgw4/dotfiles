@@ -16,7 +16,7 @@ wget xz-utils zlib1g-dev
 
 # Install goenv
 printf "\nInstalling goenv…\n"
-git clone https://github.com/syndbg/goenv.git "$HOME"/.goenv
+git clone https://github.com/go-nv/goenv.git "$HOME"/.goenv
 cd "$HOME"/.goenv && src/configure && make -C src && cd "$HOME"
 mkdir -p "$HOME"/.goenv/plugins
 git clone https://github.com/jcmuller/goenv-update.git "$HOME"/.goenv/plugins/goenv-update
