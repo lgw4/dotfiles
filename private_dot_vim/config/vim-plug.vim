@@ -9,6 +9,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim-fish'
 Plug 'ervandew/supertab'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'github/copilot.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'kh3phr3n/python-syntax'
