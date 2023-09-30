@@ -2,13 +2,13 @@
 # Set computer name
 if [ $# -ne 2 ]; then
     echo "Missing computer name and host name. Exiting."
-    exit
+    exit 1
 elif [ "$1" = "" ]; then
     echo "Missing computer name. Exiting."
-    exit
+    exit 1
 elif [ "$2" = "" ]; then
     echo "Missing host name. Exiting."
-    exit
+    exit 1
 fi
 COMPUTER_NAME="$1"
 HOST_NAME=$(echo "$2" | tr '[:upper:]' '[:lower:]')
@@ -142,3 +142,5 @@ defaults write com.apple.AppStore UserSetAutoPlayVideoSetting -bool true
 
 # Disable shadows in screenshots
 defaults write com.apple.screencapture "disable-shadow" -bool true
+
+exit 0
