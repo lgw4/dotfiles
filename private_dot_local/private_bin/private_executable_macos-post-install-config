@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 # Set computer name
-if [ $# -ne 2 ]; then
+if [ $# -eq 0 ]; then
     echo "Missing computer name and host name. Exiting."
     exit 1
 elif [ "$1" = "" ]; then
