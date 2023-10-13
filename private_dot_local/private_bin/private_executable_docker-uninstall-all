@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+if [ -d "/Applications/Docker.app" ]; then
+    printf "Uninstalling Docker…\n"
+    /Applications/Docker.app/Contents/MacOS/uninstall
+    rm -rf "$HOME"/Library/Group\ Containers/group.com.docker
+    rm -rf "$HOME"/Library/Containers/com.docker.docker
+    rm -rf "$HOME"/.docker
+    brew uninstall --cask --force --zap docker
+else
+    printf "Docker is not installed.\n"
+fi

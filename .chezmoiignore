@@ -5,6 +5,7 @@ README.markdown
 .config/fish/functions/get-info.fish
 .config/tabtab
 .hammerspoon
+.local/bin/docker-uninstall-all
 .local/bin/enable-terminal-touch-id
 .local/bin/fix-messages-display
 .local/bin/flush-dns
