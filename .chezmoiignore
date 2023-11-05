@@ -1,9 +1,7 @@
 README.markdown
 {{ if ne .chezmoi.os "darwin" }}
-.config/fish/conf.d/config-alks.fish
 .config/fish/functions/cdf.fish
 .config/fish/functions/get-info.fish
-.config/tabtab
 .hammerspoon
 .local/bin/docker-uninstall-all
 .local/bin/enable-terminal-touch-id
