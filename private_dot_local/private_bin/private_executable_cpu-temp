@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 import os
 
 
@@ -10,6 +9,7 @@ def main():
     """
     cpu_temp = get_cpu_temp()
     print(f"CPU temperature: {cpu_temp:.2f}ºC ({((cpu_temp * 1.8) + 32):.2f}ºF)")
+
 
 def get_cpu_temp():
     """

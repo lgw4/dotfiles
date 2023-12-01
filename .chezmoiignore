@@ -3,6 +3,7 @@ README.markdown
 .config/fish/functions/cdf.fish
 .config/fish/functions/get-info.fish
 .hammerspoon
+.local/bin/disable-spotlight
 .local/bin/docker-uninstall-all
 .local/bin/enable-terminal-touch-id
 .local/bin/fix-messages-display
