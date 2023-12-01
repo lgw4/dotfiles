@@ -1,21 +1,24 @@
 #!/usr/bin/env sh
 if [ $# -eq 0 ]; then
-    echo "Missing volume path. Exiting."
+    printf "Missing volume path. Exiting.\n"
     exit 1
 fi
 
 VOLUME_PATH="$1"
 
 if [ ! -d "$VOLUME_PATH" ]; then
-    echo "Volume does not appear to be mounted. Exiting."
+    printf "Volume does not appear to be mounted. Exiting.\n"
     exit 1
 fi
 
 # Disable Spotlight indexing
+printf "\nDisabling Spotlight indexing on volume: %s\n" "$VOLUME_PATH"
 sudo mdutil -i off -d "$VOLUME_PATH"
+printf "\nAdding /.metadata_never_index file to volume: %s\n" "$VOLUME_PATH"
 sudo touch "$VOLUME_PATH/.metadata_never_index"
 
 # Show Spotlight indexing status
+printf "\nSpotlight indexing status for volume: %s\n" "$VOLUME_PATH"
 mdutil -s "$VOLUME_PATH"
 
 exit 0
