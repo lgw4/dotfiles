@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+if [ $# -lt 2 ]; then
+    printf "\nMissing zip file and ticket number. Exiting.\n"
+    exit 1
+fi
+
+curl -i -T "$1" "https://supportlogs.jfrog.com/logs/$2/"
