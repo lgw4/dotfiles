@@ -25,6 +25,6 @@ end
 
 if type -q rbenv && status --is-interactive
     rbenv init - fish | source
-    set -l (rbenv commands)
+    set -l rbenv_commands (rbenv commands)
     complete -f -c rbenv -n "not __fish_seen_subcommand_from $rbenv_commands" -a update -d 'Update rbenv and rbenv plugins'
 end
