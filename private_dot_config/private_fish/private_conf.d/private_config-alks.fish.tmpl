@@ -164,11 +164,11 @@ function ghes-tunnel -d "Open GHES tunnel for management console"
         --query SecretString \
         --output text | pbcopy
     printf "The Management Console password has been copied to your clipboard.\n"
+    printf "Opening the CAI GHES Management Console…\n"
     aws ssm start-session \
         --region $REGION \
         --target $INSTANCE_ID \
         --document-name AWS-StartPortForwardingSession \
-        --parameters '{"portNumber":["8443"],"localPortNumber":["8443"]}'
-    printf "Opening the CAI GHES Management Console…\n"
+        --parameters '{"portNumber":["8443"],"localPortNumber":["8443"]}' &
     open -u https://localhost:8443
 end
