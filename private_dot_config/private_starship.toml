@@ -1,5 +1,6 @@
-# starship.toml: Mostly stock with No Nerd Fonts preset (https://starship.rs/presets/no-nerd-font)
-# and some minor tweaks to the Prompt, Directory, and Lua modules.
+# starship.toml: Mostly stock with No Nerd Fonts preset
+# (https://starship.rs/presets/no-nerd-font) and some minor tweaks to the
+# Prompt, Directory, and Lua modules.
 
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
@@ -105,7 +106,6 @@ charging_symbol = "⇡ "
 discharging_symbol = "⇣ "
 unknown_symbol = "❓ "
 empty_symbol = "❗ "
-# disabled = true
 
 [directory]
 truncation_length = 2
