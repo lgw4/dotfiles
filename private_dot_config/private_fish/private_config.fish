@@ -16,10 +16,8 @@ if type -q direnv
     direnv hook fish | source
 end
 
-if test -d "$HOME"/.asdf
-    source ~/.asdf/asdf.fish
-end
-
 if test -e "$HOME/".iterm2_shell_integration.fish
     source "$HOME"/.iterm2_shell_integration.fish
 end
+
+enable_transience
