@@ -2,7 +2,7 @@
 # shellcheck shell=sh
 
 if [ -d "$PWD"/.git ]; then
-    git config --local user.email {{ (onepasswordDetailsFields "34xq43cysjdfboj2r5u35fgefi").email.value }}
+    git config --local user.email {{ (onepasswordItemFields "34xq43cysjdfboj2r5u35fgefi").email.value }}
     git config --local user.name "Chip Warden"
     return_code=0
 else
