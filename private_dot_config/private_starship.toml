@@ -199,6 +199,9 @@ format = '\[[$symbol($version)]($style)\]'
 [hg_branch]
 format = '\[[$symbol$branch]($style)\]'
 
+[hostname]
+format = '\[[$hostname]($style)\] '
+
 [java]
 format = '\[[$symbol($version)]($style)\]'
 
