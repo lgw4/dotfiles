@@ -108,7 +108,8 @@ unknown_symbol = "❓ "
 empty_symbol = "❗ "
 
 [aws]
-format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
+format = '\[[$symbol($profile )(\($region\))(\[$duration\])]($style)\]'
+symbol = '☁️ '
 
 [bun]
 format = '\[[$symbol($version)]($style)\]'
