@@ -20,6 +20,8 @@
 	{{- else if (eq .chezmoi.os "linux" ) }}
 	helper = store
 	{{- end }}
+[credential "https://github.com"]
+	useHttpPath = true
 [fetch]
 	fsckObjects = true
 [filter "lfs"]
