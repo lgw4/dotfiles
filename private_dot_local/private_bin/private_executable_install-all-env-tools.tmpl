@@ -34,12 +34,6 @@ printf "alks\n" > "$HOME"/.nodenv/default-packages
 printf "npmrc\n" >> "$HOME"/.nodenv/default-packages
 chmod 700 "$HOME"/.nodenv
 
-# Install pyenv
-printf "\nInstalling pyenv…\n"
-git clone https://github.com/pyenv/pyenv.git "$HOME"/.pyenv
-git clone https://github.com/pyenv/pyenv-update.git "$HOME"/.pyenv/plugins/pyenv-update
-chmod 700 "$HOME"/.pyenv
-
 # Install rbenv
 printf "\nInstalling rbenv…\n"
 git clone https://github.com/rbenv/rbenv.git "$HOME"/.rbenv
