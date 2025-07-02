@@ -18,18 +18,20 @@ wget xz-utils zlib1g-dev
 printf "\nInstalling goenv…\n"
 {{- if eq .chezmoi.os "darwin" }}
 brew install goenv
+mkdir "$HOME"/.goenv
 {{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 git clone https://github.com/go-nv/goenv.git "$HOME"/.goenv
 mkdir -p "$HOME"/.goenv/plugins
 git clone https://github.com/jcmuller/goenv-update.git "$HOME"/.goenv/plugins/goenv-update
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.goenv/plugins/xxenv-latest
-chmod 700 "$HOME"/.goenv
 {{- end }}
+chmod 700 "$HOME"/.goenv
 
 # Install nodenv
 printf "\nInstalling nodenv…\n"
 {{- if eq .chezmoi.os "darwin" }}
 brew install nodenv node-build-update-defs nodenv-default-packages
+mkdir "$HOME"/.nodenv
 {{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 git clone https://github.com/nodenv/nodenv.git "$HOME"/.nodenv
 git clone https://github.com/nodenv/nodenv-update.git "$HOME"/.nodenv/plugins/nodenv-update
@@ -37,26 +39,25 @@ git clone https://github.com/nodenv/nodenv-default-packages.git "$HOME"/.nodenv/
 git clone https://github.com/nodenv/node-build.git "$HOME"/.nodenv/plugins/node-build
 git clone https://github.com/nodenv/node-build-update-defs.git "$HOME"/.nodenv/plugins/node-build-update-defs
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.nodenv/plugins/xxenv-latest
-chmod 700 "$HOME"/.nodenv
 {{- end }}
 {{- if eq .chezmoi.hostname "cai-gr6p3fm9ph" }}
-mkdir -p "$HOME"/.nodenv
 printf "alks\n" > "$HOME"/.nodenv/default-packages
 printf "npmrc\n" >> "$HOME"/.nodenv/default-packages
-chmod 700 "$HOME"/.nodenv
 {{- end }}
+chmod 700 "$HOME"/.nodenv
 
 # Install rbenv
 printf "\nInstalling rbenv…\n"
 {{- if eq .chezmoi.os "darwin" }}
 brew install rbenv
+mkdir "$HOME"/.rbenv
 {{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 git clone https://github.com/rbenv/rbenv.git "$HOME"/.rbenv
 git clone https://github.com/rbenv/ruby-build.git "$HOME"/.rbenv/plugins/ruby-build
 git clone https://github.com/rkh/rbenv-update.git "$HOME"/.rbenv/plugins/rbenv-update
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.rbenv/plugins/xxenv-latest
-chmod 700 "$HOME"/.rbenv
 {{- end }}
+chmod 700 "$HOME"/.rbenv
 
 # Install tenv
 printf "\nInstalling tenv…\n"

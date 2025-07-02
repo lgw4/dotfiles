@@ -1,9 +1,9 @@
-if type -q goenv && status --is-interactive
-    goenv init - fish | source
-end
-
 if test -d "$HOME/.goenv"
     set -x GOENV_ROOT $HOME/.goenv
+end
+
+if type -q goenv && status --is-interactive
+    goenv init - fish | source
     fish_add_path -mpP $GOENV_ROOT/shims
 end
 
