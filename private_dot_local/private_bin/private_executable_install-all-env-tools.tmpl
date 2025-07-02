@@ -37,6 +37,7 @@ git clone https://github.com/nodenv/nodenv-default-packages.git "$HOME"/.nodenv/
 git clone https://github.com/nodenv/node-build.git "$HOME"/.nodenv/plugins/node-build
 git clone https://github.com/nodenv/node-build-update-defs.git "$HOME"/.nodenv/plugins/node-build-update-defs
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.nodenv/plugins/xxenv-latest
+chmod 700 "$HOME"/.nodenv
 {{- end }}
 {{- if eq .chezmoi.hostname "cai-gr6p3fm9ph" }}
 mkdir -p "$HOME"/.nodenv
