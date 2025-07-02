@@ -65,11 +65,11 @@ brew install tenv
 {{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 cd /tmp
 LATEST_VERSION_COSIGN=$(curl https://api.github.com/repos/sigstore/cosign/releases/latest | jq -r .tag_name | tr -d "v")
-curl -O -L "https://github.com/sigstore/cosign/releases/latest/download/cosign_${LATEST_VERSION_COSIGN}_{{- chezmoi.arch -}}.deb"
-sudo dpkg -i cosign_${LATEST_VERSION_COSIGN}_{{- chezmoi.arch -}}.deb
+curl -O -L "https://github.com/sigstore/cosign/releases/latest/download/cosign_${LATEST_VERSION_COSIGN}_{{- .chezmoi.arch -}}.deb"
+sudo dpkg -i cosign_${LATEST_VERSION_COSIGN}_{{- .chezmoi.arch -}}.deb
 LATEST_VERSION_TENV=$(curl --silent https://api.github.com/repos/tofuutils/tenv/releases/latest | jq -r .tag_name)
-curl -O -L "https://github.com/tofuutils/tenv/releases/latest/download/tenv_${LATEST_VERSION_TENV}_{{ chezmoi.arch }}.deb"
-sudo dpkg -i "tenv_${LATEST_VERSION_TENV}_{{- chezmoi.arch -}}.deb"
+curl -O -L "https://github.com/tofuutils/tenv/releases/latest/download/tenv_${LATEST_VERSION_TENV}_{{ .chezmoi.arch }}.deb"
+sudo dpkg -i "tenv_${LATEST_VERSION_TENV}_{{- .chezmoi.arch -}}.deb"
 cd "$HOME"
 {{- end }}
 
