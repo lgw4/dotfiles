@@ -30,7 +30,7 @@ chmod 700 "$HOME"/.goenv
 # Install nodenv
 printf "\nInstalling nodenv…\n"
 {{- if eq .chezmoi.os "darwin" }}
-brew install nodenv node-build-update-defs nodenv-default-packages
+brew install nodenv node-build-update-defs
 mkdir "$HOME"/.nodenv
 {{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 git clone https://github.com/nodenv/nodenv.git "$HOME"/.nodenv
@@ -41,6 +41,7 @@ git clone https://github.com/nodenv/node-build-update-defs.git "$HOME"/.nodenv/p
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.nodenv/plugins/xxenv-latest
 {{- end }}
 {{- if eq .chezmoi.hostname "cai-gr6p3fm9ph" }}
+brew install nodenv-default-packages
 printf "alks\n" > "$HOME"/.nodenv/default-packages
 printf "npmrc\n" >> "$HOME"/.nodenv/default-packages
 {{- end }}
