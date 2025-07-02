@@ -1,11 +1,15 @@
 #!/usr/bin/env sh
 # shellcheck shell=sh
 if [ -x /opt/homebrew/bin/htop ]; then
-    sudo chown root:wheel "$(/opt/homebrew/bin/brew --prefix htop)"/bin/htop
-    sudo chmod 4555 "$(/opt/homebrew/bin/brew --prefix htop)"/bin/htop
+    sudo sh -c '
+    chown root:wheel "$(/opt/homebrew/bin/brew --prefix htop)"/bin/htop
+    chmod 4555 "$(/opt/homebrew/bin/brew --prefix htop)"/bin/htop
+    '
 elif [ -x /usr/local/bin/htop ]; then
-    sudo chown root:wheel "$(/usr/local/bin/brew --prefix htop)"/bin/htop
-    sudo chmod 4555 "$(/usr/local/bin/brew --prefix htop)"/bin/htop
+    sudo sh -c '
+    chown root:wheel "$(/usr/local/bin/brew --prefix htop)"/bin/htop
+    chmod 4555 "$(/usr/local/bin/brew --prefix htop)"/bin/htop
+    '
 else
     printf "Cannot find htop in PATH. Exiting…\n"
 fi
