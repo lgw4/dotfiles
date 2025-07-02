@@ -16,36 +16,58 @@ wget xz-utils zlib1g-dev
 
 # Install goenv
 printf "\nInstalling goenv…\n"
+{{- if eq .chezmoi.os "darwin" }}
+brew install goenv
+{{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 git clone https://github.com/go-nv/goenv.git "$HOME"/.goenv
 mkdir -p "$HOME"/.goenv/plugins
 git clone https://github.com/jcmuller/goenv-update.git "$HOME"/.goenv/plugins/goenv-update
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.goenv/plugins/xxenv-latest
 chmod 700 "$HOME"/.goenv
+{{- end }}
 
 # Install nodenv
 printf "\nInstalling nodenv…\n"
+{{- if eq .chezmoi.os "darwin" }}
+brew tap nodenv/nodenv
+brew install nodenv node-build-update-defs nodenv-default-packages
+{{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 git clone https://github.com/nodenv/nodenv.git "$HOME"/.nodenv
 git clone https://github.com/nodenv/nodenv-update.git "$HOME"/.nodenv/plugins/nodenv-update
 git clone https://github.com/nodenv/nodenv-default-packages.git "$HOME"/.nodenv/plugins/nodenv-default-packages
 git clone https://github.com/nodenv/node-build.git "$HOME"/.nodenv/plugins/node-build
 git clone https://github.com/nodenv/node-build-update-defs.git "$HOME"/.nodenv/plugins/node-build-update-defs
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.nodenv/plugins/xxenv-latest
+{{- end }}
+mkdir -p "$HOME"/.nodenv
 printf "alks\n" > "$HOME"/.nodenv/default-packages
 printf "npmrc\n" >> "$HOME"/.nodenv/default-packages
 chmod 700 "$HOME"/.nodenv
 
 # Install rbenv
 printf "\nInstalling rbenv…\n"
+{{- if eq .chezmoi.os "darwin" }}
+brew install rbenv
+{{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 git clone https://github.com/rbenv/rbenv.git "$HOME"/.rbenv
 git clone https://github.com/rbenv/ruby-build.git "$HOME"/.rbenv/plugins/ruby-build
 git clone https://github.com/rkh/rbenv-update.git "$HOME"/.rbenv/plugins/rbenv-update
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.rbenv/plugins/xxenv-latest
 chmod 700 "$HOME"/.rbenv
+{{- end }}
 
-# Install tfenv
-printf "\nInstalling tfenv…\n"
-git clone --depth=1 https://github.com/tfutils/tfenv.git "$HOME"/.tfenv
-printf "trust-tfenv: yes\n" > "$HOME"/.tfenv/use-gpgv
-chmod 700 "$HOME"/.tfenv
-
+# Install tenv
+printf "\nInstalling tenv…\n"
+{{- if eq .chezmoi.os "darwin" }}
+brew install tenv cosign
+{{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
+cd /tmp
+LATEST_VERSION_COSIGN=$(curl https://api.github.com/repos/sigstore/cosign/releases/latest | jq -r .tag_name | tr -d "v")
+curl -O -L "https://github.com/sigstore/cosign/releases/latest/download/cosign_${LATEST_VERSION_COSIGN}_amd64.deb"
+sudo dpkg -i cosign_${LATEST_VERSION_COSIGN}_amd64.deb
+LATEST_VERSION_TENV=$(curl --silent https://api.github.com/repos/tofuutils/tenv/releases/latest | jq -r .tag_name)
+curl -O -L "https://github.com/tofuutils/tenv/releases/latest/download/tenv_${LATEST_VERSION_TENV}_amd64.deb"
+sudo dpkg -i "tenv_${LATEST_VERSION_TENV}_amd64.deb"
+cd "$HOME"
+{{- end }}
 printf "\nInstallation complete.\n"
