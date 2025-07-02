@@ -4,8 +4,8 @@
 # Install dependencies
 printf "\nInstalling dependencies…\n"
 {{- if eq .chezmoi.os "darwin" }}
-brew install autoconf gmp libyaml openssl@1.1 openssl@3 pkg-config python-tk@3.12 python@3.12 \
-readline rust sqlite3 tcl-tk xz zlib
+brew tap nodenv/nodenv
+brew install cosign
 {{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 sudo apt update
 sudo apt install -y autoconf build-essential curl libbz2-dev libdb-dev libffi-dev libgdbm-dev \
@@ -29,7 +29,6 @@ chmod 700 "$HOME"/.goenv
 # Install nodenv
 printf "\nInstalling nodenv…\n"
 {{- if eq .chezmoi.os "darwin" }}
-brew tap nodenv/nodenv
 brew install nodenv node-build-update-defs nodenv-default-packages
 {{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 git clone https://github.com/nodenv/nodenv.git "$HOME"/.nodenv
@@ -59,7 +58,7 @@ chmod 700 "$HOME"/.rbenv
 # Install tenv
 printf "\nInstalling tenv…\n"
 {{- if eq .chezmoi.os "darwin" }}
-brew install tenv cosign
+brew install tenv
 {{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 cd /tmp
 LATEST_VERSION_COSIGN=$(curl https://api.github.com/repos/sigstore/cosign/releases/latest | jq -r .tag_name | tr -d "v")
@@ -70,4 +69,5 @@ curl -O -L "https://github.com/tofuutils/tenv/releases/latest/download/tenv_${LA
 sudo dpkg -i "tenv_${LATEST_VERSION_TENV}_amd64.deb"
 cd "$HOME"
 {{- end }}
+
 printf "\nInstallation complete.\n"
