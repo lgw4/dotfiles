@@ -1,0 +1,15 @@
+if test -d "$HOMEBREW_PREFIX/share/npm/bin"
+    fish_add_path -mpP $HOMEBREW_PREFIX/share/npm/bin
+end
+
+if test -d "$HOME/.nodenv"
+    set -x NODENV_ROOT $HOME/.nodenv
+end
+
+if type -q nodenv && status --is-interactive
+    nodenv init - fish | source
+end
+
+{{- if eq .chezmoi.os "darwin" }}
+set -x NODE_BUILD_DEFINITIONS "/opt/homebrew/opt/node-build-update-defs/share/node-build"
+{{- end }}
