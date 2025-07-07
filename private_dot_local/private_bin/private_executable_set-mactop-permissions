@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+# shellcheck shell=sh
+if [ -x /opt/homebrew/bin/mactop ]; then
+    sudo sh -c '
+    chown root:wheel "$(/opt/homebrew/bin/brew --prefix mactop)"/bin/mactop
+    chmod 4555 "$(/opt/homebrew/bin/brew --prefix mactop)"/bin/mactop
+    '
+else
+    printf "Cannot find mactop in /opt/homebrew/bin. Exiting…\n"
+fi

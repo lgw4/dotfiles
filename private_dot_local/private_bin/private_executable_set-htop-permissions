@@ -5,11 +5,6 @@ if [ -x /opt/homebrew/bin/htop ]; then
     chown root:wheel "$(/opt/homebrew/bin/brew --prefix htop)"/bin/htop
     chmod 4555 "$(/opt/homebrew/bin/brew --prefix htop)"/bin/htop
     '
-elif [ -x /usr/local/bin/htop ]; then
-    sudo sh -c '
-    chown root:wheel "$(/usr/local/bin/brew --prefix htop)"/bin/htop
-    chmod 4555 "$(/usr/local/bin/brew --prefix htop)"/bin/htop
-    '
 else
-    printf "Cannot find htop in PATH. Exiting…\n"
+    printf "Cannot find htop in /opt/homebrew/bin. Exiting…\n"
 fi

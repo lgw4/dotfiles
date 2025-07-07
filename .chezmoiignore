@@ -5,13 +5,13 @@ README.markdown
 .hammerspoon
 .local/bin/disable-spotlight
 .local/bin/docker-uninstall-all
-.local/bin/enable-terminal-touch-id
 .local/bin/fix-messages-display
 .local/bin/flush-dns
 .local/bin/macos-post-install-config
 .local/bin/reset-wifi
 .local/bin/self-sign-makemkv
 .local/bin/set-htop-permissions
+.local/bin/set-mactop-permissions
 .zprofile
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
