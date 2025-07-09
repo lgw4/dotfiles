@@ -40,7 +40,7 @@ git clone https://github.com/nodenv/node-build.git "$HOME"/.nodenv/plugins/node-
 git clone https://github.com/nodenv/node-build-update-defs.git "$HOME"/.nodenv/plugins/node-build-update-defs
 git clone https://github.com/momo-lab/xxenv-latest.git "$HOME"/.nodenv/plugins/xxenv-latest
 {{- end }}
-{{- if eq .chezmoi.hostname onepasswordRead "op://Work/d7io2elknbx7zl6kyimvza2z3i/mbp_hostname" }}
+{{- if eq .chezmoi.hostname (onepasswordRead "op://Work/d7io2elknbx7zl6kyimvza2z3i/mbp_hostname") }}
 brew install nodenv-default-packages
 printf "alks\n" > "$HOME"/.nodenv/default-packages
 printf "npmrc\n" >> "$HOME"/.nodenv/default-packages
