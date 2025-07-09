@@ -10,6 +10,7 @@
         "chezmoi",
         "cysjdfboj",
         "devel",
+        "direnv",
         "diskimages",
         "dpkg",
         "dtfni",
@@ -22,6 +23,7 @@
         "gpgv",
         "hammerspoon",
         "icnv",
+        "iterm",
         "kbbcomponentlibrary",
         "kbbsdk",
         "keyserver",
@@ -48,6 +50,7 @@
         "onepassword",
         "osxkeychain",
         "Pathbar",
+        "pipx",
         "pronqtfooedscvnon",
         "pypi",
         "quotepath",
@@ -65,6 +68,7 @@
         "trustctime",
         "universalaccess",
         "virtualenv",
+        "VIRTUALFISH",
         "xxenv",
         "zwgbazradqupbcnkgbm"
     ]
