@@ -19,5 +19,8 @@ end
 if test -e "$HOME/".iterm2_shell_integration.fish
     source "$HOME"/.iterm2_shell_integration.fish
 end
+{{ if eq .chezmoi.hostname (onepasswordDetailsFields "d7io2elknbx7zl6kyimvza2z3i").mbp-hostname.value }}
+set -x GHES_PAT (security find-internet-password -s {{ (onepasswordDetailsFields "d7io2elknbx7zl6kyimvza2z3i").ghes-fqdn.value }} -w)
+{{- end }}
 
 enable_transience
