@@ -17,6 +17,7 @@ README.markdown
 {{ if ne .chezmoi.hostname (onepasswordRead "op://Work/d7io2elknbx7zl6kyimvza2z3i/mbp_hostname") }}
 .bashrc.d/tools/alks.bash
 .config/fish/conf.d/config-alks.fish
+.local/bin/upload-jfrog-support-bundle
 .npmrcs
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
