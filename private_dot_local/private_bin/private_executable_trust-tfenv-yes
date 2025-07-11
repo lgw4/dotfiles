@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-# shellcheck shell=sh
-if [ -x "$HOME"/.tfenv/bin/tfenv ]; then
-    printf "trust-tfenv: yes\n" > "$HOME"/.tfenv/use-gpgv
-elif [ -x /opt/homebrew/bin/tfenv ]; then
-    printf "trust-tfenv: yes\n" > "$(/opt/homebrew/bin/brew --prefix tfenv)"/use-gpgv
-elif [ -x /usr/local/bin/tfenv ]; then
-    printf "trust-tfenv: yes\n" > "$(/usr/local/bin/brew --prefix tfenv)"/use-gpgv
-fi

@@ -30,4 +30,5 @@
 - [`nodenv`](https://github.com/nodenv/nodenv) is used for NodeJS version management.
 - [`rbenv`](https://github.com/rbenv/rbenv) is used for Ruby version management.
 - [Starship](https://starship.rs) is the prompt tool used for Fish shell and Bash shell.
+- [`tenv`](https://tofuutils.github.io/tenv/) is used for managing Terraform versions.
 - [`uv`](https://docs.astral.sh/uv/) is used for Python version management, Python virtual environment management, and Python dependency management.
