@@ -14,6 +14,11 @@ README.markdown
 .local/bin/set-mactop-permissions
 .zprofile
 {{ end }}
+{{ if ne .chezmoi.hostname (onepasswordRead "op://Work/d7io2elknbx7zl6kyimvza2z3i/mbp_hostname") }}
+.bashrc.d/tools/alks.bash
+.config/fish/conf.d/config-alks.fish
+.npmrcs
+{{ end }}
 {{ if ne .chezmoi.os "linux" }}
 .local/bin/add-ppa-key
 .local/bin/cpu-temp
@@ -21,5 +26,6 @@ README.markdown
 {{ if eq .chezmoi.os "windows" }}
 .netrc
 {{ end }}
+.github
 .keep
 .vscode
