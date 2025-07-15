@@ -2,7 +2,7 @@ if test -d "$HOME/.rbenv"
     set -x RBENV_ROOT $HOME/.rbenv
 end
 
-{{- if eq .chezmoi.os "ubuntu" }}
+{{- if eq .chezmoi.osRelease.id "ubuntu" }}
 if test -n "$RBENV_ROOT" -a -f "$RBENV_ROOT/bin/rbenv"
     fish_add_path -mpP $RBENV_ROOT/bin
 end
