@@ -4,7 +4,7 @@ if [[ -d "$HOME/.rbenv" ]]; then
     export RBENV_ROOT="$HOME/.rbenv"
 fi
 
-{{- if eq (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
+{{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 if [[ -n "$RBENV_ROOT" ]] && [[ -f "$RBENV_ROOT/bin/rbenv" ]]; then
     path_prepend "$RBENV_ROOT/bin"
 fi

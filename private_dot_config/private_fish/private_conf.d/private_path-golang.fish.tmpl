@@ -2,7 +2,7 @@ if test -d "$HOME/.goenv"
     set -x GOENV_ROOT $HOME/.goenv
 end
 
-{{- if eq (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
+{{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 if test -n "$GOENV_ROOT" -a -f "$GOENV_ROOT/bin/goenv"
     fish_add_path -mpP $GOENV_ROOT/bin
 end
