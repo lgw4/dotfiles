@@ -2,6 +2,12 @@ if test -d "$HOME/.goenv"
     set -x GOENV_ROOT $HOME/.goenv
 end
 
+{{- if eq .chezmoi.os "ubuntu" }}
+if test -n "$GOENV_ROOT" -a -f "$GOENV_ROOT/bin/goenv"
+    fish_add_path -mpP $GOENV_ROOT/bin
+end
+{{- end }}
+
 if type -q goenv && status --is-interactive
     goenv init - fish | source
     fish_add_path -mpP $GOENV_ROOT/shims

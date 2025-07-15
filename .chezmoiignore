@@ -1,5 +1,7 @@
 README.markdown
 {{ if ne .chezmoi.os "darwin" }}
+.bashrc.d/functions/cdf.bash
+.bashrc.d/functions/get-info.bash
 .config/fish/functions/cdf.fish
 .config/fish/functions/get-info.fish
 .hammerspoon
