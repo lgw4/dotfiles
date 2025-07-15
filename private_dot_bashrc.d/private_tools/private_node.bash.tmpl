@@ -8,7 +8,7 @@ if [[ -d "$HOME/.nodenv" ]]; then
     export NODENV_ROOT="$HOME/.nodenv"
 fi
 
-{{- if eq .chezmoi.osRelease.id "ubuntu" }}
+{{- if eq (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 if [[ -n "$NODENV_ROOT" ]] && [[ -f "$NODENV_ROOT/bin/nodenv" ]]; then
     path_prepend "$NODENV_ROOT/bin"
 fi
