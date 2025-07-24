@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 if [ $# -lt 2 ]; then
-    printf "\nMissing zip file and ticket number. Exiting.\n"
+    printf "\nMissing zip file and/or ticket number. Exiting.\n"
     exit 1
 fi
 
