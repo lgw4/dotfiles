@@ -1,0 +1,17 @@
+# This is the configuration file for Ghostty.
+
+# Cursor configuration
+cursor-style = block
+cursor-style-blink = true
+shell-integration-features = no-cursor
+
+# Font configuration
+font-family = JetBrains Mono Regular Medium
+font-size = 13
+font-thicken = true
+
+# Theme configuration
+theme = iTerm2 Solarized Light
+
+# Window configuration
+window-padding-x = 4
