@@ -1,6 +1,8 @@
 [global]
+{{- if eq .chezmoi.hostname (onepasswordRead "op://Work/d7io2elknbx7zl6kyimvza2z3i/mbp_hostname") }}
 extra-index-url = https://pypi.org/simple
 index-url = https://{{- (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}/artifactory/api/pypi/cai-pypi/simple
+{{- end }}
 respect-virtualenv = true
 
 [list]

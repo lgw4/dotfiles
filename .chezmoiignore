@@ -21,6 +21,7 @@ README.markdown
 .config/fish/conf.d/80-config-alks.fish
 .local/bin/set-cai-github
 .local/bin/upload-jfrog-support-bundle
+.netrc
 .npmrcs
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
