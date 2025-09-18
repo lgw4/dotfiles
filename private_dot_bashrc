@@ -2,67 +2,65 @@
 # shellcheck shell=bash
 # shellcheck disable=SC1090,SC1091,SC2034,SC2155
 if ((BASH_VERSINFO[0] > 3)); then
-    shopt -s autocd
-    shopt -s cdspell
-    shopt -s dirspell
-    shopt -s globstar
+	shopt -s autocd
+	shopt -s cdspell
+	shopt -s dirspell
+	shopt -s globstar
 fi
 
 # Functions to help us manage paths.  Second argument is the name of the
 # path variable to be modified (default: PATH).
 # Taken from: https://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html
-path_remove () {
-    local IFS=':'
-    local NEWPATH
-    local DIR
-    local PATHVARIABLE=${2:-PATH}
-    for DIR in ${!PATHVARIABLE}; do
-        if [ "$DIR" != "$1" ]; then
-            NEWPATH=${NEWPATH:+$NEWPATH:}$DIR
-        fi
-    done
-    export "$PATHVARIABLE"="$NEWPATH"
+path_remove() {
+	local IFS=':'
+	local NEWPATH
+	local DIR
+	local PATHVARIABLE=${2:-PATH}
+	for DIR in ${!PATHVARIABLE}; do
+		if [ "$DIR" != "$1" ]; then
+			NEWPATH=${NEWPATH:+$NEWPATH:}$DIR
+		fi
+	done
+	export "$PATHVARIABLE"="$NEWPATH"
 }
 
-path_prepend () {
-    path_remove "$1" "$2"
-    local PATHVARIABLE=${2:-PATH}
-    export "$PATHVARIABLE"="$1${!PATHVARIABLE:+:${!PATHVARIABLE}}"
+path_prepend() {
+	path_remove "$1" "$2"
+	local PATHVARIABLE=${2:-PATH}
+	export "$PATHVARIABLE"="$1${!PATHVARIABLE:+:${!PATHVARIABLE}}"
 }
 
-path_append () {
-    path_remove "$1" "$2"
-    local PATHVARIABLE=${2:-PATH}
-    export "$PATHVARIABLE"="${!PATHVARIABLE:+${!PATHVARIABLE}:}$1"
+path_append() {
+	path_remove "$1" "$2"
+	local PATHVARIABLE=${2:-PATH}
+	export "$PATHVARIABLE"="${!PATHVARIABLE:+${!PATHVARIABLE}:}$1"
 }
 
 # Check for /usr/local/sbin in PATH
 if [[ -d "/usr/local/sbin" ]]; then
-    path_prepend "/usr/local/sbin"
+	path_prepend "/usr/local/sbin"
 fi
 
 # Check for /usr/local/bin in PATH
 if [[ -d "/usr/local/bin" ]]; then
-    path_prepend "/usr/local/bin"
+	path_prepend "/usr/local/bin"
 fi
 
 if [[ -e "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+	eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [[ -e "/usr/local/bin/brew" ]]; then
-    eval "$(/usr/local/bin/brew shellenv)"
+	eval "$(/usr/local/bin/brew shellenv)"
 fi
 
 # Import files from $HOME/.bashrc.d
 if [[ -d "$HOME/.bashrc.d" ]]; then
-    for config in "$HOME"/.bashrc.d/**/*.bash; do
-        if [[ -r "$config" ]]; then
-            source "$config"
-        fi
-    done
-    unset -v config
+	for config in "$HOME"/.bashrc.d/**/*.bash; do
+		if [[ -r "$config" ]]; then
+			source "$config"
+		fi
+	done
+	unset -v config
 fi
-
-
 
 # Check the window size after each command and, if necessary,
 # Update the values of LINES and COLUMNS.
@@ -70,35 +68,30 @@ shopt -s checkwinsize
 
 # macOS settings
 if [[ -v HOMEBREW_PREFIX ]]; then
-    # Set Homebrew Cask default Applications directory
-    export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
-    # Enable bash-completion with Homebrew
-    export BASH_COMPLETION_COMPAT_DIR="$HOMEBREW_PREFIX/etc/bash_completion.d"
-    if [[ -f "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
-        source "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
-    fi
+	# Set Homebrew Cask default Applications directory
+	export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+	# Enable bash-completion with Homebrew
+	export BASH_COMPLETION_COMPAT_DIR="$HOMEBREW_PREFIX/etc/bash_completion.d"
+	if [[ -f "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
+		source "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
+	fi
 fi
 
 # Prepend $HOME/.local/bin to PATH
 if [[ -d "$HOME/.local/bin" ]]; then
-    path_prepend "$HOME/.local/bin"
+	path_prepend "$HOME/.local/bin"
 fi
 
 # Enable Starship
 if command -v starship >/dev/null 2>&1; then
-    starship_precmd_user_func="_pre_prompt"
-    eval "$(starship init bash)"
+	starship_precmd_user_func="_pre_prompt"
+	eval "$(starship init bash)"
 else
-    export PROMPT_COMMAND=_pre_prompt
-    export PROMPT_DIRTRIM=1
-    export PS1="\n\u@\h: \w\n\\$ \[$(tput sgr0)\]"
+	export PROMPT_COMMAND=_pre_prompt
+	export PROMPT_DIRTRIM=1
+	export PS1="\n\u@\h: \w\n\\$ \[$(tput sgr0)\]"
 fi
 
 if command -v direnv >/dev/null 2>&1; then
-    eval "$(direnv hook bash)"
-fi
-
-# iTerm2 shell integration
-if [[ -e "$HOME/.iterm2_shell_integration.bash" ]]; then
-    source "$HOME/.iterm2_shell_integration.bash"
+	eval "$(direnv hook bash)"
 fi
