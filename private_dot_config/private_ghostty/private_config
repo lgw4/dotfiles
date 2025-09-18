@@ -9,9 +9,29 @@ shell-integration-features = no-cursor
 font-family = JetBrains Mono Regular Medium
 font-size = 13
 font-thicken = true
+font-thicken-strength = 128
+
+# General configuration
+auto-update = check
+auto-update-channel = stable
+bell-features = no-system, no-audio, no-attention, title, no-border
+mouse-hide-while-typing = true
+working-directory = home
+
+# macOS configuration
+macos-auto-secure-input = true
+macos-shortcuts = ask
+macos-titlebar-proxy-icon = hidden
 
 # Theme configuration
 theme = iTerm2 Solarized Light
 
 # Window configuration
-window-padding-x = 4
+window-decoration = auto
+window-height = 33
+window-inherit-working-directory = false
+window-padding-x = 2 
+window-padding-y = 2
+window-padding-balance = true
+window-theme = auto
+window-width = 99
