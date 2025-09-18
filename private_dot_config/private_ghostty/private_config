@@ -6,7 +6,7 @@ cursor-style-blink = true
 shell-integration-features = no-cursor
 
 # Font configuration
-font-family = JetBrains Mono Medium
+font-family = JetBrains Mono Regular Medium
 font-feature = -calt, -liga, -dlig
 font-size = 13
 font-thicken = true
