@@ -17,7 +17,7 @@ if type -q direnv
 end
 
 {{ if eq .chezmoi.hostname (onepasswordRead "op://Work/d7io2elknbx7zl6kyimvza2z3i/mbp_hostname") -}}
-set -x GITHUB_TOKEN {{ onepasswordRead "op://Work/CAI GHES/Admin Token" }}
-{{- end }}
+set -x GITHUB_TOKEN {{ onepasswordRead "op://Work/GHES/admin" }}
 
+{{ end -}}
 enable_transience
