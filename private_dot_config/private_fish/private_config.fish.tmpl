@@ -16,8 +16,8 @@ if type -q direnv
     direnv hook fish | source
 end
 
-{{- if eq .chezmoi.hostname (onepasswordRead "op://Work/d7io2elknbx7zl6kyimvza2z3i/mbp_hostname") }}
-set -x GHES_PAT (security find-internet-password -s {{ onepasswordRead "op://Work/d7io2elknbx7zl6kyimvza2z3i/ghes_fqdn" }} -w)
+{{ if eq .chezmoi.hostname (onepasswordRead "op://Work/d7io2elknbx7zl6kyimvza2z3i/mbp_hostname") -}}
+set -x GITHUB_TOKEN {{ onepasswordRead "op://Work/CAI GHES/Admin Token" }}
 {{- end }}
 
 enable_transience
