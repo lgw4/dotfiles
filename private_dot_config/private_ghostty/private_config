@@ -24,6 +24,10 @@ macos-auto-secure-input = true
 macos-shortcuts = ask
 macos-titlebar-proxy-icon = hidden
 
+# Shell integration configuration
+shell-integration = detect
+shell-integration-features = ssh-env, ssh-terminfo, sudo, title
+
 # Theme configuration
 theme = iTerm2 Solarized Light
 
