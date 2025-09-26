@@ -26,7 +26,7 @@ macos-titlebar-proxy-icon = hidden
 
 # Shell integration configuration
 shell-integration = detect
-shell-integration-features = ssh-env, ssh-terminfo, sudo, title
+shell-integration-features = ssh-env, sudo, title
 
 # Theme configuration
 theme = iTerm2 Solarized Light
