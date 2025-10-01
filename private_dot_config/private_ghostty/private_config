@@ -20,6 +20,7 @@ working-directory = home
 
 # macOS configuration
 macos-auto-secure-input = true
+macos-option-as-alt = true
 macos-shortcuts = ask
 macos-titlebar-proxy-icon = hidden
 
@@ -31,6 +32,7 @@ shell-integration-features = no-cursor, ssh-env, ssh-terminfo, sudo, title
 theme = iTerm2 Solarized Light
 
 # Window configuration
+initial-window = true
 window-decoration = auto
 window-height = 33
 window-inherit-working-directory = false
