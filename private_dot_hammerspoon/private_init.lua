@@ -12,30 +12,6 @@ local mod_shift = { "control", "command", "shift" }
 
 -- Spoons
 hs.loadSpoon("SpoonInstall")
-if not (
-    fs.attributes("/Applications/Amphetamine.app") or
-    fs.attributes("/Applications/KeepingYouAwake.app") or
-    fs.attributes("/Applications/Lungo.app")
-    ) then
-    spoon.SpoonInstall:andUse("Caffeine", {
-        hotkeys = { toggle = { mod, "C" } },
-        start = true
-    })
-end
-if not (
-    fs.attributes("/Applications/Disk Master.app") or
-    fs.attributes("/Applications/Jettison.app")
-    ) then
-    spoon.SpoonInstall:andUse("EjectMenu", {
-        config = {
-            eject_on_lid_close = false,
-            notify = true,
-            show_in_menu_bar = true,
-        },
-        hotkeys = { ejectAll = { mod_shift, "E" } },
-        start = true
-    })
-end
 spoon.SpoonInstall:andUse("MouseCircle", {
     config = {
         color = {
