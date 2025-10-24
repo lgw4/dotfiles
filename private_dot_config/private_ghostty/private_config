@@ -23,6 +23,7 @@ macos-auto-secure-input = true
 macos-option-as-alt = true
 macos-shortcuts = ask
 macos-titlebar-proxy-icon = hidden
+macos-titlebar-style = tabs
 
 # Shell integration configuration
 shell-integration = detect
