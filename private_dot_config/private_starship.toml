@@ -99,6 +99,7 @@ $container\
 $shell\
 $line_break\
 $character"""
+scan_timeout = 5000
 
 [battery]
 full_symbol = "• "
