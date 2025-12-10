@@ -20,7 +20,7 @@ working-directory = home
 
 # macOS configuration
 macos-auto-secure-input = true
-macos-option-as-alt = true
+macos-option-as-alt = left 
 macos-shortcuts = ask
 macos-titlebar-proxy-icon = hidden
 macos-titlebar-style = tabs
