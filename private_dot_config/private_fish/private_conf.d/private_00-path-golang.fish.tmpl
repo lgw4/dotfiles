@@ -9,6 +9,7 @@ end
 {{- end }}
 
 if type -q goenv && status --is-interactive
+    set -x GOENV_PATH_ORDER front
     goenv init - fish | source
     fish_add_path -mpP $GOENV_ROOT/shims
 end
