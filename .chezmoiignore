@@ -31,6 +31,7 @@ README.markdown
 {{ if eq .chezmoi.os "windows" }}
 .netrc
 {{ end }}
+.config/fish/fish_variables
 .github
 .keep
 .vscode
