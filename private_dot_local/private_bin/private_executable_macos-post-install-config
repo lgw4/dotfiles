@@ -143,7 +143,4 @@ defaults write com.apple.AppStore UserSetAutoPlayVideoSetting -bool true
 # Disable shadows in screenshots
 defaults write com.apple.screencapture "disable-shadow" -bool true
 
-# Reduce menu icons
-defaults write NSGlobalDomain NSMenuEnableActionImages -bool false
-
 exit 0
