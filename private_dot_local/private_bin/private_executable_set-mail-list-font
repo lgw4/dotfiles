@@ -1,0 +1,10 @@
+osascript -e 'quit app "Mail"'
+sleep 2
+swift -e '
+import AppKit
+let font = NSFont.systemFont(ofSize: 13)
+let data = try NSKeyedArchiver.archivedData(withRootObject: font, requiringSecureCoding: false)
+let containerPath = NSHomeDirectory() + "/Library/Containers/com.apple.mail/Data/Library/Preferences/com.apple.mail"
+UserDefaults(suiteName: containerPath)!.set(data, forKey: "MessageListFont")
+print("Set to: \(font.displayName ?? "") \(font.pointSize)")
+'
