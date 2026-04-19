@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-killall Mail 2>/dev/null
+/usr/bin/killall Mail 2>/dev/null
 sleep 2
 
 mail_dir=""
@@ -22,7 +22,8 @@ fi
 index_file="$mail_dir/MailData/Envelope Index"
 
 if [ ! -f "$index_file" ]; then
-  printf 'Could not find Envelope Index.\n' >&2
+  printf 'Could not find Envelope Index at: %s\n' "$index_file" >&2
+  printf 'Selected Mail data directory: %s\n' "$mail_dir" >&2
   exit 1
 fi
 
