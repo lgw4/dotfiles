@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+killall Mail 2>/dev/null
+sleep 2
+
+mail_dir=$(find "$HOME/Library/Mail" -maxdepth 1 -name 'V*' -type d | sort -V | tail -1)
+
+if [ -z "$mail_dir" ]; then
+  printf 'Could not find Mail data directory.\n' >&2
+  exit 1
+fi
+
+index_file="$mail_dir/MailData/Envelope Index"
+
+if [ ! -f "$index_file" ]; then
+  printf 'Could not find Envelope Index.\n' >&2
+  exit 1
+fi
+
+size_before=$(ls -sk "$index_file" | awk '{printf "%.2f", $1 / 1024}')
+/usr/bin/sqlite3 "$index_file" vacuum
+size_after=$(ls -sk "$index_file" | awk '{printf "%.2f", $1 / 1024}')
+
+printf 'Mail index before: %s MB\n' "$size_before"
+printf 'Mail index after:  %s MB\n' "$size_after"
+printf '\nEnjoy the new speed!\n'
+
+open -a Mail
