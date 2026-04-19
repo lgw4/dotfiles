@@ -3,7 +3,16 @@
 killall Mail 2>/dev/null
 sleep 2
 
-mail_dir=$(find "$HOME/Library/Mail" -maxdepth 1 -name 'V*' -type d | sort -V | tail -1)
+mail_dir=""
+max_ver=0
+for dir in "$HOME/Library/Mail"/V*/; do
+  ver=${dir%/}
+  ver=${ver##*V}
+  if [ "$ver" -gt "$max_ver" ] 2>/dev/null; then
+    max_ver=$ver
+    mail_dir=${dir%/}
+  fi
+done
 
 if [ -z "$mail_dir" ]; then
   printf 'Could not find Mail data directory.\n' >&2
@@ -18,7 +27,13 @@ if [ ! -f "$index_file" ]; then
 fi
 
 size_before=$(ls -sk "$index_file" | awk '{printf "%.2f", $1 / 1024}')
-/usr/bin/sqlite3 "$index_file" vacuum
+
+if ! /usr/bin/sqlite3 "$index_file" vacuum; then
+  printf 'Failed to vacuum Envelope Index. The database may be locked.\n' >&2
+  open -a Mail
+  exit 1
+fi
+
 size_after=$(ls -sk "$index_file" | awk '{printf "%.2f", $1 / 1024}')
 
 printf 'Mail index before: %s MB\n' "$size_before"
