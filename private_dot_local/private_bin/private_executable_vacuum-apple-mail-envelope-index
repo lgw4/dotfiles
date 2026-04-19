@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 
-/usr/bin/killall Mail 2>/dev/null
-sleep 2
+if /usr/bin/killall Mail 2>/dev/null; then
+  sleep 2
+fi
 
 mail_dir=""
 max_ver=0
