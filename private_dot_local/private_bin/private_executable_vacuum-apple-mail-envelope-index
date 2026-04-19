@@ -31,7 +31,7 @@ size_before=$(ls -sk "$index_file" | awk '{printf "%.2f", $1 / 1024}')
 
 if ! /usr/bin/sqlite3 "$index_file" vacuum; then
   printf 'Failed to vacuum Envelope Index. The database may be locked.\n' >&2
-  open -a Mail
+  /usr/bin/open -a Mail
   exit 1
 fi
 
@@ -41,4 +41,4 @@ printf 'Mail index before: %s MB\n' "$size_before"
 printf 'Mail index after:  %s MB\n' "$size_after"
 printf '\nEnjoy the new speed!\n'
 
-open -a Mail
+/usr/bin/open -a Mail
