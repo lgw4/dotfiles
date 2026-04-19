@@ -15,7 +15,7 @@ for dir in "$HOME/Library/Mail"/V*/; do
 done
 
 if [ -z "$mail_dir" ]; then
-  printf 'Could not find Mail data directory.\n' >&2
+  printf 'Could not find Mail data directory matching V* under: %s\n' "$HOME/Library/Mail/" >&2
   exit 1
 fi
 
