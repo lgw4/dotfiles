@@ -1,3 +1,4 @@
+CLAUDE.md
 README.markdown
 {{ if ne .chezmoi.os "darwin" }}
 .bashrc.d/functions/cdf.bash
@@ -34,4 +35,5 @@ README.markdown
 .config/fish/fish_variables
 .github
 .keep
+.rumdl.toml
 .vscode
