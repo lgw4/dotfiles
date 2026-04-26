@@ -32,6 +32,7 @@ README.markdown
 {{ end }}
 .claude
 .config/fish/fish_variables
+.gitignore
 .github
 .keep
 .rumdl.toml
