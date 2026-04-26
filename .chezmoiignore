@@ -30,6 +30,7 @@ README.markdown
 .local/bin/add-ppa-key
 .local/bin/cpu-temp
 {{ end }}
+.claude
 .config/fish/fish_variables
 .github
 .keep
