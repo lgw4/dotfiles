@@ -32,8 +32,8 @@ README.markdown
 {{ end }}
 .claude
 .config/fish/fish_variables
-.gitignore
 .github
+.gitignore
 .keep
 .rumdl.toml
 .vscode
