@@ -15,6 +15,7 @@ README.markdown
 .local/bin/self-sign-makemkv
 .local/bin/set-htop-permissions
 .local/bin/set-mactop-permissions
+.local/bin/vacuum-apple-mail-envelope-index
 .zprofile
 {{ end }}
 {{ if ne .chezmoi.hostname (onepasswordRead "op://Work/d7io2elknbx7zl6kyimvza2z3i/mbp_hostname") }}
@@ -29,11 +30,10 @@ README.markdown
 .local/bin/add-ppa-key
 .local/bin/cpu-temp
 {{ end }}
-{{ if eq .chezmoi.os "windows" }}
-.netrc
-{{ end }}
+.claude
 .config/fish/fish_variables
 .github
+.gitignore
 .keep
 .rumdl.toml
 .vscode
