@@ -1,3 +1,9 @@
+# Fallback prompt used when starship is not installed. When starship is
+# present, config.fish initializes it and its fish_prompt overrides this one.
+set -g __fish_git_prompt_showcolorhints
+set -g __fish_git_prompt_showdirtystate
+set -g __fish_git_prompt_showuntrackedfiles
+
 function fish_prompt -d "Set prompt for Fish shell"
     if not set -q VIRTUAL_ENV_DISABLE_PROMPT
         set -g VIRTUAL_ENV_DISABLE_PROMPT true
@@ -17,9 +23,6 @@ function fish_prompt -d "Set prompt for Fish shell"
     printf '%s' (basename (prompt_pwd))
     set_color normal
 
-    set -g __fish_git_prompt_showcolorhints
-    set -g __fish_git_prompt_showdirtystate
-    set -g __fish_git_prompt_showuntrackedfiles
     printf '%s' (fish_git_prompt)
 
     if test -n "$VIRTUAL_ENV"

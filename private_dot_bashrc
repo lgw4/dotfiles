@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # shellcheck shell=bash
-# shellcheck disable=SC1090,SC1091,SC2034,SC2155
+# shellcheck disable=SC1090,SC1091,SC2034
 if ((BASH_VERSINFO[0] > 3)); then
 	shopt -s autocd
 	shopt -s cdspell
@@ -10,18 +10,14 @@ fi
 
 # Functions to help us manage paths.  Second argument is the name of the
 # path variable to be modified (default: PATH).
-# Taken from: https://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html
+# Adapted from: https://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html
 path_remove() {
-	local IFS=':'
-	local NEWPATH
-	local DIR
 	local PATHVARIABLE=${2:-PATH}
-	for DIR in ${!PATHVARIABLE}; do
-		if [ "$DIR" != "$1" ]; then
-			NEWPATH=${NEWPATH:+$NEWPATH:}$DIR
-		fi
-	done
-	export "$PATHVARIABLE"="$NEWPATH"
+	local val=":${!PATHVARIABLE}:"
+	val="${val//:${1}:/:}"
+	val="${val#:}"
+	val="${val%:}"
+	export "$PATHVARIABLE"="${val}"
 }
 
 path_prepend() {
@@ -89,7 +85,9 @@ if command -v starship >/dev/null 2>&1; then
 else
 	export PROMPT_COMMAND=_pre_prompt
 	export PROMPT_DIRTRIM=1
-	export PS1="\n\u@\h: \w\n\\$ \[$(tput sgr0)\]"
+	_ps1_reset=$(tput sgr0)
+	export PS1="\n\u@\h: \w\n\\$ \[$_ps1_reset\]"
+	unset _ps1_reset
 fi
 
 if command -v direnv >/dev/null 2>&1; then
