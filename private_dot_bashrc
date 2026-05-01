@@ -12,16 +12,12 @@ fi
 # path variable to be modified (default: PATH).
 # Taken from: https://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html
 path_remove() {
-	local IFS=':'
-	local NEWPATH
-	local DIR
 	local PATHVARIABLE=${2:-PATH}
-	for DIR in ${!PATHVARIABLE}; do
-		if [ "$DIR" != "$1" ]; then
-			NEWPATH=${NEWPATH:+$NEWPATH:}$DIR
-		fi
-	done
-	export "$PATHVARIABLE"="$NEWPATH"
+	local val=":${!PATHVARIABLE}:"
+	val="${val//:${1}:/:}"
+	val="${val#:}"
+	val="${val%:}"
+	export "$PATHVARIABLE"="${val}"
 }
 
 path_prepend() {
