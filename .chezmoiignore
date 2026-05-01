@@ -14,7 +14,6 @@ README.markdown
 .local/bin/reset-wifi
 .local/bin/self-sign-makemkv
 .local/bin/set-htop-permissions
-.local/bin/set-mactop-permissions
 .local/bin/vacuum-apple-mail-envelope-index
 .zprofile
 {{ end }}
