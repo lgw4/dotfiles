@@ -1,6 +1,7 @@
 CLAUDE.md
 README.markdown
 {{ if ne .chezmoi.os "darwin" }}
+.bashrc.d/configuration/macos-curl.bash
 .bashrc.d/functions/cdf.bash
 .bashrc.d/functions/get-info.bash
 .config/fish/functions/cdf.fish
