@@ -10,7 +10,7 @@ fi
 
 # Functions to help us manage paths.  Second argument is the name of the
 # path variable to be modified (default: PATH).
-# Taken from: https://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html
+# Adapted from: https://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html
 path_remove() {
 	local PATHVARIABLE=${2:-PATH}
 	local val=":${!PATHVARIABLE}:"
