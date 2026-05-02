@@ -46,13 +46,21 @@ When adding a macOS-only binary, Linux-only config, or work-only secret, update 
 Both shells load config fragments from a directory so features can be added per-file without touching the main rc file:
 
 - **bash**: [private_dot_bashrc](private_dot_bashrc) sources `~/.bashrc.d/**/*.bash` (globstar). Fragments live in [private_dot_bashrc.d/](private_dot_bashrc.d/) under `aliases/`, `configuration/`, `functions/`, `tools/`.
-- **fish**: [private_dot_config/private_fish/](private_dot_config/private_fish/) uses fish's native `conf.d/` with a numeric prefix ordering convention — `00-path-*` (PATH setup first), `10-*` (aliases/abbreviations), `20-*`/`80-*` (tool config), `90-*` (env vars last). Preserve that ordering when adding fragments.
+- **fish**: [private_dot_config/private_fish/](private_dot_config/private_fish/) uses fish's native `conf.d/` with a numeric prefix ordering convention — `00-path-*` (PATH setup first), `10-*` (aliases/abbreviations), `20-*`/`80-*` (tool config), `90-*` (env vars last). Preserve that ordering when adding fragments. Named functions live in `private_functions/` (→ `~/.config/fish/functions/`).
 
 Both shells initialize **starship** and **direnv**, and rely on **Homebrew** (`/opt/homebrew/bin/brew` on Apple silicon, `/usr/local/bin/brew` on Intel fallback).
 
 ## Secrets
 
 Secrets come from **1Password** via `onepasswordRead "op://Vault/item/field"` in templates — `op` CLI must be installed and signed in on every machine. Never hardcode secrets; never commit them. The work-machine gate (see `.chezmoiignore` line 19) reads a stored hostname from 1Password and uses it to decide whether to deploy work-only files.
+
+## Linting
+
+Markdown files are linted with [`rumdl`](https://github.com/ericmjl/rumdl). Config lives in [.rumdl.toml](.rumdl.toml) (MD013 line-length disabled). Run:
+
+```sh
+rumdl .
+```
 
 ## File conventions
 
