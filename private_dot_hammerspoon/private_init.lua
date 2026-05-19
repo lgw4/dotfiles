@@ -28,7 +28,7 @@ spoon.SpoonInstall:andUse("ReloadConfiguration", {
     start = true
 })
 hs.loadSpoon("ControlPlane")
-dofile(hs.configdir .. "/controlplane.lua")
+dofile(hs.configdir .. "/controlplane_config.lua")
 
 -- Default grid settings
 grid.GRIDWIDTH = 12
