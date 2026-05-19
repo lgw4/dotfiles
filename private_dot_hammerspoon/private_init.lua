@@ -1,6 +1,5 @@
 -- Modules
 local fnutils = require "hs.fnutils"
-local fs = require "hs.fs"
 local grid = require "hs.grid"
 local hotkey = require "hs.hotkey"
 local screen = require "hs.screen"
@@ -28,12 +27,8 @@ spoon.SpoonInstall:andUse("ReloadConfiguration", {
     hs.notify.new({ title = "Hammerspoon", informativeText = "Configuration loaded." }):send(),
     start = true
 })
-
--- Get list of screens and refresh that list whenever screens are plugged or unplugged:
-local screens = screen.allScreens()
-local screenwatcher = screen.watcher.new(
-    function() screens = screen.allScreens() end)
-screenwatcher:start()
+hs.loadSpoon("ControlPlane")
+dofile(hs.configdir .. "/controlplane.lua")
 
 -- Default grid settings
 grid.GRIDWIDTH = 12
@@ -43,7 +38,7 @@ grid.MARGINY = 0
 grid.ui.textSize = 36
 
 -- Set display grid depending on resolution
-for index, display in pairs(screen.allScreens()) do
+for _, display in pairs(screen.allScreens()) do
     if display:frame().w / display:frame().h > 2 then
         -- 16 x 8 for ultrawide display
         grid.setGrid("16 x 8", display)
@@ -89,7 +84,7 @@ local function moveWindow(direction)
         -- Restore window if there is a value for original_position
         win:setFrame(original_position[id])
         -- Reset the original_position value
-        resetWindowPosition(_, _, _, id)
+        resetWindowPosition(nil, nil, nil, id)
     end
 end
 
