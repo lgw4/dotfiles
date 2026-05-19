@@ -1,4 +1,5 @@
 ["ControlPlane.spoon"]
     type = "archive"
-    url = "https://github.com/LucaFilipozzi/ControlPlane/archive/refs/heads/main.tar.gz"
+    url = "https://github.com/LucaFilipozzi/ControlPlane/archive/refs/tags/v1.0.0.tar.gz"
+    exact = true
     stripComponents = 1
