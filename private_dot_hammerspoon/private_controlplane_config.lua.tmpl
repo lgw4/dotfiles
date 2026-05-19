@@ -2,13 +2,14 @@ spoon.ControlPlane.contexts = {
     home = {
         rules = {
             { kind = "ssid",   confidence = 0.5, value = { {{ onepasswordRead "op://Personal/Home Network/ssid" | quote }} } },
+            { kind = "bssid",  confidence = 0.5, value = { {{ onepasswordRead "op://Personal/Home Network/bssid" | quote }} } },
             { kind = "subnet", confidence = 0.5, value = { {{ onepasswordRead "op://Personal/Home Network/subnet" | quote }} } },
         },
     },
     none = { rules = {} },
 }
 
-spoon.ControlPlane.threshold = 1.0
+spoon.ControlPlane.threshold = 0.6
 spoon.ControlPlane.margin = 0.3
 
 spoon.ControlPlane.onContextChange = function(newName, newCtx, oldName)
