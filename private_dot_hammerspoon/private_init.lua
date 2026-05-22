@@ -43,8 +43,8 @@ local MIN_GRID_SHORT = 9
 local MAX_GRID_LONG = 24
 
 for _, display in pairs(screen.allScreens()) do
-    local w = display:currentMode().w
-    local h = display:currentMode().h
+    local mode = display:currentMode()
+    local w, h = mode.w, mode.h
     local ratio = w / h
     local gw, gh
     if ratio >= 1 then
