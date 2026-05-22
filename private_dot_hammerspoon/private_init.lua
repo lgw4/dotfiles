@@ -37,21 +37,24 @@ grid.MARGINX = 0
 grid.MARGINY = 0
 grid.ui.textSize = 36
 
--- Set display grid to match aspect ratio, scaled so the short side is at least MIN_GRID_SHORT
+-- Set display grid to approximate aspect ratio: short side fixed at MIN_GRID_SHORT,
+-- long side derived from float ratio and capped at MAX_GRID_LONG.
 local MIN_GRID_SHORT = 9
-
-local function gcd(a, b)
-    while b ~= 0 do a, b = b, a % b end
-    return a
-end
+local MAX_GRID_LONG = 24
 
 for _, display in pairs(screen.allScreens()) do
     local w = display:currentMode().w
     local h = display:currentMode().h
-    local d = gcd(w, h)
-    local gw, gh = w / d, h / d
-    local scale = math.ceil(MIN_GRID_SHORT / math.min(gw, gh))
-    grid.setGrid(string.format("%d x %d", gw * scale, gh * scale), display)
+    local ratio = w / h
+    local gw, gh
+    if ratio >= 1 then
+        gh = MIN_GRID_SHORT
+        gw = math.min(MAX_GRID_LONG, math.floor(gh * ratio + 0.5))
+    else
+        gw = MIN_GRID_SHORT
+        gh = math.min(MAX_GRID_LONG, math.floor(gw / ratio + 0.5))
+    end
+    grid.setGrid(string.format("%d x %d", gw, gh), display)
 end
 
 -- Disable animation
