@@ -46,8 +46,8 @@ local function gcd(a, b)
 end
 
 for _, display in pairs(screen.allScreens()) do
-    local w = display:frame().w
-    local h = display:frame().h
+    local w = display:currentMode().w
+    local h = display:currentMode().h
     local d = gcd(w, h)
     local gw, gh = w / d, h / d
     local scale = math.ceil(MIN_GRID_SHORT / math.min(gw, gh))
