@@ -31,26 +31,27 @@ hs.loadSpoon("ControlPlane")
 dofile(hs.configdir .. "/controlplane_config.lua")
 
 -- Default grid settings
-grid.GRIDWIDTH = 12
-grid.GRIDHEIGHT = 6
+grid.GRIDWIDTH = 16
+grid.GRIDHEIGHT = 9
 grid.MARGINX = 0
 grid.MARGINY = 0
 grid.ui.textSize = 36
 
--- Set display grid depending on resolution
+-- Set display grid to match aspect ratio, scaled so the short side is at least MIN_GRID_SHORT
+local MIN_GRID_SHORT = 9
+
+local function gcd(a, b)
+    while b ~= 0 do a, b = b, a % b end
+    return a
+end
+
 for _, display in pairs(screen.allScreens()) do
-    if display:frame().w / display:frame().h > 2 then
-        -- 16 x 8 for ultrawide display
-        grid.setGrid("16 x 8", display)
-    else
-        if display:frame().w < display:frame().h then
-            -- 6 x 12 for vertically aligned display
-            grid.setGrid("6 x 12", display)
-        else
-            -- 12 x 6 for normal display
-            grid.setGrid("12 x 6", display)
-        end
-    end
+    local w = display:frame().w
+    local h = display:frame().h
+    local d = gcd(w, h)
+    local gw, gh = w / d, h / d
+    local scale = math.ceil(MIN_GRID_SHORT / math.min(gw, gh))
+    grid.setGrid(string.format("%d x %d", gw * scale, gh * scale), display)
 end
 
 -- Disable animation
