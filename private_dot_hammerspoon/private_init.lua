@@ -55,10 +55,10 @@ for _, display in pairs(screen.allScreens()) do
     local gw, gh
     if ratio >= 1 then
         gh = GRID_H_LANDSCAPE
-        gw = toEven(math.min(MAX_GRID_LONG, math.floor(gh * ratio + 0.5)))
+        gw = toEven(math.min(MAX_GRID_LONG, gh * ratio))
     else
         gw = GRID_H_LANDSCAPE
-        gh = toEven(math.min(GRID_H_PORTRAIT_MAX, math.floor(gw / ratio + 0.5)))
+        gh = toEven(math.min(GRID_H_PORTRAIT_MAX, gw / ratio))
     end
     grid.setGrid(string.format("%d x %d", gw, gh), display)
 end
