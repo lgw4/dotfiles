@@ -4,11 +4,11 @@ python-preference = "only-managed"
 # Team default for uv add/sync/lock/run (replaces PyPI as the fallback)
 [[index]]
 name = "pebkac-pypi"
-url = "{{- onepasswordRead "op://Work/CAI Artifactory pebkac-pypi/hostname" }}/simple"
-publish-url = "{{- onepasswordRead "op://Work/CAI Artifactory pebkac-pypi/hostname" }}"
+url = "{{- onepasswordRead "op://Work/Artifactory pebkac-pypi/hostname" }}/simple"
+publish-url = "{{- onepasswordRead "op://Work/Artifactory pebkac-pypi/hostname" }}"
 default = true
 
 # For `uv pip` subcommands (Docker builds)
 [pip]
-index-url = "{{- onepasswordRead "op://Work/CAI Artifactory pebkac-pypi/hostname" }}/simple"
+index-url = "{{- onepasswordRead "op://Work/Artifactory pebkac-pypi/hostname" }}/simple"
 {{- end }}

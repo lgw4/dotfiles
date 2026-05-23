@@ -179,11 +179,11 @@ function alks-ghes-runners-prod-creds -d "Write ALKS credentials file for GHES R
 end
 
 function alks-labs-224 -d "Open ALKS session to Labs224"
-    eval (alks sessions open -i -r LabAdmin -a "{{ onepasswordRead "op://Work/ALKS Cox Auto Labs 224/notesPlain" }}")
+    eval (alks sessions open -i -r LabAdmin -a "{{ onepasswordRead "op://Work/ALKS Labs 224/notesPlain" }}")
 end
 
 function alks-labs-224-creds -d "Write ALKS credentials file for Labs224"
-    alks sessions open -i -r LabAdmin -a "{{ onepasswordRead "op://Work/ALKS Cox Auto Labs 224/notesPlain" }}" -o creds -f
+    alks sessions open -i -r LabAdmin -a "{{ onepasswordRead "op://Work/ALKS Labs 224/notesPlain" }}" -o creds -f
 end
 
 function alks-splunk-np -d "Open ALKS session to Splunk non-production"
@@ -253,7 +253,7 @@ function ghes-tunnel -d "Open GHES tunnel for management console"
         --secret-id ghe_mc_password \
         --query SecretString \
         --output text | pbcopy
-    printf "\nAccess the CAI GHES management console here: https://localhost:8443\n"
+    printf "\nAccess the GHES management console here: https://localhost:8443\n"
     printf "The Management Console password has been copied to your clipboard.\n"
     aws ssm start-session \
         --region $REGION \
