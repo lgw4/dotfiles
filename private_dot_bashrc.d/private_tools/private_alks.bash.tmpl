@@ -18,7 +18,7 @@ alks-artifactory-prod () {
     eval "$(alks sessions open -i -N -r Admin -a '{{ onepasswordRead "op://Work/ALKS Artifactory Production/notesPlain" }}' -o 'env')"
 }
 
-alks-artfactory-prod-creds () {
+alks-artifactory-prod-creds () {
     alks sessions open -i -N -r Admin -a '{{ onepasswordRead "op://Work/ALKS Artifactory Production/notesPlain" }}' -o creds -f
 }
 
