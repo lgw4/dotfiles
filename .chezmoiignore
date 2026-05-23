@@ -21,6 +21,7 @@ README.markdown
 {{ if ne .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
 .bashrc.d/tools/alks.bash
 .config/fish/conf.d/80-config-alks.fish
+.config/tabtab
 .local/bin/set-cai-github
 .local/bin/upload-jfrog-support-bundle
 .netrc
