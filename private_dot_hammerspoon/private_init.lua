@@ -31,8 +31,8 @@ hs.loadSpoon("ControlPlane")
 dofile(hs.configdir .. "/controlplane_config.lua")
 
 -- Default grid settings
-grid.GRIDWIDTH = 16
 grid.GRIDHEIGHT = 8
+grid.GRIDWIDTH = 16
 grid.MARGINX = 0
 grid.MARGINY = 0
 grid.ui.textSize = 36
