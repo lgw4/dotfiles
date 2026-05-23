@@ -8,11 +8,11 @@ if test -f $HOME/.config/tabtab/__tabtab.fish
 end
 
 function alks-artifactory-np -d "Open ALKS session to Artifactory non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "w7k6gsrwhreczd6r6o57ys43wy").notesPlain.value }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Artifactory Non-production/notesPlain" }}")
 end
 
 function alks-artifactory-np-creds -d "Write ALKS credentials file for Artifactory non-production"
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "w7k6gsrwhreczd6r6o57ys43wy").notesPlain.value }}" -o creds -f
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Artifactory Non-production/notesPlain" }}" -o creds -f
 end
 
 function alks-artifactory-prod -d "Open ALKS session to Artifactory production"
@@ -20,7 +20,7 @@ function alks-artifactory-prod -d "Open ALKS session to Artifactory production"
         echo "Missing CIID value" >&2
         return 1
     end
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "2s4dygls7vby5grgigfts4wd6i").notesPlain.value }}" \
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Artifactory Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "Artifactory production admin session")
@@ -31,7 +31,7 @@ function alks-artifactory-prod-creds -d "Write ALKS credentials file for Artifac
         echo "Missing CIID value" >&2
         return 1
     end
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "2s4dygls7vby5grgigfts4wd6i").notesPlain.value }}" \
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Artifactory Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "Artifactory production admin session" \
@@ -39,27 +39,27 @@ function alks-artifactory-prod-creds -d "Write ALKS credentials file for Artifac
 end
 
 function alks-cloud-management-dev -d "Open ALKS session to Cloud Management dev"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "eyafx3yvtnafdiewtukllevcmy").notesPlain.value }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Cloud Management Dev/notesPlain" }}")
 end
 
 function alks-cloud-management-dev-creds -d "Write ALKS credentials file for Cloud Management dev"
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "eyafx3yvtnafdiewtukllevcmy").notesPlain.value }}" -o creds -f
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Cloud Management Dev/notesPlain" }}" -o creds -f
 end
 
 function alks-cloud-management-dev2 -d "Open ALKS session to Cloud Management dev2"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "oyqcdm7fgbabxjlc2xqn7t55cu").notesPlain.value }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Cloud Management Dev2/notesPlain" }}")
 end
 
 function alks-cloud-management-dev2-creds -d "Write ALKS credentials file for Cloud Management dev2"
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "oyqcdm7fgbabxjlc2xqn7t55cu").notesPlain.value }}" -o creds -f
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Cloud Management Dev2/notesPlain" }}" -o creds -f
 end
 
 function alks-cloud-management-np -d "Open ALKS session to Cloud Management non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "dby7h6k5mrhkhnkjhlpe763ayy").notesPlain.value }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Cloud Management Non-production/notesPlain" }}")
 end
 
 function alks-cloud-management-np-creds -d "Write ALKS credentials file for Cloud Management non-production"
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "dby7h6k5mrhkhnkjhlpe763ayy").notesPlain.value }}" -o creds -f
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Cloud Management Non-production/notesPlain" }}" -o creds -f
 end
 
 function alks-cloud-management-prod -d "Open ALKS session to Cloud Management production"
@@ -67,7 +67,7 @@ function alks-cloud-management-prod -d "Open ALKS session to Cloud Management pr
         echo "Missing CIID value" >&2
         return 1
     end
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "v5wsgqjjezdabir6bc6al5gkem").notesPlain.value }}" \
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Cloud Management Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "Cloud Management production admin session")
@@ -78,7 +78,7 @@ function alks-cloud-management-prod-creds -d "Write ALKS credentials file for Cl
         echo "Missing CIID value" >&2
         return 1
     end
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "v5wsgqjjezdabir6bc6al5gkem").notesPlain.value }}" \
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Cloud Management Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "Cloud Management production admin session" \
@@ -86,11 +86,11 @@ function alks-cloud-management-prod-creds -d "Write ALKS credentials file for Cl
 end
 
 function alks-cots-np -d "Open ALKS session to COTS non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "l5suvzdc7jbijct3ewhyrp6rdq").notesPlain.value }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS COTS Non-production/notesPlain" }}")
 end
 
 function alks-cots-np-creds -d "Write ALKS credentials file for COTS non-production"
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "l5suvzdc7jbijct3ewhyrp6rdq").notesPlain.value }}" -o creds -f
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS COTS Non-production/notesPlain" }}" -o creds -f
 end
 
 function alks-cots-prod -d "Open ALKS session to COTS production"
@@ -98,7 +98,7 @@ function alks-cots-prod -d "Open ALKS session to COTS production"
         echo "Missing CIID value" >&2
         return 1
     end
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "lpprhx6bgjdurpgruox4c3rc24").notesPlain.value }}" \
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS COTS Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "COTS production admin session")
@@ -109,7 +109,7 @@ function alks-cots-prod-creds -d "Write ALKS credentials file for COTS productio
         echo "Missing CIID value" >&2
         return 1
     end
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "lpprhx6bgjdurpgruox4c3rc24").notesPlain.value }}" \
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS COTS Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "COTS production admin session" \
@@ -117,11 +117,11 @@ function alks-cots-prod-creds -d "Write ALKS credentials file for COTS productio
 end
 
 function alks-ghes-np -d "Open ALKS session to GHES non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "l6wlu6bbkjgiljjbtgbedzfk4a").notesPlain.value }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS GHES Non-production/notesPlain" }}")
 end
 
 function alks-ghes-np-creds -d "Write ALKS credentials file for GHES non-production"
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "l6wlu6bbkjgiljjbtgbedzfk4a").notesPlain.value }}" -o creds -f
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS GHES Non-production/notesPlain" }}" -o creds -f
 end
 
 function alks-ghes-prod -d "Open ALKS session to GHES production"
@@ -129,7 +129,7 @@ function alks-ghes-prod -d "Open ALKS session to GHES production"
         echo "Missing CIID value" >&2
         return 1
     end
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "alzkq4cc4baltjvhvlqt3h72pm").notesPlain.value }}" \
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS GHES Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "GHES production admin session")
@@ -140,7 +140,7 @@ function alks-ghes-prod-creds -d "Write ALKS credentials file for GHES productio
         echo "Missing CIID value" >&2
         return 1
     end
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "alzkq4cc4baltjvhvlqt3h72pm").notesPlain.value }}" \
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS GHES Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "GHES production admin session" \
@@ -148,11 +148,11 @@ function alks-ghes-prod-creds -d "Write ALKS credentials file for GHES productio
 end
 
 function alks-ghes-runners-np -d "Open ALKS session to GHES Runners non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "tpa6yqy6abar3ofrjr2lpcretu").notesPlain.value }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS GHES Runners Non-production/notesPlain" }}")
 end
 
 function alks-ghes-runners-np-creds -d "Write ALKS credentials file for GHES Runners non-production"
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "tpa6yqy6abar3ofrjr2lpcretu").notesPlain.value }}" -o creds -f
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS GHES Runners Non-production/notesPlain" }}" -o creds -f
 end
 
 function alks-ghes-runners-prod -d "Open ALKS session to GHES Runners production"
@@ -160,7 +160,7 @@ function alks-ghes-runners-prod -d "Open ALKS session to GHES Runners production
         echo "Missing CIID value" >&2
         return 1
     end
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "gc2s3c3gfvhypgwfg6ybz4y2hm").notesPlain.value }}" \
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS GHES Runners Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "GHES Runners production admin session")
@@ -171,7 +171,7 @@ function alks-ghes-runners-prod-creds -d "Write ALKS credentials file for GHES R
         echo "Missing CIID value" >&2
         return 1
     end
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "gc2s3c3gfvhypgwfg6ybz4y2hm").notesPlain.value }}" \
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS GHES Runners Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "GHES Runners production admin session" \
@@ -179,19 +179,19 @@ function alks-ghes-runners-prod-creds -d "Write ALKS credentials file for GHES R
 end
 
 function alks-labs-224 -d "Open ALKS session to Labs224"
-    eval (alks sessions open -i -r LabAdmin -a "{{ (onepasswordDetailsFields "5n7yjzeeqnfudilpuzscr6vovu").notesPlain.value }}")
+    eval (alks sessions open -i -r LabAdmin -a "{{ onepasswordRead "op://Work/ALKS Cox Auto Labs 224/notesPlain" }}")
 end
 
 function alks-labs-224-creds -d "Write ALKS credentials file for Labs224"
-    alks sessions open -i -r LabAdmin -a "{{ (onepasswordDetailsFields "5n7yjzeeqnfudilpuzscr6vovu").notesPlain.value }}" -o creds -f
+    alks sessions open -i -r LabAdmin -a "{{ onepasswordRead "op://Work/ALKS Cox Auto Labs 224/notesPlain" }}" -o creds -f
 end
 
 function alks-splunk-np -d "Open ALKS session to Splunk non-production"
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "ysk6c4pvbfekdc3lnzllf2c6a4").notesPlain.value }}")
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Splunk Non-production/notesPlain" }}")
 end
 
 function alks-splunk-np-creds -d "Write ALKS credentials file for Splunk non-production"
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "ysk6c4pvbfekdc3lnzllf2c6a4").notesPlain.value }}" -o creds -f
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Splunk Non-production/notesPlain" }}" -o creds -f
 end
 
 function alks-splunk-prod -d "Open ALKS session to Splunk production"
@@ -199,7 +199,7 @@ function alks-splunk-prod -d "Open ALKS session to Splunk production"
         echo "Missing CIID value" >&2
         return 1
     end
-    eval (alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "uqym5wm6t5djrfz2nj5cw6mjx4").notesPlain.value }}" \
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Splunk Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "Splunk production admin session")
@@ -210,7 +210,7 @@ function alks-splunk-prod-creds -d "Write ALKS credentials file for Splunk produ
         echo "Missing CIID value" >&2
         return 1
     end
-    alks sessions open -i -N -r Admin -a "{{ (onepasswordDetailsFields "uqym5wm6t5djrfz2nj5cw6mjx4").notesPlain.value }}" \
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Splunk Production/notesPlain" }}" \
         --ciid $argv[1] \
         --activity-type "Maintenance" \
         --description "Splunk production admin session" \

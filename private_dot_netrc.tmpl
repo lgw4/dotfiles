@@ -1,3 +1,3 @@
-machine {{ (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").hostname.value }}
-login {{ (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").username.value }}
-password {{ (onepasswordDetailsFields "n3vbe3zwgbazradqupbcnkgbm4").credential.value }}
+machine {{ onepasswordRead "op://Work/CAI Artifactory Production API Key/hostname" }}
+login {{ onepasswordRead "op://Work/CAI Artifactory Production API Key/username" }}
+password {{ onepasswordRead "op://Work/CAI Artifactory Production API Key/credential" }}
