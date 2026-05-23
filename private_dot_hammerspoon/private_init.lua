@@ -32,27 +32,33 @@ dofile(hs.configdir .. "/controlplane_config.lua")
 
 -- Default grid settings
 grid.GRIDWIDTH = 16
-grid.GRIDHEIGHT = 9
+grid.GRIDHEIGHT = 8
 grid.MARGINX = 0
 grid.MARGINY = 0
 grid.ui.textSize = 36
 
--- Set display grid to approximate aspect ratio: short side fixed at MIN_GRID_SHORT,
--- long side derived from float ratio and capped at MAX_GRID_LONG.
-local MIN_GRID_SHORT = 9
+-- Set display grid to approximate aspect ratio. Both axes are rounded to the
+-- nearest even number so the grid subdivides cleanly into halves and quarters.
+-- Landscape: gh fixed at GRID_H_LANDSCAPE, gw derived from ratio (capped at MAX_GRID_LONG).
+-- Portrait: gw fixed at GRID_H_LANDSCAPE (mirroring landscape), gh derived from ratio
+-- (capped at GRID_H_PORTRAIT_MAX).
+local GRID_H_LANDSCAPE = 8
+local GRID_H_PORTRAIT_MAX = 16
 local MAX_GRID_LONG = 24
 
+local function toEven(x) return math.floor(x / 2 + 0.5) * 2 end
+
 for _, display in pairs(screen.allScreens()) do
-    local mode = display:currentMode()
-    local w, h = mode.w, mode.h
+    local f = display:frame()
+    local w, h = f.w, f.h
     local ratio = w / h
     local gw, gh
     if ratio >= 1 then
-        gh = MIN_GRID_SHORT
-        gw = math.min(MAX_GRID_LONG, math.floor(gh * ratio + 0.5))
+        gh = GRID_H_LANDSCAPE
+        gw = toEven(math.min(MAX_GRID_LONG, math.floor(gh * ratio + 0.5)))
     else
-        gw = MIN_GRID_SHORT
-        gh = math.min(MAX_GRID_LONG, math.floor(gw / ratio + 0.5))
+        gw = GRID_H_LANDSCAPE
+        gh = toEven(math.min(GRID_H_PORTRAIT_MAX, math.floor(gw / ratio + 0.5)))
     end
     grid.setGrid(string.format("%d x %d", gw, gh), display)
 end
