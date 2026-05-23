@@ -1,5 +1,5 @@
 # vim: ft=text
 # code: language=plaintext insertSpaces=true tabSize=4
-registry=https://{{- (onepasswordDetailsFields "pronqtfooedscvnon34l2lejkq").hostname.value }}/artifactory/api/npm/cai-npm/
-//{{- (onepasswordDetailsFields "pronqtfooedscvnon34l2lejkq").hostname.value }}/artifactory/api/npm/cai-npm/:_auth={{- (onepasswordDetailsFields "pronqtfooedscvnon34l2lejkq").credential.value }}
-//{{- (onepasswordDetailsFields "pronqtfooedscvnon34l2lejkq").hostname.value }}/artifactory/api/npm/cai-npm/:email={{- (onepasswordDetailsFields "pronqtfooedscvnon34l2lejkq").username.value }}
+registry=https://{{- onepasswordRead "op://Work/Artifactory Production Base64 API Key/hostname" }}/artifactory/api/npm/cai-npm/
+//{{- onepasswordRead "op://Work/Artifactory Production Base64 API Key/hostname" }}/artifactory/api/npm/cai-npm/:_auth={{- onepasswordRead "op://Work/Artifactory Production Base64 API Key/credential" }}
+//{{- onepasswordRead "op://Work/Artifactory Production Base64 API Key/hostname" }}/artifactory/api/npm/cai-npm/:email={{- onepasswordRead "op://Work/Artifactory Production Base64 API Key/username" }}

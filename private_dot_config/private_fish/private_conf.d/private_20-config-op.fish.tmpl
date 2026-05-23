@@ -1,6 +1,6 @@
 if type -q op
     function op-signin -d "Sign in to 1Password CLI"
-        eval (op signin --account {{ (onepasswordDetailsFields "hhsmdi4ijrcnnevq3genplwi3u").notesPlain.value }})
+        eval (op signin --account {{ onepasswordRead "op://Private/1Password CLI Account Name/notesPlain" }})
     end
     op completion fish | source
 end
