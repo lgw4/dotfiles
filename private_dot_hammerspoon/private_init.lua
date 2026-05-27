@@ -30,37 +30,20 @@ spoon.SpoonInstall:andUse("ReloadConfiguration", {
 hs.loadSpoon("ControlPlane")
 dofile(hs.configdir .. "/controlplane_config.lua")
 
--- Default grid settings
+-- Grid settings
+grid.GRIDWIDTH = 10
 grid.GRIDHEIGHT = 8
-grid.GRIDWIDTH = 16
 grid.MARGINX = 0
 grid.MARGINY = 0
 grid.ui.textSize = 36
 
--- Set display grid to approximate aspect ratio. Both axes are rounded to the
--- nearest even number so the grid subdivides cleanly into halves and quarters.
--- Landscape: gh fixed at GRID_H_LANDSCAPE, gw derived from ratio (capped at MAX_GRID_LONG).
--- Portrait: gw fixed at GRID_H_LANDSCAPE (mirroring landscape), gh derived from ratio
--- (capped at GRID_H_PORTRAIT_MAX).
-local GRID_H_LANDSCAPE = 8
-local GRID_H_PORTRAIT_MAX = 16
-local MAX_GRID_LONG = 24
-
-local function toEven(x) return math.floor(x / 2 + 0.5) * 2 end
-
 for _, display in pairs(screen.allScreens()) do
     local f = display:frame()
-    local w, h = f.w, f.h
-    local ratio = w / h
-    local gw, gh
-    if ratio >= 1 then
-        gh = GRID_H_LANDSCAPE
-        gw = toEven(math.min(MAX_GRID_LONG, gh * ratio))
+    if f.w >= f.h then
+        grid.setGrid("10x8", display)
     else
-        gw = GRID_H_LANDSCAPE
-        gh = toEven(math.min(GRID_H_PORTRAIT_MAX, gw / ratio))
+        grid.setGrid("8x10", display)
     end
-    grid.setGrid(string.format("%d x %d", gw, gh), display)
 end
 
 -- Disable animation
