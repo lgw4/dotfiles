@@ -158,6 +158,9 @@ hotkey.bind(mod_shift, "DOWN", grid.resizeWindowTaller)
 hotkey.bind(mod_shift, "RIGHT", grid.resizeWindowWider)
 hotkey.bind(mod_shift, "LEFT", grid.resizeWindowThinner)
 
+-- Show grid overlay
+hotkey.bind(mod_shift, "G", grid.show)
+
 -- Snap windows
 hotkey.bind(mod, ";",
     function() grid.snap(window.frontmostWindow()) end)
