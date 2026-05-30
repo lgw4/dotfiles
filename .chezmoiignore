@@ -1,3 +1,4 @@
+AGENTS.md
 CLAUDE.md
 README.markdown
 {{ if ne .chezmoi.os "darwin" }}
