@@ -43,6 +43,10 @@ exclude = [
 # Respect .gitignore files when scanning directories (default: true)
 respect_gitignore = true
 
+# Per-file rule ignores
+[per-file-ignores]
+"CLAUDE.md" = ["MD041"]
+
 # Markdown flavor/dialect (uncomment to enable)
 # Options: standard (default), gfm, commonmark, mkdocs, mdx, quarto
 # flavor = "mkdocs"
