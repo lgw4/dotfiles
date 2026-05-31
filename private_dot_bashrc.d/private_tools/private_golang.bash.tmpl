@@ -13,6 +13,19 @@ fi
 if command -v goenv >/dev/null 2>&1; then
     eval "$(goenv init -)"
     path_prepend "$GOENV_ROOT/shims"
+    _goenv() {
+        COMPREPLY=()
+        local cur="${COMP_WORDS[COMP_CWORD]}"
+        local words=("${COMP_WORDS[@]:1}")
+        local completions
+        if [[ "${#words[@]}" -eq 0 ]] || [[ -z "${words[*]// }" ]]; then
+            completions=$(goenv commands 2>/dev/null)
+        else
+            completions=$(goenv completions "${words[@]}" 2>/dev/null)
+        fi
+        COMPREPLY=( $(compgen -W "$completions" -- "$cur") )
+    }
+    complete -F _goenv goenv
 fi
 
 if [[ -d "$HOME/Developer/go" ]]; then
