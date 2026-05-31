@@ -20,7 +20,7 @@ printf "\nInstalling goenv…\n"
 brew install goenv
 mkdir "$HOME"/.goenv
 {{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
-curl -sfL https://raw.githubusercontent.com/go-nv/goenv/master/install.sh | bash
+curl -sfL https://raw.githubusercontent.com/go-nv/goenv/refs/heads/main/install.sh | bash
 {{- end }}
 chmod 700 "$HOME"/.goenv
 
