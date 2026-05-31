@@ -31,7 +31,7 @@ hs.loadSpoon("ControlPlane")
 dofile(hs.configdir .. "/controlplane_config.lua")
 
 -- Grid settings
-grid.GRIDWIDTH = 8
+grid.GRIDWIDTH = 10
 grid.GRIDHEIGHT = 6
 grid.MARGINX = 0
 grid.MARGINY = 0
@@ -40,9 +40,9 @@ grid.ui.textSize = 36
 for _, display in pairs(screen.allScreens()) do
     local f = display:frame()
     if f.w >= f.h then
-        grid.setGrid("8x6", display)
+        grid.setGrid("10x6", display)
     else
-        grid.setGrid("6x8", display)
+        grid.setGrid("6x10", display)
     end
 end
 
