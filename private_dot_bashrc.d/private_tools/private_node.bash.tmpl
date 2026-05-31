@@ -15,5 +15,10 @@ fi
 {{- end }}
 
 if command -v nodenv >/dev/null 2>&1; then
-    eval "$(nodenv init -)"
+    path_prepend "$NODENV_ROOT/shims"
+    nodenv() {
+        unset -f nodenv
+        eval "$(command nodenv init -)"
+        nodenv "$@"
+    }
 fi
