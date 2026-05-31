@@ -5,6 +5,11 @@ if type -q op
     set -l _op_completion ~/.config/fish/completions/op.fish
     set -l _op_bin (command -v op)
     if not test -f $_op_completion; or test $_op_bin -nt $_op_completion
-        op completion fish > $_op_completion
+        set -l _op_tmp (mktemp)
+        if op completion fish > $_op_tmp
+            mv $_op_tmp $_op_completion
+        else
+            rm -f $_op_tmp
+        end
     end
 end
