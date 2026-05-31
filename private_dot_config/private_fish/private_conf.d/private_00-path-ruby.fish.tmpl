@@ -7,7 +7,9 @@ end
 {{- end }}
 
 if type -q rbenv && status --is-interactive
-    fish_add_path -mpP $RBENV_ROOT/shims
+    if test -d "$RBENV_ROOT/shims"
+        fish_add_path -mpP $RBENV_ROOT/shims
+    end
     function rbenv
         functions -e rbenv
         rbenv init - fish | source

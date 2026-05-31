@@ -9,7 +9,9 @@ fi
 {{- end }}
 
 if command -v goenv >/dev/null 2>&1; then
-    path_prepend "$GOENV_ROOT/shims"
+    if [[ -d "$GOENV_ROOT/shims" ]]; then
+        path_prepend "$GOENV_ROOT/shims"
+    fi
     goenv() {
         unset -f goenv
         eval "$(command goenv init -)"
