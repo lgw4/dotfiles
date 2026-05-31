@@ -1,4 +1,6 @@
-set -q GOENV_ROOT; or set -x GOENV_ROOT $HOME/.goenv
+if test -d "$HOME/.goenv"
+    set -x GOENV_ROOT $HOME/.goenv
+end
 
 {{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 if test -n "$GOENV_ROOT" -a -f "$GOENV_ROOT/bin/goenv"
@@ -8,14 +10,8 @@ end
 
 if type -q goenv && status --is-interactive
     set -x GOENV_PATH_ORDER front
-    if test -d "$GOENV_ROOT/shims"
-        fish_add_path -mpP $GOENV_ROOT/shims
-    end
-    function goenv
-        functions -e goenv
-        goenv init - fish | source
-        goenv $argv
-    end
+    goenv init - fish | source
+    fish_add_path -mpP $GOENV_ROOT/shims
 end
 
 if test -d "$HOME/Developer/go"
