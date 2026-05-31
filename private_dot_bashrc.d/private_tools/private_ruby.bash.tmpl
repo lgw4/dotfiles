@@ -11,7 +11,9 @@ fi
 {{- end }}
 
 if command -v rbenv >/dev/null 2>&1; then
-    path_prepend "$RBENV_ROOT/shims"
+    if [[ -n "$RBENV_ROOT" ]] && [[ -d "$RBENV_ROOT/shims" ]]; then
+        path_prepend "$RBENV_ROOT/shims"
+    fi
     rbenv() {
         unset -f rbenv
         eval "$(command rbenv init -)"

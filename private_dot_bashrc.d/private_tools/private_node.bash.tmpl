@@ -15,7 +15,9 @@ fi
 {{- end }}
 
 if command -v nodenv >/dev/null 2>&1; then
-    path_prepend "$NODENV_ROOT/shims"
+    if [[ -n "$NODENV_ROOT" ]] && [[ -d "$NODENV_ROOT/shims" ]]; then
+        path_prepend "$NODENV_ROOT/shims"
+    fi
     nodenv() {
         unset -f nodenv
         eval "$(command nodenv init -)"
