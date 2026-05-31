@@ -1,8 +1,6 @@
 # shellcheck shell=bash
 # shellcheck disable=SC2103,SC2155,SC2164
-if [[ -d "$HOME/.rbenv" ]]; then
-    export RBENV_ROOT="$HOME/.rbenv"
-fi
+export RBENV_ROOT="${RBENV_ROOT:-$HOME/.rbenv}"
 
 {{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 if [[ -n "$RBENV_ROOT" ]] && [[ -f "$RBENV_ROOT/bin/rbenv" ]]; then
@@ -11,5 +9,12 @@ fi
 {{- end }}
 
 if command -v rbenv >/dev/null 2>&1; then
-    eval "$(rbenv init -)"
+    if [[ -d "$RBENV_ROOT/shims" ]]; then
+        path_prepend "$RBENV_ROOT/shims"
+    fi
+    rbenv() {
+        unset -f rbenv
+        eval "$(command rbenv init -)"
+        rbenv "$@"
+    }
 fi

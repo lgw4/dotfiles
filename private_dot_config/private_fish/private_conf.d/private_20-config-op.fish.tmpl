@@ -2,5 +2,14 @@ if type -q op
     function op-signin -d "Sign in to 1Password CLI"
         eval (op signin --account {{ onepasswordRead "op://Private/1Password CLI Account Name/notesPlain" }})
     end
-    op completion fish | source
+    set -l _op_completion ~/.config/fish/completions/op.fish
+    set -l _op_bin (command -v op)
+    if not test -f $_op_completion; or test $_op_bin -nt $_op_completion
+        set -l _op_tmp (mktemp)
+        if op completion fish > $_op_tmp
+            mv $_op_tmp $_op_completion
+        else
+            rm -f $_op_tmp
+        end
+    end
 end

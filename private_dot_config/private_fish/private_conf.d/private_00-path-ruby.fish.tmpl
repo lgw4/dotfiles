@@ -1,6 +1,4 @@
-if test -d "$HOME/.rbenv"
-    set -x RBENV_ROOT $HOME/.rbenv
-end
+set -q RBENV_ROOT; or set -x RBENV_ROOT $HOME/.rbenv
 
 {{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 if test -n "$RBENV_ROOT" -a -f "$RBENV_ROOT/bin/rbenv"
@@ -9,7 +7,14 @@ end
 {{- end }}
 
 if type -q rbenv && status --is-interactive
-    rbenv init - fish | source
-    set -l rbenv_commands (rbenv commands)
-    complete -f -c rbenv -n "not __fish_seen_subcommand_from $rbenv_commands" -a update -d 'Update rbenv and rbenv plugins'
+    if test -d "$RBENV_ROOT/shims"
+        fish_add_path -mpP $RBENV_ROOT/shims
+    end
+    function rbenv
+        functions -e rbenv
+        rbenv init - fish | source
+        set -l rbenv_commands (rbenv commands)
+        complete -f -c rbenv -n "not __fish_seen_subcommand_from $rbenv_commands" -a update -d 'Update rbenv and rbenv plugins'
+        rbenv $argv
+    end
 end

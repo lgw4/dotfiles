@@ -4,9 +4,7 @@ if test -d "$HOMEBREW_PREFIX/share/npm/bin"
 end
 {{- end }}
 
-if test -d "$HOME/.nodenv"
-    set -x NODENV_ROOT $HOME/.nodenv
-end
+set -q NODENV_ROOT; or set -x NODENV_ROOT $HOME/.nodenv
 
 {{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 if test -n "$NODENV_ROOT" -a -f "$NODENV_ROOT/bin/nodenv"
@@ -15,8 +13,15 @@ end
 {{- end }}
 
 if type -q nodenv && status --is-interactive
-    nodenv init - fish | source
+    if test -d "$NODENV_ROOT/shims"
+        fish_add_path -mpP $NODENV_ROOT/shims
+    end
     {{- if eq .chezmoi.os "darwin" }}
     set -x NODE_BUILD_DEFINITIONS "$HOMEBREW_PREFIX/opt/node-build-update-defs/share/node-build"
     {{- end }}
+    function nodenv
+        functions -e nodenv
+        nodenv init - fish | source
+        nodenv $argv
+    end
 end
