@@ -31,8 +31,8 @@ hs.loadSpoon("ControlPlane")
 dofile(hs.configdir .. "/controlplane_config.lua")
 
 -- Grid settings
-grid.GRIDWIDTH = 10
-grid.GRIDHEIGHT = 6
+grid.GRIDWIDTH = 12
+grid.GRIDHEIGHT = 8
 grid.MARGINX = 0
 grid.MARGINY = 0
 grid.ui.textSize = 36
@@ -40,9 +40,9 @@ grid.ui.textSize = 36
 for _, display in pairs(screen.allScreens()) do
     local f = display:frame()
     if f.w >= f.h then
-        grid.setGrid("10x6", display)
+        grid.setGrid("12x8", display)
     else
-        grid.setGrid("6x10", display)
+        grid.setGrid("8x12", display)
     end
 end
 
@@ -140,9 +140,6 @@ hotkey.bind(mod_shift, "UP", grid.resizeWindowShorter)
 hotkey.bind(mod_shift, "DOWN", grid.resizeWindowTaller)
 hotkey.bind(mod_shift, "RIGHT", grid.resizeWindowWider)
 hotkey.bind(mod_shift, "LEFT", grid.resizeWindowThinner)
-
--- Show grid overlay
-hotkey.bind(mod_shift, "G", grid.show)
 
 -- Snap windows
 hotkey.bind(mod, ";",
