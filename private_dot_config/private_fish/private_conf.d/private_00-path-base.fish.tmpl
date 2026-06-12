@@ -12,6 +12,8 @@ end
 
 if test -n "$HOMEBREW_PREFIX"
     set -x HOMEBREW_CASK_OPTS --appdir=~/Applications
+    set -x HOMEBREW_NO_ASK 1
+    set -x HOMEBREW_NO_UPGRADE_AUTO_UPDATES_CASKS 1
 end
 {{- end }}
 {{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
