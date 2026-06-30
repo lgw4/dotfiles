@@ -7,6 +7,9 @@ README.markdown
 .bashrc.d/functions/get-info.bash
 .config/fish/functions/cdf.fish
 .config/fish/functions/get-info.fish
+.zshrc.d/configuration/macos-curl.zsh
+.zshrc.d/functions/cdf.zsh
+.zshrc.d/functions/get-info.zsh
 .hammerspoon
 .local/bin/disable-spotlight
 .local/bin/docker-uninstall-all
@@ -18,11 +21,11 @@ README.markdown
 .local/bin/set-htop-permissions
 .local/bin/set-mail-list-font
 .local/bin/vacuum-apple-mail-envelope-index
-.zprofile
 {{ end }}
 {{ if ne .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
 .bashrc.d/tools/alks.bash
 .config/fish/conf.d/80-config-alks.fish
+.zshrc.d/tools/alks.zsh
 .config/tabtab
 .local/bin/set-cai-github
 .local/bin/upload-jfrog-support-bundle
