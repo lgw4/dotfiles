@@ -1,7 +1,14 @@
 # cdf (): cd to the PATH of the front Finder window
 cdf() {
     local target
-    target="$(osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text) else ""')"
+    target="$(osascript \
+        -e 'tell application "Finder"' \
+        -e 'if (count of Finder windows) > 0 then' \
+        -e 'get POSIX path of (target of front Finder window as text)' \
+        -e 'else' \
+        -e '""' \
+        -e 'end if' \
+        -e 'end tell')"
     if [[ -n "${target}" ]]; then
         cd -- "${target}" && pwd
     else
