@@ -1,0 +1,29 @@
+if [[ -d "/usr/local/sbin" ]]; then
+    path_prepend "/usr/local/sbin"
+fi
+
+if [[ -d "/usr/local/bin" ]]; then
+    path_prepend "/usr/local/bin"
+fi
+{{- if eq .chezmoi.os "darwin" }}
+
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+fi
+
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
+    export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+    export HOMEBREW_NO_ASK=1
+    export HOMEBREW_NO_UPGRADE_AUTO_UPDATES_CASKS=1
+fi
+{{- end }}
+{{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
+
+path_prepend "/sbin"
+path_prepend "/usr/sbin"
+path_remove "/snap/bin"
+{{- end }}
+
+if [[ -d "$HOME/.local/bin" ]]; then
+    path_prepend "$HOME/.local/bin"
+fi

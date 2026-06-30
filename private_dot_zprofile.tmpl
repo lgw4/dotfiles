@@ -1,5 +1,7 @@
+{{- if eq .chezmoi.os "darwin" }}
 # Set PATH, MANPATH, etc., for Homebrew.
 eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 export HOMEBREW_NO_ASK=1
 export HOMEBREW_NO_UPGRADE_AUTO_UPDATES_CASKS=1
+{{- end }}

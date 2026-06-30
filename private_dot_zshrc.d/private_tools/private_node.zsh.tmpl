@@ -1,0 +1,22 @@
+if [[ -d "$HOMEBREW_PREFIX/share/npm/bin" ]]; then
+    path_append "$HOMEBREW_PREFIX/share/npm/bin"
+fi
+
+export NODENV_ROOT="${NODENV_ROOT:-$HOME/.nodenv}"
+
+{{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
+if [[ -n "$NODENV_ROOT" ]] && [[ -f "$NODENV_ROOT/bin/nodenv" ]]; then
+    path_prepend "$NODENV_ROOT/bin"
+fi
+{{- end }}
+
+if command -v nodenv >/dev/null 2>&1; then
+    if [[ -d "$NODENV_ROOT/shims" ]]; then
+        path_prepend "$NODENV_ROOT/shims"
+    fi
+    nodenv() {
+        unset -f nodenv
+        eval "$(command nodenv init -)"
+        nodenv "$@"
+    }
+fi

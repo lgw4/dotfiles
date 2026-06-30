@@ -1,0 +1,21 @@
+if command -v op >/dev/null 2>&1; then
+    op-signin () {
+        eval "$(op signin --account '{{ onepasswordRead "op://Private/1Password CLI Account Name/notesPlain" }}')"
+    }
+
+    _op_completion_dir="$HOME/.zshrc.d/completions"
+    _op_completion="$_op_completion_dir/_op"
+    _op_bin="$(command -v op)"
+    if [[ ! -f "$_op_completion" ]] || [[ "$_op_bin" -nt "$_op_completion" ]]; then
+        mkdir -p "$_op_completion_dir"
+        _op_tmp="$(mktemp)"
+        if op completion zsh > "$_op_tmp"; then
+            mv "$_op_tmp" "$_op_completion"
+        else
+            rm -f "$_op_tmp"
+        fi
+        unset _op_tmp
+    fi
+    fpath=("$_op_completion_dir" $fpath)
+    unset _op_completion_dir _op_completion _op_bin
+fi

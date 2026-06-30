@@ -1,0 +1,55 @@
+setopt AUTO_CD
+setopt CORRECT
+setopt EXTENDED_GLOB
+
+# Zsh ties the $path array to $PATH, so prepend/append/remove are just array
+# operations -- no need for Bash's ${!VAR} indirection trick (not valid Zsh).
+typeset -U path
+
+path_remove() {
+    path=("${(@)path:#$1}")
+}
+
+path_prepend() {
+    path_remove "$1"
+    path=("$1" $path)
+}
+
+path_append() {
+    path_remove "$1"
+    path+=("$1")
+}
+
+if [[ -d "$HOME/.zshrc.d" ]]; then
+    for config in "$HOME"/.zshrc.d/**/*.zsh(N); do
+        source "$config"
+    done
+    unset -v config
+fi
+
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
+    fpath=("$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
+fi
+autoload -Uz compinit
+compinit
+
+if command -v starship >/dev/null 2>&1; then
+    eval "$(starship init zsh)"
+else
+    PROMPT=$'\n%n@%m: %~\n%# '
+fi
+
+if command -v direnv >/dev/null 2>&1; then
+    eval "$(direnv hook zsh)"
+fi
+
+# Must load last: zsh-syntax-highlighting requires every other widget/keybind
+# to already be defined.
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
+    if [[ -f "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+        source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    fi
+    if [[ -f "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+        source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    fi
+fi
