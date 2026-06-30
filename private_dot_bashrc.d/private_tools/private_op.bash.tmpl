@@ -18,6 +18,8 @@ if command -v op >/dev/null 2>&1; then
         fi
         unset _op_tmp
     fi
-    source "$_op_completion"
+    if [[ -f "$_op_completion" ]]; then
+        source "$_op_completion"
+    fi
     unset _op_completion_dir _op_completion _op_bin
 fi
