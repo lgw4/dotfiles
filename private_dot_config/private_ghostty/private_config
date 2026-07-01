@@ -27,7 +27,7 @@ macos-titlebar-style = tabs
 
 # Shell integration configuration
 shell-integration = detect
-shell-integration-features = no-cursor, ssh-env, ssh-terminfo, sudo, title
+shell-integration-features = no-cursor, ssh-env, ssh-terminfo, sudo, no-title
 
 # Theme configuration
 theme = iTerm2 Solarized Light
