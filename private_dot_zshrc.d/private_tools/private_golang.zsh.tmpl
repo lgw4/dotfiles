@@ -9,7 +9,7 @@ fi
 {{- end }}
 
 if command -v goenv >/dev/null 2>&1; then
-    eval "$(goenv init -)"
+    eval "$(goenv init - zsh)"
     path_prepend "$GOENV_ROOT/shims"
 fi
 
