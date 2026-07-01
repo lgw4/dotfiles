@@ -1,6 +1,10 @@
 # zsh/complist implements menu-select; it is not autoloaded by compinit.
 zmodload zsh/complist
 
+# Auto-rehash so newly installed executables show up in completion without
+# needing to open a new shell or run `rehash` manually.
+zstyle ':completion:*' rehash true
+
 # Raise past the default of 100 so large lists (e.g. `brew` has 113
 # subcommands) go straight to listing instead of stopping at
 # "do you wish to see all N possibilities?" first.
