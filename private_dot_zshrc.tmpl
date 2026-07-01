@@ -45,6 +45,7 @@ fi
 
 # Must load last: zsh-syntax-highlighting requires every other widget/keybind
 # to already be defined.
+{{- if eq .chezmoi.os "darwin" }}
 if [[ -n "$HOMEBREW_PREFIX" ]]; then
     if [[ -f "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
         source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
@@ -53,6 +54,14 @@ if [[ -n "$HOMEBREW_PREFIX" ]]; then
         source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     fi
 fi
+{{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
+if [[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+    source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+if [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+    source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+{{- end }}
 
 # Added by zshellcheck installer
 fpath+=("$HOME/.local/share/zsh/site-functions")
