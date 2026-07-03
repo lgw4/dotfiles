@@ -40,7 +40,7 @@ if [[ -d "/usr/share/zsh-completions" ]]; then
 fi
 {{- end }}
 autoload -Uz compinit
-compinit
+compinit -u
 
 if command -v starship >/dev/null 2>&1; then
     eval "$(starship init zsh)"
