@@ -30,6 +30,15 @@ fi
 if [[ -n "$HOMEBREW_PREFIX" ]]; then
     fpath=("$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
 fi
+{{- if eq .chezmoi.os "darwin" }}
+if [[ -n "$HOMEBREW_PREFIX" && -d "$HOMEBREW_PREFIX/share/zsh-completions" ]]; then
+    fpath=("$HOMEBREW_PREFIX/share/zsh-completions" $fpath)
+fi
+{{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
+if [[ -d "/usr/share/zsh-completions" ]]; then
+    fpath=("/usr/share/zsh-completions" $fpath)
+fi
+{{- end }}
 autoload -Uz compinit
 compinit
 
