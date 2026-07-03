@@ -1,5 +1,0 @@
-{{- if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
-# Let .zshrc's own compinit (or zsh-autocomplete's) run instead of the
-# system-wide one in /etc/zsh/zshrc.
-skip_global_compinit=1
-{{- end }}
