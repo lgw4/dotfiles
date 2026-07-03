@@ -43,7 +43,9 @@ _zsh_autocomplete="$HOME/.local/share/zsh-autocomplete/zsh-autocomplete.plugin.z
 {{- end }}
 
 if [[ -n "$_zsh_autocomplete" && -f "$_zsh_autocomplete" ]]; then
-    # zsh-autocomplete calls compinit itself; a second explicit call conflicts with it.
+    # zsh-autocomplete calls compinit itself; pass -u so it skips the same
+    # ownership check we skip below (Homebrew's share dir is group-writable).
+    zstyle '*:compinit' arguments -u
     source "$_zsh_autocomplete"
 else
     autoload -Uz compinit
