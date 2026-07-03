@@ -34,13 +34,22 @@ fi
 if [[ -n "$HOMEBREW_PREFIX" && -d "$HOMEBREW_PREFIX/share/zsh-completions" ]]; then
     fpath=("$HOMEBREW_PREFIX/share/zsh-completions" $fpath)
 fi
+_zsh_autocomplete="$HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 {{- else if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu"))) }}
 if [[ -d "/usr/share/zsh-completions" ]]; then
     fpath=("/usr/share/zsh-completions" $fpath)
 fi
+_zsh_autocomplete="$HOME/.local/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 {{- end }}
-autoload -Uz compinit
-compinit -u
+
+if [[ -n "$_zsh_autocomplete" && -f "$_zsh_autocomplete" ]]; then
+    # zsh-autocomplete calls compinit itself; a second explicit call conflicts with it.
+    source "$_zsh_autocomplete"
+else
+    autoload -Uz compinit
+    compinit -u
+fi
+unset _zsh_autocomplete
 
 if command -v starship >/dev/null 2>&1; then
     eval "$(starship init zsh)"
