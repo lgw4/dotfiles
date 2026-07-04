@@ -40,6 +40,11 @@ if [[ -d "/usr/share/zsh-completions" ]]; then
 fi
 {{- end }}
 
+# Must come before compinit, which scans $fpath once at call time to build
+# its completion cache -- anything appended after this point is invisible
+# to it.
+fpath+=("$HOME/.local/share/zsh/site-functions")
+
 autoload -Uz compinit
 compinit -u
 
@@ -72,6 +77,3 @@ if [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; th
     source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 {{- end }}
-
-# Added by zshellcheck installer
-fpath+=("$HOME/.local/share/zsh/site-functions")
