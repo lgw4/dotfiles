@@ -25,6 +25,7 @@ README.markdown
 {{ if ne .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
 .bashrc.d/tools/alks.bash
 .config/fish/conf.d/80-config-alks.fish
+.config/fish/conf.d/85-config-caimcp.fish
 .zshrc.d/tools/alks.zsh
 .config/tabtab
 .local/bin/set-cai-github
