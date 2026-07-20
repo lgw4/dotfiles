@@ -37,7 +37,10 @@ README.markdown
 .local/bin/add-ppa-key
 .local/bin/cpu-temp
 {{ end }}
-.claude
+.claude/*
+!.claude/CLAUDE.md
+!.claude/settings.json
+!.claude/statusline-command.sh
 .config/fish/fish_variables
 .github
 .gitignore
