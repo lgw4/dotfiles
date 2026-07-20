@@ -34,6 +34,7 @@ CYAN=$'\033[2;36m'
 GREEN=$'\033[2;32m'
 MAGENTA=$'\033[2;35m'
 YELLOW=$'\033[2;33m'
+RED=$'\033[2;31m'
 SEP="${DIM}|${RESET}"
 
 parts=()
@@ -42,7 +43,22 @@ parts+=("$(printf "${GREEN}%s${RESET}" "$dir_name")")
 parts+=("$(printf "${MAGENTA}%s${RESET}" "$branch")")
 
 if [ -n "$used" ]; then
-  parts+=("$(printf "${YELLOW}ctx %.0f%%${RESET}" "$used")")
+  bar_width=10
+  filled=$(awk -v u="$used" -v w="$bar_width" 'BEGIN{f=int((u/100)*w+0.5); if(f<0)f=0; if(f>w)f=w; print f}')
+  empty=$((bar_width - filled))
+  filled_bar=$(printf "%${filled}s" "" | tr ' ' '█')
+  empty_bar=$(printf "%${empty}s" "" | tr ' ' '░')
+  bar="${filled_bar}${empty_bar}"
+
+  if awk -v u="$used" 'BEGIN{exit !(u>=80)}'; then
+    CTX_COLOR="$RED"
+  elif awk -v u="$used" 'BEGIN{exit !(u>=50)}'; then
+    CTX_COLOR="$YELLOW"
+  else
+    CTX_COLOR="$GREEN"
+  fi
+
+  parts+=("$(printf "${CTX_COLOR}ctx [%s] %.0f%%${RESET}" "$bar" "$used")")
 fi
 
 limits=""
