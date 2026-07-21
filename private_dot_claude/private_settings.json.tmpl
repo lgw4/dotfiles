@@ -1,0 +1,43 @@
+{
+  "env": {
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "65",
+    "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
+    "DISABLE_TELEMETRY": "1"
+  },
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "opusplan",
+  "disableClaudeAiConnectors": true,
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/statusline-command.sh\""
+  },
+{{- if eq .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
+  "extraKnownMarketplaces": {
+    "fluent-python-skills": {
+      "source": {
+        "source": "git",
+        "url": "https://{{ onepasswordRead "op://Work/Secrets/ghes_fqdn" }}/Chip-Warden/fluent-python-skills.git"
+      }
+    }
+  },
+{{- else if and (ne .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname")) (eq .chezmoi.os "darwin") }}
+  "extraKnownMarketplaces": {
+    "fluent-python-skills": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/lgw4/fluent-python-skills.git"
+      }
+    }
+  },
+{{- end }}
+  "tui": "fullscreen",
+  "theme": "light",
+  "spinnerTipsEnabled": false,
+  "enabledPlugins": {
+    "fluent-python@fluent-python-skills": true
+  }
+}
