@@ -17,3 +17,4 @@
 
 - Prefer `gh` CLI over any MCP for GitHub operations
 - Prefer `rg` (ripgrep) for file search; fall back to `grep`/`find` if unavailable
+- When writing shell scripts, always use pure Bourne shell (that is, `/usr/bin/env sh`)
