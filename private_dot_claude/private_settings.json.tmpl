@@ -7,6 +7,14 @@
     "DISABLE_TELEMETRY": "1"
   },
   "permissions": {
+  {{- if eq .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
+    "allow": [
+      "mcp__cai-mcp__getRallyItem",
+      "mcp__cai-mcp__getGithubRepository",
+      "mcp__cai-mcp__getGithubOrganization",
+      "mcp__cai-mcp__listGithubRepositories"
+    ],
+  {{- end }}
     "defaultMode": "auto"
   },
   "model": "opusplan",
@@ -22,6 +30,13 @@
         "source": "git",
         "url": "https://{{ onepasswordRead "op://Work/Secrets/ghes_fqdn" }}/Chip-Warden/fluent-python-skills.git"
       }
+    }
+  },
+  "mcpServers": {
+    "cai-mcp": {
+      "type": "stdio",
+      "command": "cai-mcp",
+      "args": ["--config", "~/.caimcp/config.yaml"]
     }
   },
 {{- else if and (ne .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname")) (eq .chezmoi.os "darwin") }}
