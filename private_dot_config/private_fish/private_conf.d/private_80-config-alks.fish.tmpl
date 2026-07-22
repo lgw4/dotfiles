@@ -186,6 +186,37 @@ function alks-labs-224-creds -d "Write ALKS credentials file for Labs224"
     alks sessions open -i -r LabAdmin -a "{{ onepasswordRead "op://Work/ALKS Labs 224/notesPlain" }}" -o creds -f
 end
 
+function alks-ldark-np -d "Open ALKS session to LaunchDarkly non-production"
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS LaunchDarkly Non-production/notesPlain" }}")
+end
+
+function alks-ldark-np-creds -d "Write ALKS credentials file for LaunchDarkly non-production"
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS LaunchDarkly Non-production/notesPlain" }}" -o creds -f
+end
+
+function alks-ldark-prod -d "Open ALKS session to LaunchDarkly production"
+    if test -z "$argv[1]"
+        echo "Missing CIID value" >&2
+        return 1
+    end
+    eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS LaunchDarkly Production/notesPlain" }}" \
+        --ciid $argv[1] \
+        --activity-type "Maintenance" \
+        --description "LaunchDarkly production admin session")
+end
+
+function alks-ldark-prod-creds -d "Write ALKS credentials file for LaunchDarkly production"
+    if test -z "$argv[1]"
+        echo "Missing CIID value" >&2
+        return 1
+    end
+    alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS LaunchDarkly Production/notesPlain" }}" \
+        --ciid $argv[1] \
+        --activity-type "Maintenance" \
+        --description "LaunchDarkly production admin session" \
+        -o creds -f
+end
+
 function alks-splunk-np -d "Open ALKS session to Splunk non-production"
     eval (alks sessions open -i -N -r Admin -a "{{ onepasswordRead "op://Work/ALKS Splunk Non-production/notesPlain" }}")
 end
