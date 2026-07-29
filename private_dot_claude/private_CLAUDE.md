@@ -4,6 +4,7 @@
 
 - Follow YAGNI. Prefer the simplest solution that solves the actual problem; don't add speculative abstraction.
 - Before editing any file, read it first. Before modifying a function, grep for all callers. Research before you edit.
+- When writing Python code, consult any matching `fluent-python:*` skills as appropriate.
 
 ## Typography
 
