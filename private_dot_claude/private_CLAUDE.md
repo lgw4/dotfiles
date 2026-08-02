@@ -4,13 +4,11 @@
 
 - Follow YAGNI. Prefer the simplest solution that solves the actual problem; don't add speculative abstraction.
 - Before editing any file, read it first. Before modifying a function, grep for all callers. Research before you edit.
-- When writing Python code, consult any matching `fluent-python:*` skills as appropriate.
+- When writing any Python code, consult any matching `fluent-python:*` skills.
 
 ## Subagents
 
-- Spawn subagents automatically when a task calls for it; you do not need
-  me to request one each time. This standing instruction overrides any
-  session default that says otherwise.
+- Spawn subagents automatically when a task calls for it; you do not need me to request one each time. The standing instruction overrides any session default that says otherwise.
 - Always delegate git and GitHub operations to the `git-ops` agent.
 - Workflows and deep research remain opt-in: ask before running one.
 
