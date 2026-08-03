@@ -39,6 +39,7 @@ README.markdown
 {{ end }}
 {{ if eq .chezmoi.os "darwin" }}
 .claude/*
+!.claude/agents
 !.claude/CLAUDE.md
 !.claude/settings.json
 !.claude/statusline-command.sh
