@@ -1,12 +1,19 @@
 #!/usr/bin/env sh
 # patch-speckit-routing.sh
 #
-# Routes /speckit-implement into a Sonnet-pinned subagent, because skill and
-# command frontmatter `model:` is silently ignored at runtime (anthropics/
-# claude-code#45191) while subagent frontmatter `model:` is honored.
+# Pins models for Spec Kit skills by forking each one into a subagent, because
+# skill and command frontmatter `model:` is silently ignored at runtime
+# (anthropics/claude-code#45191, closed not-planned) while subagent frontmatter
+# `model:` is honored.
 #
-#   speckit-implement -> context: fork + agent: <AGENT> (agent pins the model)
-#   all other skills  -> untouched; they inherit the session model
+#   implement            -> fork to speckit-implementer  (Sonnet)
+#   git-*, taskstoissues -> fork to git-ops              (Haiku)
+#   clarify, checklist   -> untouched; they hold question dialogs with the
+#                           user, which forked skills cannot do (subagents
+#                           lose AskUserQuestion). They inherit the session
+#                           model: to run them on Opus, open /model, pick
+#                           Opus, and press `s` (session-only) first.
+#   everything else      -> fork to speckit-opus         (Opus)
 #
 # Also strips any leftover `model:` line from every Spec Kit skill, since those
 # do nothing and only mislead the next person reading the file.
@@ -17,7 +24,10 @@
 set -eu
 
 SKILLS_DIR="${1:-.claude/skills}"
-AGENT_NAME="speckit-implementer"
+
+# Every agent a routing below can point at. Existence is checked at the end;
+# a fork to a missing agent fails silently at invocation time.
+AGENTS="speckit-implementer speckit-opus git-ops"
 
 # Top-level frontmatter keys this script owns. Anything matching is removed
 # before the desired set is written back, which is what makes it idempotent.
@@ -26,8 +36,10 @@ MANAGED_KEYS='^(model|context|agent|background):'
 # Lines to insert, "|"-separated. Empty means strip-only.
 routing_for() {
   case "$1" in
-    implement) echo "context: fork|agent: $AGENT_NAME|background: false" ;;
-    *)         echo "" ;;
+    implement)           echo "context: fork|agent: speckit-implementer|background: false" ;;
+    git-*|taskstoissues) echo "context: fork|agent: git-ops|background: false" ;;
+    clarify|checklist)   echo "" ;;
+    *)                   echo "context: fork|agent: speckit-opus|background: false" ;;
   esac
 }
 
@@ -77,10 +89,12 @@ for file in "$SKILLS_DIR"/speckit-*/SKILL.md; do
   routing=$(routing_for "$cmd")
   patch_frontmatter "$file" "$routing"
   if [ -n "$routing" ]; then
-    printf '  %-24s -> fork to %s\n' "$cmd" "$AGENT_NAME"
+    agent=${routing#*agent: }
+    agent=${agent%%|*}
+    printf '  %-24s -> fork to %s\n' "$cmd" "$agent"
     routed=$((routed + 1))
   else
-    printf '  %-24s -> inherits session model\n' "$cmd"
+    printf '  %-24s -> inherits session model (interactive)\n' "$cmd"
   fi
   count=$((count + 1))
 done
@@ -92,35 +106,38 @@ if [ "$count" -eq 0 ]; then
 fi
 
 if [ "$routed" -eq 0 ]; then
-  echo "error: no speckit-implement skill found under $SKILLS_DIR" >&2
-  echo "nothing was routed; check the skill directory names" >&2
+  echo "error: no skills were routed under $SKILLS_DIR" >&2
+  echo "check the skill directory names" >&2
   exit 1
 fi
 
-# The fork points at an agent this script does not create. A missing agent
-# means silent failure at invocation time, so say so now. Agent identity comes
-# from the `name:` field, not the filename, and project and user scopes both
-# resolve, so search on name across both.
+# The forks point at agents this script does not create. A missing agent
+# means silent failure at invocation time, so say so now. Agent identity
+# comes from the `name:` field, not the filename, and project and user
+# scopes both resolve, so search on name across both.
 agent_defined_in() {
   [ -d "$1" ] || return 1
   [ -n "$(find "$1" -type f -name '*.md' -exec grep -lE \
-      "^name:[[:space:]]*[\"']?$AGENT_NAME[\"']?[[:space:]]*\$" {} + 2>/dev/null \
+      "^name:[[:space:]]*[\"']?$2[\"']?[[:space:]]*\$" {} + 2>/dev/null \
       | head -1)" ]
 }
 
-agent_scope=""
-for dir in "$(dirname "$SKILLS_DIR")/agents" "$HOME/.claude/agents"; do
-  if agent_defined_in "$dir"; then
-    agent_scope=$dir
-    break
+missing=0
+for agent in $AGENTS; do
+  agent_scope=""
+  for dir in "$(dirname "$SKILLS_DIR")/agents" "$HOME/.claude/agents"; do
+    if agent_defined_in "$dir" "$agent"; then
+      agent_scope=$dir
+      break
+    fi
+  done
+  if [ -n "$agent_scope" ]; then
+    echo "  agent '$agent' found in $agent_scope"
+  else
+    echo "warning: no agent named '$agent' in project or user scope" >&2
+    echo "         create it or the forks pointing at it have nothing to run" >&2
+    missing=$((missing + 1))
   fi
 done
 
-if [ -n "$agent_scope" ]; then
-  echo "  agent '$AGENT_NAME' found in $agent_scope"
-else
-  echo "warning: no agent named '$AGENT_NAME' in project or user scope" >&2
-  echo "         create it with 'model: sonnet' or the fork has nothing to run" >&2
-fi
-
-echo "patched $count skill(s) in $SKILLS_DIR"
+echo "patched $count skill(s) in $SKILLS_DIR ($routed routed, $missing agent(s) missing)"

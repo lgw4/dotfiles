@@ -41,6 +41,7 @@ README.markdown
 .claude/*
 !.claude/agents
 !.claude/CLAUDE.md
+!.claude/hooks
 !.claude/settings.json
 !.claude/statusline-command.sh
 {{ else }}

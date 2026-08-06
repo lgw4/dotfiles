@@ -1,7 +1,7 @@
 ---
 name: git-ops
 description: Handles all Git operations — commits, branches, merges, rebases, diffs, status checks, history inspection, and pull requests. Use proactively for any git or gh command.
-tools: Bash, Read, Grep, Glob
+tools: Bash, Read, Write, Grep, Glob
 model: haiku
 ---
 

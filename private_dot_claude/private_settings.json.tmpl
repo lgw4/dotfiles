@@ -18,6 +18,20 @@
     "defaultMode": "auto"
   },
   "model": "opusplan",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/restore-default-model.sh\"",
+            "timeout": 10,
+            "statusMessage": "Checking default model setting"
+          }
+        ]
+      }
+    ]
+  },
   "disableClaudeAiConnectors": true,
   "statusLine": {
     "type": "command",
