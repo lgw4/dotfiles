@@ -37,8 +37,15 @@
     "type": "command",
     "command": "bash \"$HOME/.claude/statusline-command.sh\""
   },
-{{- if eq .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
   "extraKnownMarketplaces": {
+    "speckit-support-skills": {
+      "source": {
+        "source": "github",
+        "repo": "lgw4/speckit-support-skills"
+      }
+    }
+  },
+{{- if eq .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
     "fluent-python-skills": {
       "source": {
         "source": "git",
@@ -54,7 +61,6 @@
     }
   },
 {{- else if and (ne .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname")) (eq .chezmoi.os "darwin") }}
-  "extraKnownMarketplaces": {
     "fluent-python-skills": {
       "source": {
         "source": "git",
