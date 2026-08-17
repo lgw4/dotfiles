@@ -87,6 +87,15 @@
             "type" : "command"
           }
         ]
+      },
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/chip.warden/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "Stop" : [
