@@ -2,6 +2,9 @@
 # Claude Code statusline: model, cwd, worktree/branch, context %, 5h/7d rate limits.
 set -u
 
+# Hosts like herdr may spawn sessions without LANG; the bar glyphs need UTF-8.
+export LC_ALL=en_US.UTF-8
+
 input=$(cat)
 
 model=$(printf '%s' "$input" | jq -r '.model.display_name // "unknown"')
@@ -45,10 +48,9 @@ parts+=("$(printf "${MAGENTA}%s${RESET}" "$branch")")
 if [ -n "$used" ]; then
   bar_width=10
   filled=$(awk -v u="$used" -v w="$bar_width" 'BEGIN{f=int((u/100)*w+0.5); if(f<0)f=0; if(f>w)f=w; print f}')
-  empty=$((bar_width - filled))
-  filled_bar=$(printf "%${filled}s" "" | tr ' ' '█')
-  empty_bar=$(printf "%${empty}s" "" | tr ' ' '░')
-  bar="${filled_bar}${empty_bar}"
+  # Built in awk: BSD tr mangles multibyte replacements under a non-UTF-8 locale.
+  bar=$(awk -v f="$filled" -v w="$bar_width" \
+    'BEGIN{for(i=1;i<=w;i++) printf "%s", (i<=f ? "█" : "░")}')
 
   if awk -v u="$used" 'BEGIN{exit !(u>=80)}'; then
     CTX_COLOR="$RED"
