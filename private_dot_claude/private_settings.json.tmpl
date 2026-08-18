@@ -54,27 +54,19 @@
         "repo": "lgw4/speckit-support-skills"
       }
     },
-{{- if eq .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
-    "fluent-python-skills": {
-      "source": {
-        "source": "git",
-        "url": "https://{{ onepasswordRead "op://Work/Secrets/ghes_fqdn" }}/Chip-Warden/fluent-python-skills.git"
-      }
-    }
-  },
-  "mcpServers": {
-    "cai-mcp": {
-      "type": "stdio",
-      "command": "cai-mcp",
-      "args": ["--config", "~/.caimcp/config.yaml"]
-    }
-  },
-{{- else if and (ne .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname")) (eq .chezmoi.os "darwin") }}
     "fluent-python-skills": {
       "source": {
         "source": "git",
         "url": "https://github.com/lgw4/fluent-python-skills.git"
       }
+    }
+  },
+{{- if eq .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
+  "mcpServers": {
+    "cai-mcp": {
+      "type": "stdio",
+      "command": "cai-mcp",
+      "args": ["--config", "~/.caimcp/config.yaml"]
     }
   },
 {{- end }}
