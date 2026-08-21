@@ -1,10 +1,28 @@
 # Global Claude instructions
 
-## Solution Approach
+## Solution approach
 
 - Follow YAGNI. Prefer the simplest solution that solves the actual problem; don't add speculative abstraction.
 - Before editing any file, read it first. Before modifying a function, grep for all callers. Research before you edit.
 - When writing any Python code, consult any matching `fluent-python:*` skills.
+
+## Tidy First approach
+
+- Separate all changes into two distinct types:
+    1. Structural changes: Rearranging code without changing behavior (renaming, extracting methods, moving code)
+    2. Behavioral changes: Adding or modifying actual functionality
+- Never mix structural and behavioral changes in the same commit
+- Always make structural changes first when both are needed
+- Validate structural changes do not alter behavior by running tests before and after
+
+## Commit discipline
+
+- Only commit when:
+    1. ALL tests are passing
+    2. ALL compiler/linter warnings have been resolved
+    3. The change represents a single logical unit of work
+    4. Commit messages clearly state whether the commit contains structural or behavioral changes
+- Use small, frequent commits rather than large, infrequent ones
 
 ## Subagents
 
