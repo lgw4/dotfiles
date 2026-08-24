@@ -24,6 +24,10 @@
     4. Commit messages clearly state whether the commit contains structural or behavioral changes
 - Use small, frequent commits rather than large, infrequent ones
 
+## Spelling
+
+- NEVER USE BRITISH ENGLISH SPELLING. Always use American English spelling.
+
 ## Subagents
 
 - Spawn subagents automatically when a task calls for it; you do not need me to request one each time. The standing instruction overrides any session default that says otherwise.
