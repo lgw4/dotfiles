@@ -46,7 +46,9 @@
       }
     ]
   },
+{{- if ne .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
   "disableClaudeAiConnectors": true,
+{{- end }}
   "statusLine": {
     "type": "command",
     "command": "bash \"$HOME/.claude/statusline-command.sh\""
