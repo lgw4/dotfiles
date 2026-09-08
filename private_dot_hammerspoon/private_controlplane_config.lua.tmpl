@@ -1,13 +1,21 @@
+{{- $ssid := onepasswordRead "op://Personal/Home Network/ssid" | trim -}}
+{{- $bssid := onepasswordRead "op://Personal/Home Network/bssid" | trim -}}
+{{- $subnet := onepasswordRead "op://Personal/Home Network/subnet" | trim -}}
+{{- if not $ssid }}{{ fail "Home Network ssid is empty" }}{{ end -}}
+{{- if not $bssid }}{{ fail "Home Network bssid is empty" }}{{ end -}}
+{{- if not $subnet }}{{ fail "Home Network subnet is empty" }}{{ end -}}
 spoon.ControlPlane.contexts = {
     home = {
         rules = {
-            { kind = "ssid",   confidence = 0.5, value = { {{ onepasswordRead "op://Personal/Home Network/ssid" | trim | quote }} } },
+            { kind = "ssid",   confidence = 0.5, value = { {{ $ssid | quote }} } },
             { kind = "bssid",  confidence = 0.5, value = {
-{{- range (onepasswordRead "op://Personal/Home Network/bssid" | splitList "\n") }}
+{{- range (splitList "," $bssid) }}
+{{-   if trim . }}
                 {{ . | trim | quote }},
+{{-   end }}
 {{- end }}
             } },
-            { kind = "subnet", confidence = 0.5, value = { {{ onepasswordRead "op://Personal/Home Network/subnet" | trim | quote }} } },
+            { kind = "subnet", confidence = 0.5, value = { {{ $subnet | quote }} } },
         },
     },
     none = { rules = {} },
