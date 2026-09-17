@@ -1,6 +1,10 @@
 # shellcheck shell=bash
 # shellcheck disable=SC1091,SC2155
 if command -v op >/dev/null 2>&1; then
+{{- if eq .chezmoi.os "darwin" }}
+    # Required for biometric unlock on macOS 27 (Golden Gate) and later
+    export OP_BIOMETRIC_UNLOCK_ENABLED=true
+{{- end }}
     op-signin () {
         eval "$(op signin --account '{{ onepasswordRead "op://Private/1Password CLI Account Name/notesPlain" }}')"
     }

@@ -1,4 +1,8 @@
 if type -q op
+{{- if eq .chezmoi.os "darwin" }}
+    # Required for biometric unlock on macOS 27 (Golden Gate) and later
+    set -x OP_BIOMETRIC_UNLOCK_ENABLED true
+{{- end }}
     function op-signin -d "Sign in to 1Password CLI"
         eval (op signin --account {{ onepasswordRead "op://Private/1Password CLI Account Name/notesPlain" }})
     end
