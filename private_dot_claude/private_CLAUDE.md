@@ -9,20 +9,26 @@
 ## Tidy First approach
 
 - Separate all changes into two distinct types:
-    1. Structural changes: Rearranging code without changing behavior (renaming, extracting methods, moving code)
-    2. Behavioral changes: Adding or modifying actual functionality
-- Never mix structural and behavioral changes in the same commit
-- Always make structural changes first when both are needed
-- Validate structural changes do not alter behavior by running tests before and after
+    1. Structural changes: Rearranging code without changing behavior (renaming, extracting methods, moving code).
+    2. Behavioral changes: Adding or modifying actual functionality.
+- Never mix structural and behavioral changes in the same commit.
+- Always make structural changes first when both are needed.
+- Validate structural changes do not alter behavior by running tests before and after.
 
 ## Commit discipline
 
 - Only commit when:
-    1. ALL tests are passing
-    2. ALL compiler/linter warnings have been resolved
-    3. The change represents a single logical unit of work
-    4. Commit messages clearly state whether the commit contains structural or behavioral changes
-- Use small, frequent commits rather than large, infrequent ones
+    1. ALL tests are passing.
+    2. ALL compiler/linter warnings have been resolved.
+    3. The change represents a single logical unit of work.
+    4. Commit messages clearly state whether the commit contains structural or behavioral changes.
+- Use small, frequent commits rather than large, infrequent ones.
+
+## Communication requirements
+
+- When asked to post communications (such as PR reviews, Slack messages, and the like), ALWAYS identify Claude Code as the author.
+- When creating a PR, remember your audience is intelligent senior software engineers. Be clear, concise, direct, and polite. Do not over-explain.
+- When you are challenged about the factual content of your responses, NEVER use the terms _hallucinate_ or _hallucination_. Software, including LLMs, does NOT _hallucinate_. Use _fabricate_ or _fabrication_ to describe your errors.
 
 ## Spelling
 
@@ -36,14 +42,14 @@
 
 ## Typography
 
-- Do not use em-dashes unless no other punctuation will do
-- Em-dashes are tight (no spaces): word—word, not word — word
-- En-dashes are tight (no spaces): 2020–2025, not 2020 – 2025
-- Hyphens are tight (no spaces): well-known, not well - known
-- Slashes are tight (no spaces): and/or, not and / or
+- Do not use em-dashes unless no other punctuation will do.
+- Em-dashes are tight (no spaces): word—word, not word — word.
+- En-dashes are tight (no spaces): 2020–2025, not 2020 – 2025.
+- Hyphens are tight (no spaces): well-known, not well - known.
+- Slashes are tight (no spaces): and/or, not and / or.
 
 ## Tooling
 
-- Prefer `gh` CLI over any MCP for GitHub operations
-- Prefer `rg` (ripgrep) for file search; fall back to `grep`/`find` if unavailable
-- When writing shell scripts, always use pure Bourne shell (that is, `/usr/bin/env sh`)
+- Prefer `gh` CLI over any MCP for GitHub operations.
+- Prefer `rg` (ripgrep) for file search; fall back to `grep`/`find` if unavailable.
+- When writing shell scripts, always use pure Bourne shell (that is, `/usr/bin/env sh`).
