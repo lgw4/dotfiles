@@ -14,6 +14,7 @@
 - Never mix structural and behavioral changes in the same commit.
 - Always make structural changes first when both are needed.
 - Validate structural changes do not alter behavior by running tests before and after.
+- Use `refactor:` for structural commits and `feat:` or `fix:` for behavioral commits.
 
 ## Commit discipline
 
@@ -22,11 +23,11 @@
     2. ALL compiler/linter warnings have been resolved.
     3. The change represents a single logical unit of work.
     4. Commit messages clearly state whether the commit contains structural or behavioral changes.
-- Use small, frequent commits rather than large, infrequent ones.
+- Use small, frequent commits rather than large, infrequent ones. Commit on your own after each passing step.
 
 ## Communication requirements
 
-- When asked to post communications (such as PR reviews, Slack messages, and the like), ALWAYS identify Claude Code as the author.
+- When asked to post communications (such as PR reviews, Slack messages, and the like), ALWAYS identify Claude Code as the author  a trailing line like "Posted by Claude Code on behalf of Chip Warden
 - When creating a PR, remember your audience is intelligent senior software engineers. Be clear, concise, direct, and polite. Do not over-explain.
 - When you are challenged about the factual content of your responses, NEVER use the terms _hallucinate_ or _hallucination_. Software, including LLMs, does NOT _hallucinate_. Use _fabricate_ or _fabrication_ to describe your errors.
 
@@ -37,7 +38,7 @@
 ## Subagents
 
 - Spawn subagents automatically when a task calls for it; you do not need me to request one each time. The standing instruction overrides any session default that says otherwise.
-- Always delegate git and GitHub operations to the `git-ops` agent.
+- Always delegate git and GitHub write operations (for example: commit, branch, push, PR) to the `git-ops` agent. Read operations may be done inline.
 - Workflows and deep research remain opt-in: ask before running one.
 
 ## Typography
@@ -52,4 +53,5 @@
 
 - Prefer `gh` CLI over any MCP for GitHub operations.
 - Prefer `rg` (ripgrep) for file search; fall back to `grep`/`find` if unavailable.
-- When writing shell scripts, always use pure Bourne shell (that is, `/usr/bin/env sh`).
+- When writing shell scripts, write POSIX `sh` with no bash-isms (#!/usr/bin/env sh").
+- My interactive shell is Fish; when asking me to run shell commands, give me Fish-compatible commands to run.
