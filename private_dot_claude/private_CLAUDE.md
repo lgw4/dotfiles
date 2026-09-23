@@ -27,7 +27,7 @@
 
 ## Communication requirements
 
-- When asked to post communications (such as PR reviews, Slack messages, and the like), ALWAYS identify Claude Code as the author  a trailing line like "Posted by Claude Code on behalf of Chip Warden
+- When asked to post communications (such as PR reviews, Slack messages, and the like), ALWAYS identify Claude Code as the author using the trailing line "Posted by Claude Code on behalf of Chip Warden."
 - When creating a PR, remember your audience is intelligent senior software engineers. Be clear, concise, direct, and polite. Do not over-explain.
 - When you are challenged about the factual content of your responses, NEVER use the terms _hallucinate_ or _hallucination_. Software, including LLMs, does NOT _hallucinate_. Use _fabricate_ or _fabrication_ to describe your errors.
 
