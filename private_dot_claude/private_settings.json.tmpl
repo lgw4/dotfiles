@@ -19,21 +19,11 @@
     "defaultMode": "auto"
   },
   "autoMemoryEnabled": false,
-  "model": "opusplan",
+  "model": "opus",
   "effortLevel": "auto",
   "outputStyle": "Concise",
   "hooks" : {
     "SessionStart" : [
-      {
-        "hooks" : [
-          {
-            "command" : "\"$HOME\/.claude\/hooks\/restore-default-model.sh\"",
-            "statusMessage" : "Checking default model setting",
-            "timeout" : 10,
-            "type" : "command"
-          }
-        ]
-      },
       {
         "matcher": "*",
         "hooks": [
