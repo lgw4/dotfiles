@@ -13,7 +13,7 @@ font-thicken-strength = 128
 
 # General configuration
 auto-update = check
-auto-update-channel = stable
+auto-update-channel = tip
 bell-features = no-system, no-audio, no-attention, title, no-border
 mouse-hide-while-typing = true
 working-directory = home
