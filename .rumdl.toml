@@ -59,8 +59,8 @@ respect_gitignore = true
 # [MD004]
 # style = "asterisk"  # Unordered list style (asterisk, plus, dash, consistent)
 
-# [MD007]
-# indent = 4  # Unordered list indentation
+[MD007]
+indent = 4 # Unordered list indentation
 
 # [MD013]
 # line-length = 100  # Line length
