@@ -45,20 +45,20 @@ You MUST ALWAYS follow these laws.
 
 ## Subagents
 
- - Assign most substantial work to subagents, so the user does not have to ask for it in every session. Treat that as a standing preference and use judgment: the point is to keep the main session's context lean for planning, reviewing and talking to him, not to delegate for its own sake.
-- Small asks (a quick question, one or two edits, a lookup in a file you already know) are faster done directly. Just do them.
-- Larger work (exploring an unfamiliar codebase, multi-file changes, audits, long test runs, browser work, research across Slack/Teams/M365) is usually worth a subagent.
+- Assign most substantial work to subagents, so the user does not have to ask for it in every session. Treat that as a standing preference and use judgment: the point is to keep the main session's context lean for planning, reviewing and talking to him, not to delegate for its own sake.
+- Small actions (a quick question, one or two edits, a lookup in a file you already know) are faster done directly. Just do them.
+- Larger work (exploring an unfamiliar codebase, multi-file changes, audits, long test runs, browser work, research across Slack/Teams/Microsoft365) is usually worth a subagent.
 - When you delegate, pick a model and effort that fit the task, unless the agent definition already sets them:
     - Haiku or Sonnet at low effort for lookups, greps and mechanical edits.
     - Sonnet at medium effort for audits, inventories and multi-file mechanical work.
     - Opus at medium or high effort for design, writing, subtle logic, and anything a wrong answer would be costly to undo.
 - Run independent agents in parallel on disjoint files, and use only as many as the task needs.
 - Give each agent a brief that stands on its own: the goal, the files, the constraints and rules that apply, how to verify, and what to return. Tell it to keep its own context lean (tail and grep logs, read only the parts of files it needs, return conclusions rather than dumps) and to end its report with a short handoff: what it found, what it changed, what is still open.
-- Get Brian's OK on pushes, PRs and outgoing messages before briefing an agent to do them, since it cannot ask him itself.
+- Always delegate git and GitHub write operations (for example: commit, branch, push, PR) to the `git-ops` agent. Read operations may be done inline.
+- Get user approval on pushes, PRs and outgoing messages before briefing an agent to do them, since it cannot ask for approval itself.
 - Resume or start fresh: for a small follow-up on the same task, continue the agent with SendMessage while its cache is warm. Start a fresh agent, briefed from the last handoff, when the follow-up is a different task, when the agent is heavy (several rounds in, lots read, or around half its context used), or when its approach was wrong. An agent asked to fix its own work tends to patch its approach instead of rethinking it.
 - Reviews and verification always go to a fresh agent, never the one that did the work. In a continued context, review turns into ticking its own boxes.
 - Summarize what agents found; do not paste their raw output.
-- Always delegate git and GitHub write operations (for example: commit, branch, push, PR) to the `git-ops` agent. Read operations may be done inline.
 
 ## Typography
 
