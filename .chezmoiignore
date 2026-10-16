@@ -37,7 +37,7 @@ README.markdown
 .local/bin/add-ppa-key
 .local/bin/cpu-temp
 {{ end }}
-{{ if eq .chezmoi.os "darwin" }}
+{{ if and (eq .chezmoi.os "darwin") (eq .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname")) }}
 .claude/*
 !.claude/agents
 !.claude/CLAUDE.md
