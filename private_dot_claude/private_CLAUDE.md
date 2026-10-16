@@ -74,3 +74,4 @@ You MUST ALWAYS follow these laws.
 - Prefer `rg` (ripgrep) for file search; fall back to `grep`/`find` if unavailable.
 - When writing shell scripts, write POSIX `sh` with no bash-isms (#!/usr/bin/env sh").
 - My interactive shell is Fish; when asking me to run shell commands, give me Fish-compatible commands to run.
+- In a repo with a `.boostgraph/` index, call `boostgraph_explore` (passing `projectPath`) before Grep/Read loops when exploring code or preparing an edit. Fall back to built-in tools if it returns nothing useful.
