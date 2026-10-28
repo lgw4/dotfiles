@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "theme": {
+    "name": "solarized"
+  },
+  "plugins": [
+    "./herdr-opencode"
+  ],
+  "tabs": {
+    "mode": "auto"
+  }
+}

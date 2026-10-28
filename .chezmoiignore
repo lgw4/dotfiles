@@ -33,6 +33,21 @@ README.markdown
 .netrc
 .npmrcs
 {{ end }}
+{{ if eq .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
+.config/opencode
+{{ end }}
+.config/opencode/node_modules
+.config/opencode/package.json
+.config/opencode/package-lock.json
+.config/opencode/bun.lock
+.config/opencode/.gitignore
+.config/opencode/service.json
+.config/opencode/herdr-tui-session.js
+.config/opencode/herdr-opencode
+.config/opencode/plugins/herdr-agent-state.js
+.config/opencode/plugins/boost.js
+.config/opencode/plugins/boost-runtime.mjs
+.config/opencode/skills/boost
 {{ if ne .chezmoi.os "linux" }}
 .local/bin/add-ppa-key
 .local/bin/cpu-temp
