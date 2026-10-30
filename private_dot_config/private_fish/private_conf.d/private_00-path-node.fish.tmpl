@@ -25,3 +25,9 @@ if type -q nodenv && status --is-interactive
         nodenv $argv
     end
 end
+
+{{- if eq .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
+
+# Trust the macOS keychain so Node works behind Zscaler TLS inspection.
+set -gx NODE_OPTIONS --use-system-ca
+{{- end }}

@@ -22,3 +22,9 @@ if command -v nodenv >/dev/null 2>&1; then
         nodenv "$@"
     }
 fi
+
+{{- if eq .chezmoi.hostname (onepasswordRead "op://Work/Secrets/mbp_hostname") }}
+
+# Trust the macOS keychain so Node works behind Zscaler TLS inspection.
+export NODE_OPTIONS="--use-system-ca"
+{{- end }}
