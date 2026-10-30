@@ -5,11 +5,14 @@ README.markdown
 .bashrc.d/configuration/macos-curl.bash
 .bashrc.d/functions/cdf.bash
 .bashrc.d/functions/get-info.bash
+.bashrc.d/tools/omlx.bash
 .config/fish/functions/cdf.fish
 .config/fish/functions/get-info.fish
+.config/fish/conf.d/00-path-omlx.fish
 .zshrc.d/configuration/macos-curl.zsh
 .zshrc.d/functions/cdf.zsh
 .zshrc.d/functions/get-info.zsh
+.zshrc.d/tools/omlx.zsh
 .hammerspoon
 .local/bin/disable-spotlight
 .local/bin/docker-uninstall-all
