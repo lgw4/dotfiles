@@ -3,8 +3,10 @@
 
 set -u
 
-ghes_url='{{ onepasswordRead "op://Work/GHES/url" }}'
 github_url='https://github.com'
+ghes_url='{{ onepasswordRead "op://Work/GHES/url" }}'
+ghes_username='{{ onepasswordRead "op://Work/GHES/username" }}'
+ghec_username='{{ onepasswordRead "op://Work/GHES/ghec_username" }}'
 
 if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" != "true" ]; then
     printf "ERROR: Current directory is not a Git working tree.\n" >&2
@@ -20,11 +22,11 @@ read -r instance_choice || exit 1
 case $instance_choice in
     1)
         instance_url=$github_url
-        usernames='lgw4 chip-warden_cai'
+        usernames="lgw4 $ghec_username"
         ;;
     2)
         instance_url=$ghes_url
-        usernames='chip-warden'
+        usernames=$ghes_username
         ;;
     *)
         printf "ERROR: Invalid instance choice: %s\n" "$instance_choice" >&2
