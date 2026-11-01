@@ -31,7 +31,7 @@ README.markdown
 .config/fish/conf.d/85-config-caimcp.fish
 .zshrc.d/tools/alks.zsh
 .config/tabtab
-.local/bin/set-cai-github
+.local/bin/set-github-identity
 .local/bin/upload-jfrog-support-bundle
 .netrc
 .npmrcs
