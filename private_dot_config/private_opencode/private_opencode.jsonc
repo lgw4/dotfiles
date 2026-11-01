@@ -1,4 +1,43 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "skills": ["~/Developer/misc/speckit-support-skills/skills"]
+
+  "skills": ["~/Developer/misc/speckit-support-skills/skills"],
+
+  "model": "opencode-go/deepseek-v4.1-flash#high",
+  "default_agent": "build",
+
+  "small_model": "opencode/deepseek-v4.1-flash-free",
+
+  "agents": {
+    "build": { "model": "opencode-go/deepseek-v4.1-flash#high" },
+    "plan": { "model": "opencode-go/deepseek-v4-pro#max" },
+    "general": { "model": "opencode-go/deepseek-v4.1-flash#high" },
+    "explore": { "model": "opencode-go/mimo-v2.6-flash" },
+
+    "spec": {
+      "mode": "primary",
+      "description": "Spec Kit phases: constitution, specify, clarify, plan, tasks",
+      "model": "opencode-go/deepseek-v4-pro#max"
+    },
+
+    "hard": {
+      "mode": "primary",
+      "description": "Escalation for features the default model keeps failing",
+      "model": "opencode-go/mimo-v2.6-pro"
+    },
+
+    "reviewer": {
+      "mode": "subagent",
+      "description": "Read-only review of current changes, on a different model family than the implementer",
+      "model": "opencode-go/minimax-m3",
+      "system": "Review only. Do not modify files. Report findings in severity order with file and line references.",
+      "permissions": [{ "action": "edit", "resource": "*", "effect": "deny" }]
+    },
+
+    "free": {
+      "mode": "primary",
+      "description": "Free-model fallback for when a Go bucket is exhausted. Manual switch only.",
+      "model": "opencode/deepseek-v4.1-flash-free#high"
+    }
+  }
 }
