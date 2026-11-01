@@ -1,13 +1,87 @@
 #!/usr/bin/env sh
 # shellcheck shell=sh
 
-if [ -d "$PWD"/.git ]; then
-    git config --local user.email {{ onepasswordRead "op://Work/GHES/email" }}
-    git config --local user.name "Chip Warden"
-    return_code=0
-else
-    printf "ERROR: Current directory is not a Git repository.\n"
-    return_code=1
+set -u
+
+ghes_url='{{ onepasswordRead "op://Work/GHES/url" }}'
+github_url='https://github.com'
+
+if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" != "true" ]; then
+    printf "ERROR: Current directory is not a Git working tree.\n" >&2
+    exit 1
 fi
 
-exit $return_code
+printf "Select GitHub instance:\n"
+printf "  1) GitHub.com (%s)\n" "$github_url"
+printf "  2) CAI GHES (%s)\n" "$ghes_url"
+printf "Choice [1-2]: "
+read -r instance_choice || exit 1
+
+case $instance_choice in
+    1)
+        instance_url=$github_url
+        usernames='lgw4 chip-warden_cai'
+        ;;
+    2)
+        instance_url=$ghes_url
+        usernames='chip-warden'
+        ;;
+    *)
+        printf "ERROR: Invalid instance choice: %s\n" "$instance_choice" >&2
+        exit 1
+        ;;
+esac
+
+instance_url=${instance_url%/}
+if [ -z "$instance_url" ]; then
+    printf "ERROR: Instance URL is empty.\n" >&2
+    exit 1
+fi
+
+printf "\nSelect username for %s:\n" "$instance_url"
+index=0
+for name in $usernames; do
+    index=$((index + 1))
+    printf "  %s) %s\n" "$index" "$name"
+done
+printf "Choice [1-%s]: " "$index"
+read -r username_choice || exit 1
+
+username=''
+index=0
+for name in $usernames; do
+    index=$((index + 1))
+    if [ "$username_choice" = "$index" ]; then
+        username=$name
+        break
+    fi
+done
+
+if [ -z "$username" ]; then
+    printf "ERROR: Invalid username choice: %s\n" "$username_choice" >&2
+    exit 1
+fi
+
+default_email=$(git config --get user.email 2>/dev/null || true)
+printf "\nEmail"
+if [ -n "$default_email" ]; then
+    printf " [%s]" "$default_email"
+fi
+printf ": "
+read -r email || exit 1
+if [ -z "$email" ]; then
+    email=$default_email
+fi
+if [ -z "$email" ]; then
+    printf "ERROR: An email address is required.\n" >&2
+    exit 1
+fi
+
+git config --local user.name "Chip Warden"
+git config --local user.email "$email"
+git config --local "credential.${instance_url}.username" "$username"
+
+printf "\nConfigured %s:\n" "$(git rev-parse --show-toplevel)"
+printf "  user.name = Chip Warden\n"
+printf "  user.email = %s\n" "$email"
+printf "  credential.%s.username = %s\n" "$instance_url" "$username"
