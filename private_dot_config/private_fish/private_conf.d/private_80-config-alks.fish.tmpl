@@ -1,5 +1,6 @@
-function alks -d "Add set -lx NO_COLOR true to alks commands"
+function alks -d "Run alks with NO_COLOR and the system CA store (Zscaler)"
     set -lx NO_COLOR true
+    set -lx NODE_OPTIONS --use-system-ca
     command alks $argv
 end
 
