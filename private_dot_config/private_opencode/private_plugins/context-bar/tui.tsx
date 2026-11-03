@@ -1,24 +1,34 @@
 import { Plugin } from "@opencode/plugin/tui"
-import type { ModelInfo, SessionMessageInfo } from "@opencode/client"
-import { createMemo, Show } from "solid-js"
+import type { ModelInfo, SessionMessageInfo, UsageLimitsInfo } from "@opencode/client"
+import { createMemo, createSignal, For, onCleanup, onMount, Show } from "solid-js"
 
 /**
- * Context Bar
+ * Usage Bars
  *
- * Renders a context-window usage bar at the top of the session sidebar's
- * content area (via `prepend`): directly under the session title, above the
- * built-in Context block. Reads the same data the built-in block uses, so
- * the two always agree.
+ * Renders the OpenCode Go allowance meters and the context-window usage bar
+ * at the top of the session sidebar's content area (via `prepend`): directly
+ * under the session title, above the built-in Context block. Go comes first
+ * so the subscription meters stay above the per-session bar.
  *
- * Customization points are the three constants below.
+ * Both bars live in one contribution because slot placements have no order
+ * control: two plugins that both prepend render in plugin enable order, which
+ * is the alphabetical order of their directories.
+ *
+ * Customization points are the constants below.
  */
 
-/** Bar width in terminal cells. Sidebar content width is about 37 cells. */
+/** Context bar width in terminal cells. Sidebar content width is about 37 cells. */
 const BAR_WIDTH = 24
-/** Percent at which the bar switches to the warning color. */
+/** Percent at which a bar switches to the warning color. */
 const WARN_AT = 70
-/** Percent at which the bar switches to the error color. */
+/** Percent at which a bar switches to the error color. */
 const ERROR_AT = 90
+/** Go meter bar width, shorter than the context bar to leave room for labels. */
+const GO_BAR_WIDTH = 18
+/** Width of the Go meter label column, before its trailing space. */
+const GO_LABEL_WIDTH = 7
+/** How often the Go meters refresh while the sidebar is open. */
+const GO_REFRESH_MS = 120_000
 
 /**
  * Mirrors the TUI's own contextUsage(): the step whose tokens fill the
@@ -65,6 +75,91 @@ function contextUsage(
   return undefined
 }
 
+type GoMeter = { label: string; percent: number; limited: boolean }
+
+function goMeters(info: UsageLimitsInfo): GoMeter[] {
+  const go = info.go
+  if (!go) return []
+  return [
+    { label: "5-hour", percent: go.rolling.percent, limited: go.rolling.limited },
+    { label: "Weekly", percent: go.weekly.percent, limited: go.weekly.limited },
+    { label: "Monthly", percent: go.monthly.percent, limited: go.monthly.limited },
+  ]
+}
+
+/**
+ * The OpenCode Go allowance meters: rolling (5-hour), weekly, and monthly.
+ *
+ * Data comes from the server's usage-limits endpoint, which reads the
+ * OpenCode Console workspace this location is signed in to. It returns null
+ * without a Console sign-in, so the block asks for one instead of showing
+ * empty bars.
+ */
+function GoUsage(props: { context: Plugin.Context }) {
+  const theme = props.context.theme
+  const [info, setInfo] = createSignal<UsageLimitsInfo | null>()
+
+  const load = () => {
+    const location = props.context.location ?? props.context.data.location.default()
+    void props.context.client.experimental.usage.limits({ location })
+      .then((response) => setInfo(response.data))
+      .catch(() => undefined)
+  }
+
+  onMount(() => {
+    load()
+    const timer = setInterval(load, GO_REFRESH_MS)
+    onCleanup(() => clearInterval(timer))
+    // Usage moves with each completed turn; refresh then rather than only on the timer.
+    onCleanup(props.context.data.on("session.execution.succeeded", () => load()))
+  })
+
+  const rows = createMemo(() => {
+    const value = info()
+    return value ? goMeters(value) : []
+  })
+
+  // Nothing to show while loading. Once loaded, null means no Console sign-in
+  // (ask for one) and an info without Go meters means the workspace has no Go
+  // allowance (hide the block rather than leave a bare header).
+  const visible = createMemo(() => {
+    const value = info()
+    return value === undefined ? false : value === null || value.go !== undefined
+  })
+
+  return (
+    <Show when={visible()}>
+      <box>
+        <text fg={theme.text.base}>
+          <b>Go</b>
+        </text>
+        <Show when={info()} fallback={<text fg={theme.text.muted}>Sign in to Console with /connect</text>}>
+          <For each={rows()}>
+            {(meter) => {
+              const percent = Math.min(100, Math.max(0, Math.round(meter.percent)))
+              const filled = Math.round((percent / 100) * GO_BAR_WIDTH)
+              const color =
+                meter.limited || percent >= ERROR_AT
+                  ? theme.text.feedback.error.base
+                  : percent >= WARN_AT
+                    ? theme.text.feedback.warning.base
+                    : theme.hue.accent[500]
+              return (
+                <text wrapMode="none">
+                  <span style={{ fg: theme.text.muted }}>{`${meter.label.padEnd(GO_LABEL_WIDTH)} `}</span>
+                  <span style={{ fg: color }}>{"█".repeat(filled)}</span>
+                  <span style={{ fg: theme.text.muted }}>{"░".repeat(GO_BAR_WIDTH - filled)}</span>
+                  <span style={{ fg: theme.text.muted }}>{` ${percent}%`}</span>
+                </text>
+              )
+            }}
+          </For>
+        </Show>
+      </box>
+    </Show>
+  )
+}
+
 export function ContextBar(props: { context: Plugin.Context; sessionID: string }) {
   const theme = props.context.theme
 
@@ -92,15 +187,18 @@ export function ContextBar(props: { context: Plugin.Context; sessionID: string }
   })
 
   return (
-    <Show when={bar()}>
-      {(value) => (
-        <text wrapMode="none">
-          <span style={{ fg: value().color }}>{"█".repeat(value().filled)}</span>
-          <span style={{ fg: theme.text.muted }}>{"░".repeat(BAR_WIDTH - value().filled)}</span>
-          <span style={{ fg: theme.text.muted }}>{` ${value().percent}%`}</span>
-        </text>
-      )}
-    </Show>
+    <>
+      <GoUsage context={props.context} />
+      <Show when={bar()}>
+        {(value) => (
+          <text wrapMode="none">
+            <span style={{ fg: value().color }}>{"█".repeat(value().filled)}</span>
+            <span style={{ fg: theme.text.muted }}>{"░".repeat(BAR_WIDTH - value().filled)}</span>
+            <span style={{ fg: theme.text.muted }}>{` ${value().percent}%`}</span>
+          </text>
+        )}
+      </Show>
+    </>
   )
 }
 
