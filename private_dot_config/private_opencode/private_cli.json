@@ -4,7 +4,8 @@
     "name": "solarized"
   },
   "plugins": [
-    "./herdr-opencode"
+    "./herdr-opencode",
+    "-opencode.sidebar.context"
   ],
   "tabs": {
     "mode": "auto"

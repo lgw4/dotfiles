@@ -7,8 +7,9 @@ import { createMemo, createSignal, For, onCleanup, onMount, Show } from "solid-j
  *
  * Renders the OpenCode Go allowance meters and the context-window usage bar
  * at the top of the session sidebar's content area (via `prepend`): directly
- * under the session title, above the built-in Context block. Go Limits comes
- * first so the subscription meters stay above the per-session bar.
+ * under the session title. The built-in Context block is disabled in
+ * cli.json so these labeled bars replace it. Go Limits comes first so the
+ * subscription meters stay above the per-session bar.
  *
  * Both bars live in one contribution because slot placements have no order
  * control: two plugins that both prepend render in plugin enable order, which
@@ -19,7 +20,7 @@ import { createMemo, createSignal, For, onCleanup, onMount, Show } from "solid-j
 
 /** Bar width in terminal cells. Sidebar content width is about 37 cells. */
 const BAR_WIDTH = 18
-/** Width of a meter label, before its trailing space. The context bar indents by this plus one. */
+/** Width of the label column, before its trailing space. */
 const LABEL_WIDTH = 7
 /** Width of the right-aligned percentage field, sized for "100%". */
 const PERCENT_WIDTH = 4
@@ -78,14 +79,12 @@ function contextUsage(
 /**
  * One bar row. The label column and percentage field are fixed width, so
  * every row ends its bar and its percentage in the same terminal column.
- * A missing label reserves the label column, which is how the context bar
- * lines up with the labelled Go meters.
  */
 function UsageBar(props: {
   theme: Plugin.Context["theme"]
   percent: number
   limited?: boolean
-  label?: string
+  label: string
 }) {
   const percent = Math.min(100, Math.max(0, Math.round(props.percent)))
   const filled = Math.round((percent / 100) * BAR_WIDTH)
@@ -97,9 +96,7 @@ function UsageBar(props: {
         : props.theme.hue.accent[500]
   return (
     <text wrapMode="none">
-      <span style={{ fg: props.theme.text.muted }}>
-        {props.label ? `${props.label.padEnd(LABEL_WIDTH)} ` : " ".repeat(LABEL_WIDTH + 1)}
-      </span>
+      <span style={{ fg: props.theme.text.muted }}>{`${props.label.padEnd(LABEL_WIDTH)} `}</span>
       <span style={{ fg: color }}>{"█".repeat(filled)}</span>
       <span style={{ fg: props.theme.text.muted }}>{"░".repeat(BAR_WIDTH - filled)}</span>
       <span style={{ fg: props.theme.text.muted }}>{` ${`${percent}%`.padStart(PERCENT_WIDTH)}`}</span>
@@ -203,7 +200,9 @@ export function ContextBar(props: { context: Plugin.Context; sessionID: string }
   return (
     <>
       <GoUsage context={props.context} />
-      <Show when={bar()}>{(value) => <UsageBar theme={theme} percent={value().percent} />}</Show>
+      <Show when={bar()}>
+        {(value) => <UsageBar theme={theme} label="Context" percent={value().percent} />}
+      </Show>
     </>
   )
 }
