@@ -86,20 +86,23 @@ function UsageBar(props: {
   limited?: boolean
   label: string
 }) {
-  const percent = Math.min(100, Math.max(0, Math.round(props.percent)))
-  const filled = Math.round((percent / 100) * BAR_WIDTH)
-  const color =
-    props.limited || percent >= ERROR_AT
+  // Component bodies run once in Solid, so derived values must be memos or the
+  // bar freezes at the percentage it had when it mounted.
+  const percent = createMemo(() => Math.min(100, Math.max(0, Math.round(props.percent))))
+  const filled = createMemo(() => Math.round((percent() / 100) * BAR_WIDTH))
+  const color = createMemo(() =>
+    props.limited || percent() >= ERROR_AT
       ? props.theme.text.feedback.error.base
-      : percent >= WARN_AT
+      : percent() >= WARN_AT
         ? props.theme.text.feedback.warning.base
-        : props.theme.hue.accent[500]
+        : props.theme.hue.accent[500],
+  )
   return (
     <text wrapMode="none">
       <span style={{ fg: props.theme.text.muted }}>{`${props.label.padEnd(LABEL_WIDTH)} `}</span>
-      <span style={{ fg: color }}>{"█".repeat(filled)}</span>
-      <span style={{ fg: props.theme.text.muted }}>{"░".repeat(BAR_WIDTH - filled)}</span>
-      <span style={{ fg: props.theme.text.muted }}>{` ${`${percent}%`.padStart(PERCENT_WIDTH)}`}</span>
+      <span style={{ fg: color() }}>{"█".repeat(filled())}</span>
+      <span style={{ fg: props.theme.text.muted }}>{"░".repeat(BAR_WIDTH - filled())}</span>
+      <span style={{ fg: props.theme.text.muted }}>{` ${`${percent()}%`.padStart(PERCENT_WIDTH)}`}</span>
     </text>
   )
 }
