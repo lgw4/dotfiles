@@ -1,0 +1,5 @@
+onboarding = false
+
+[theme]
+name = "solarized-light"
+auto_switch = false

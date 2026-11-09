@@ -1,0 +1,37 @@
+#!/bin/sh
+# Installs the Herdr plugins this repo pins.
+#
+# Herdr keeps the installed checkouts in ~/.config/herdr/plugins/ and the
+# registry with absolute paths in ~/.config/herdr/plugins.json. Neither is
+# portable, so only the intent lives here: owner/repo at a pinned commit.
+# Upgrade a plugin by changing the commit below and reapplying.
+set -eu
+
+if ! command -v herdr >/dev/null 2>&1; then
+  echo "herdr not found; skipping plugin install" >&2
+  exit 0
+fi
+
+# herdr plugin list --json is a single line, so split on object braces and
+# match the record that carries this plugin's source.
+installed_commit() {
+  herdr plugin list --json 2>/dev/null |
+    tr '{' '\n' |
+    sed -n "s/.*\"owner\":\"$1\",\"repo\":\"$2\".*\"resolved_commit\":\"\\([^\"]*\\)\".*/\\1/p"
+}
+
+ensure() {
+  owner=$1
+  repo=$2
+  ref=$3
+  current=$(installed_commit "$owner" "$repo" | head -n 1)
+  if [ "$current" = "$ref" ]; then
+    return 0
+  fi
+  echo "installing $owner/$repo at $ref" >&2
+  herdr plugin install --yes --ref "$ref" "$owner/$repo"
+}
+
+{{ if eq .chezmoi.os "darwin" -}}
+ensure justinchiasson herdr-nudge 5b329f194ae4ec42825fc32b0958963aa65790e7
+{{ end -}}
