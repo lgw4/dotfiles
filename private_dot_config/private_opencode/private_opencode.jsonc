@@ -10,14 +10,14 @@
 
   "agents": {
     "build": { "model": "opencode-go/deepseek-v4.1-flash#high" },
-    "plan": { "model": "opencode-go/deepseek-v4-pro#max" },
+    "plan": { "model": "opencode-go/deepseek-v4.1-flash#max" },
     "general": { "model": "opencode-go/deepseek-v4.1-flash#high" },
     "explore": { "model": "opencode-go/mimo-v2.6-flash" },
 
     "spec": {
       "mode": "primary",
       "description": "Spec Kit phases: constitution, specify, clarify, plan, tasks",
-      "model": "opencode-go/deepseek-v4-pro#max"
+      "model": "opencode-go/deepseek-v4.1-flash#max"
     },
 
     "hard": {
@@ -29,7 +29,7 @@
     "reviewer": {
       "mode": "subagent",
       "description": "Read-only review of current changes, on a different model family than the implementer",
-      "model": "opencode-go/minimax-m3",
+      "model": "opencode-go/hy4",
       "system": "Review only. Do not modify files. Report findings in severity order with file and line references.",
       "permissions": [{ "action": "edit", "resource": "*", "effect": "deny" }]
     },
